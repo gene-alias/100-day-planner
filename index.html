@@ -1910,6 +1910,29 @@ function __parseJwt(token){
   }catch{return null;}
 }
 
+// Persist last-known token so page reloads stay signed in within the 1hr Google token lifetime
+const __TOKEN_KEY = '__centum_id_token';
+function __storeToken(token){
+  try { localStorage.setItem(__TOKEN_KEY, token); } catch {}
+}
+function __readStoredToken(){
+  try {
+    const t = localStorage.getItem(__TOKEN_KEY);
+    if (!t) return null;
+    const payload = __parseJwt(t);
+    if (!payload || !payload.exp) return null;
+    // Reject if already expired or expiring within 60 seconds
+    if (payload.exp * 1000 < Date.now() + 60_000) {
+      localStorage.removeItem(__TOKEN_KEY);
+      return null;
+    }
+    return t;
+  } catch { return null; }
+}
+function __clearStoredToken(){
+  try { localStorage.removeItem(__TOKEN_KEY); } catch {}
+}
+
 window.__refreshTimer = null;
 function __scheduleTokenRefresh(token){
   if (window.__refreshTimer) clearTimeout(window.__refreshTimer);
@@ -1930,6 +1953,7 @@ window.__handleGoogleCredential = (response) => {
   const isFirstSignIn = !window.__signedIn;
   window.__idToken = response.credential;
   window.__signedIn = true;
+  __storeToken(response.credential);
   const overlay = document.getElementById('signin-overlay');
   if (overlay) overlay.style.display = 'none';
   __scheduleTokenRefresh(response.credential);
@@ -1939,6 +1963,7 @@ window.__handleGoogleCredential = (response) => {
 };
 
 window.__signOut = () => {
+  __clearStoredToken();
   window.__idToken = null;
   window.__signedIn = false;
   if (window.google?.accounts?.id) {
@@ -1946,6 +1971,25 @@ window.__signOut = () => {
   }
   location.reload();
 };
+
+// Restore previous session immediately so page reloads don't require re-auth
+const __cached = __readStoredToken();
+if (__cached) {
+  window.__idToken = __cached;
+  window.__signedIn = true;
+  __scheduleTokenRefresh(__cached);
+  // Hide overlay as soon as the DOM is ready
+  const __hideOverlay = () => {
+    const ov = document.getElementById('signin-overlay');
+    if (ov) ov.style.display = 'none';
+    if (typeof window.__onSignedIn === 'function') window.__onSignedIn();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __hideOverlay);
+  } else {
+    __hideOverlay();
+  }
+}
 
 window.__initGoogleSignIn = () => {
   if (!window.google?.accounts?.id) { setTimeout(window.__initGoogleSignIn, 100); return; }
