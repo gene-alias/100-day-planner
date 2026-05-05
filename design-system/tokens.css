@@ -1,0 +1,92 @@
+/* ── Gene Humphreys Brand System v2.4 — Tokens ─────────────────────
+   Drop this file into any project. Pair with the three Google Fonts
+   (Gemunu Libre, Geist, Geist Mono).
+   ─────────────────────────────────────────────────────────────── */
+
+:root{
+  /* COLOR — palette */
+  --color-navy-bg:    #050912;
+  --color-black:      #000000;
+  --color-near-black: #0D0D0D;
+  --color-signal-blue:#083584;
+  --color-blue-soft:  #1551BC;
+  --color-off-white:  #F9F9F9;
+  --color-light-gray: #A7A7A7;
+  --color-mid-gray:   #646464;
+  --color-dark-gray:  #333333;
+
+  /* COLOR — functional aliases */
+  --bg:        var(--color-navy-bg);
+  --surface:   var(--color-near-black);
+  --border:    rgba(255,255,255,0.06);
+  --border-2:  rgba(255,255,255,0.10);
+  --divider:   rgba(255,255,255,0.08);
+
+  --accent:        var(--color-signal-blue);
+  --accent-soft:   rgba(8,53,132,0.18);
+  --accent-glow:   rgba(8,53,132,0.40);
+  --accent-line:   rgba(8,53,132,0.55);
+  --accent-bright: #2A6FD9;
+
+  /* TYPOGRAPHY */
+  --font-display: 'Gemunu Libre','Inter',sans-serif;
+  --font-graphic: 'Geist','Inter',sans-serif;
+  --font-body:    'Geist Mono','Menlo',monospace;
+  --font:         var(--font-body);
+
+  /* SPACING (8pt base) */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  24px;
+  --space-lg:  36px;
+  --space-xl:  54px;
+  --space-2xl: 72px;
+
+  /* RADII (hard edges by default) */
+  --r-sm:   4px;
+  --r-md:   0px;
+  --r-lg:   0px;
+  --r-xl:   0px;
+  --r-pill: 999px;
+}
+
+/* RESET + BASE */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--color-navy-bg);
+  color:var(--color-off-white);
+  font-family:var(--font);
+  font-size:13px;
+  line-height:1.55;
+  letter-spacing:-0.5px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  min-height:100vh;
+  /* Layered navy mesh */
+  background-image:
+    radial-gradient(ellipse 130% 130% at 45% 55%,
+      transparent 0%,
+      rgba(2,5,11,0.40) 55%,
+      rgba(1,2,4,0.80) 100%),
+    radial-gradient(ellipse 68% 54% at 72% 18%,
+      rgba(10,32,80,0.55) 0%,
+      rgba(6,18,49,0.22) 50%,
+      transparent 100%),
+    radial-gradient(ellipse 60% 48% at 2% 42%,
+      rgba(24,72,168,0.55) 0%,
+      rgba(14,46,120,0.30) 38%,
+      transparent 100%),
+    radial-gradient(ellipse 92% 74% at 30% 35%,
+      rgba(12,42,102,0.55) 0%,
+      rgba(7,24,64,0.25) 45%,
+      transparent 100%);
+  background-attachment:fixed;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--color-dark-gray);}
+::-webkit-scrollbar-thumb:hover{background:var(--color-mid-gray);}

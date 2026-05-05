@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CENTUM — 100-Day Build + Marketing Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;700&family=Geist:wght@200;300;400;500;700&family=Geist+Mono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+/* ── GENE HUMPHREYS BRAND SYSTEM V2.4 ─────────────────────────────── */
+:root{
+  /* GH brand palette */
+  --color-navy-bg:    #050912;
+  --color-black:      #000000;
+  --color-near-black: #0D0D0D;
+  --color-signal-blue:#083584;
+  --color-blue-soft:  #1551BC;
+  --color-off-white:  #F9F9F9;
+  --color-light-gray: #A7A7A7;
+  --color-mid-gray:   #646464;
+  --color-dark-gray:  #333333;
+
+  /* Surface tokens (aliased so existing JS keeps working) */
+  --bg:        var(--color-navy-bg);
+  --surface:   var(--color-near-black);
+  --glass:     rgba(255,255,255,0.025);
+  --glass-2:   rgba(255,255,255,0.045);
+  --glass-3:   rgba(255,255,255,0.07);
+  --border:    rgba(255,255,255,0.06);
+  --border-2:  rgba(255,255,255,0.10);
+  --divider:   rgba(255,255,255,0.08);
+
+  /* Text aliases */
+  --text:   var(--color-off-white);
+  --text-2: #C7C7CC;
+  --text-3: var(--color-light-gray);
+  --text-4: var(--color-mid-gray);
+
+  /* Accent aliases — single signal blue per area */
+  --accent:       var(--color-signal-blue);
+  --accent-soft:  rgba(8,53,132,0.18);
+  --accent-glow:  rgba(8,53,132,0.40);
+  --accent-line:  rgba(8,53,132,0.55);
+
+  /* Type stack */
+  --font-display: 'Gemunu Libre','Inter','SF Pro Display',sans-serif;
+  --font-graphic: 'Geist','Inter','SF Pro',sans-serif;
+  --font:         'Geist Mono','JetBrains Mono','Menlo',monospace;
+  --font-body:    'Geist Mono','JetBrains Mono','Menlo',monospace;
+
+  /* Hard-edge default (system rejects rounding on major containers) */
+  --r-sm: 4px;
+  --r-md: 0px;
+  --r-lg: 0px;
+  --r-xl: 0px;
+  --r-2xl: 0px;
+  --r-pill: 999px;
+
+  /* Spacing scale */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  24px;
+  --space-lg:  36px;
+  --space-xl:  54px;
+  --space-2xl: 72px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--color-navy-bg);
+  color:var(--color-off-white);
+  font-family:var(--font);
+  font-size:13px;
+  line-height:1.55;
+  letter-spacing:-0.5px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  min-height:100vh;
+  position:relative;
+  /* Layered navy mesh — vignette + 3 light pools */
+  background-image:
+    radial-gradient(ellipse 130% 130% at 45% 55%,
+      transparent 0%,
+      rgba(2,5,11,0.40) 55%,
+      rgba(1,2,4,0.80) 100%),
+    radial-gradient(ellipse 68% 54% at 72% 18%,
+      rgba(10,32,80,0.55) 0%,
+      rgba(6,18,49,0.22) 50%,
+      transparent 100%),
+    radial-gradient(ellipse 60% 48% at 2% 42%,
+      rgba(24,72,168,0.55) 0%,
+      rgba(14,46,120,0.30) 38%,
+      transparent 100%),
+    radial-gradient(ellipse 92% 74% at 30% 35%,
+      rgba(12,42,102,0.55) 0%,
+      rgba(7,24,64,0.25) 45%,
+      transparent 100%);
+  background-attachment:fixed;
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(5,9,18,0.82);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--color-dark-gray);
+  padding:22px 36px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.header-left{display:flex;align-items:center;gap:24px;}
+.logo{display:none;}
+.header h1{
+  font-family:var(--font-display);
+  font-weight:300;
+  font-size:34px;
+  line-height:0.90;
+  letter-spacing:-1.5px;
+  text-transform:uppercase;
+  color:var(--color-off-white);
+}
+.header h1 .accent{color:var(--color-signal-blue);}
+.header p{
+  font-family:var(--font);
+  font-weight:300;
+  font-size:11px;
+  letter-spacing:1.95px;
+  text-transform:uppercase;
+  color:var(--color-light-gray);
+  margin-top:8px;
+}
+.stats{display:flex;gap:0;align-items:stretch;}
+.stat{
+  text-align:center;
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  border-right-width:0;
+  padding:12px 20px;
+  min-width:84px;
+}
+.stat:last-child{border-right-width:1px;}
+.stat-n{
+  font-family:var(--font-graphic);
+  font-weight:300;
+  font-size:26px;
+  letter-spacing:-1.2px;
+  line-height:1;display:block;
+  color:var(--color-off-white);
+}
+.stat:first-child .stat-n{color:var(--color-signal-blue);}
+.stat-l{
+  font-family:var(--font);
+  font-weight:300;
+  font-size:9px;
+  color:var(--color-mid-gray);
+  letter-spacing:1.95px;
+  margin-top:6px;
+  display:block;
+  text-transform:uppercase;
+}
+
+/* ── TABS (HUD chrome) ────────────────────────────────────────────── */
+.tabs{
+  display:flex;gap:0;
+  padding:0 36px;
+  background:transparent;
+  border-bottom:1px solid var(--color-dark-gray);
+  flex-wrap:wrap;
+}
+.tabs{position:relative;}
+.tab{
+  position:relative;
+  padding:14px 22px;
+  font-family:var(--font);
+  font-weight:300;
+  font-size:11px;
+  letter-spacing:1.95px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  color:var(--color-mid-gray);
+  transition:color .22s ease, text-shadow .35s ease;
+}
+.tab:hover{color:var(--color-off-white);}
+.tab.active{
+  color:var(--color-off-white);
+  text-shadow:
+    0 0 14px rgba(21,81,188,0.75),
+    0 0 28px rgba(21,81,188,0.50),
+    0 0 48px rgba(21,81,188,0.30);
+}
+
+/* Shared sliding indicator bar */
+.tab-indicator{
+  position:absolute;
+  bottom:-1px;left:0;width:0;
+  height:3px;background:var(--color-signal-blue);
+  pointer-events:none;
+  opacity:0;
+  transition:
+    left .42s cubic-bezier(.22,1,.36,1),
+    width .42s cubic-bezier(.22,1,.36,1),
+    opacity .25s ease;
+  box-shadow:
+    0 0 18px rgba(21,81,188,1),
+    0 0 36px rgba(21,81,188,0.75),
+    0 0 60px rgba(21,81,188,0.50),
+    0 0 96px rgba(21,81,188,0.28);
+}
+.tab-indicator.ready{opacity:1;}
+
+.main{padding:36px;max-width:1500px;margin:0 auto;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ── LEGEND ───────────────────────────────────────────────────────── */
+.legend{display:flex;flex-wrap:wrap;gap:0;margin-bottom:24px;border:1px solid var(--color-dark-gray);}
+.legend-item{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;
+  border-right:1px solid var(--color-dark-gray);
+  padding:8px 14px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--color-light-gray);
+}
+.legend-item:last-child{border-right:none;}
+.legend-dot{width:6px;height:6px;flex-shrink:0;background:var(--color-light-gray);}
+
+/* ── PANEL CARDS ──────────────────────────────────────────────────── */
+.panel-card{
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  padding:24px;
+  margin-bottom:16px;
+}
+.panel-card-title{
+  font-family:var(--font);
+  font-weight:300;
+  font-size:11px;
+  letter-spacing:1.95px;
+  color:var(--color-light-gray);
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--color-dark-gray);
+  text-transform:uppercase;
+}
+.panel-card-title::before{
+  content:'▼ ';
+  color:var(--color-signal-blue);
+  font-size:10px;
+  margin-right:6px;
+  vertical-align:middle;
+}
+
+/* ── INFO ROWS ────────────────────────────────────────────────────── */
+.info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--color-dark-gray);
+  font-family:var(--font);font-size:13px;
+  letter-spacing:-0.5px;
+}
+.info-row:last-child{border-bottom:none;}
+.info-row-key{color:var(--color-mid-gray);font-weight:400;}
+.info-row-val{color:var(--color-off-white);font-weight:400;text-align:right;max-width:240px;}
+
+/* ── PROGRESS DASHBOARD ───────────────────────────────────────────── */
+.prog-dashboard{
+  display:flex;flex-direction:column;gap:32px;
+  background:rgba(13,13,13,0.5);
+  border:1px solid var(--color-dark-gray);
+  padding:36px;
+  margin-bottom:24px;
+  position:relative;
+}
+@media(max-width:900px){.prog-dashboard{padding:24px;gap:24px;}}
+
+/* TOP ROW — Overview heading + overall completion */
+.prog-top-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:36px;
+  padding-bottom:28px;border-bottom:1px solid var(--color-dark-gray);
+  align-items:end;
+}
+@media(max-width:900px){.prog-top-row{grid-template-columns:1fr;gap:20px;}}
+.prog-overview-heading{}
+.prog-overview-title{
+  font-family:var(--font-display);font-weight:300;
+  font-size:88px;line-height:0.85;
+  letter-spacing:-3.5px;
+  text-transform:uppercase;color:var(--color-off-white);
+}
+.prog-overview-sub{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-light-gray);margin-top:14px;
+}
+.prog-overall{display:flex;flex-direction:column;gap:10px;}
+.prog-overall-meta{
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.prog-overall-label{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.prog-overall-pct{
+  font-family:var(--font-graphic);font-weight:300;
+  font-size:64px;letter-spacing:-3px;line-height:0.9;
+  color:var(--color-off-white);
+}
+.prog-overall-bar-wrap{
+  position:relative;height:18px;
+  background:#020716;
+  border:1px solid #04081A;
+  overflow:hidden;
+}
+.prog-overall-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.30) 0%,
+    rgba(8,53,132,0.80) 35%,
+    rgba(21,81,188,0.95) 75%,
+    #2A6FD9 100%);
+  box-shadow:
+    0 0 16px rgba(21,81,188,0.55),
+    0 0 32px rgba(21,81,188,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  border-right:1px solid rgba(255,255,255,0.30);
+}
+.prog-overall-detail{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-mid-gray);margin-top:2px;
+}
+
+/* TIMELINE ROW — full-width prominent strip */
+.prog-timeline-row{
+  display:flex;flex-direction:column;gap:14px;
+  padding-bottom:28px;border-bottom:1px solid var(--color-dark-gray);
+}
+.prog-timeline-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding-bottom:4px;
+}
+.prog-timeline-title{
+  font-family:var(--font-display);font-weight:300;
+  font-size:48px;line-height:0.9;
+  letter-spacing:-2px;
+  text-transform:uppercase;color:var(--color-off-white);
+}
+.prog-timeline-meta{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-mid-gray);
+}
+
+/* CURRENT PHASE — prominent row at top */
+.prog-current-row{
+  padding:28px 0;
+  border-bottom:1px solid var(--color-dark-gray);
+  display:flex;flex-direction:column;gap:14px;
+}
+.prog-current-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.prog-current-label{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-mid-gray);
+}
+.prog-current-label::before{content:'▼ ';color:var(--color-signal-blue);}
+.prog-current-progress{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.prog-current-name{
+  font-family:var(--font-display);font-weight:300;
+  font-size:64px;line-height:0.9;
+  letter-spacing:-2.8px;text-transform:uppercase;
+  color:var(--color-off-white);
+}
+.prog-current-bar-wrap{
+  background:#020716;height:4px;overflow:hidden;border:1px solid #04081A;
+}
+.prog-current-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.40) 0%,
+    rgba(21,81,188,0.95) 70%,
+    var(--accent-bright,#2A6FD9) 100%);
+  box-shadow:0 0 12px rgba(21,81,188,0.55),0 0 24px rgba(21,81,188,0.30);
+  transition:width 1.0s cubic-bezier(.22,1,.36,1);
+}
+.prog-current-desc{
+  font-family:var(--font);font-weight:400;font-size:14px;
+  line-height:1.65;letter-spacing:-0.4px;
+  color:var(--color-light-gray);
+  max-width:760px;margin-top:6px;
+}
+
+/* BOTTOM GRID — ring · stats */
+.prog-bottom-grid{
+  display:grid;grid-template-columns:240px 1fr;gap:48px;
+  align-items:center;
+}
+@media(max-width:900px){.prog-bottom-grid{grid-template-columns:1fr;gap:24px;}}
+
+.prog-ring-col{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.prog-ring-wrap{position:relative;width:200px;height:200px;}
+.prog-ring-wrap svg{width:200px;height:200px;transform:rotate(-90deg);overflow:visible;}
+.prog-ring-bg{fill:none;stroke:var(--color-dark-gray);stroke-width:5;}
+.prog-ring-fill{
+  fill:none;
+  stroke:var(--color-signal-blue);
+  stroke-width:5;
+  stroke-linecap:round;
+  filter:
+    drop-shadow(0 0 6px rgba(21,81,188,0.85))
+    drop-shadow(0 0 14px rgba(21,81,188,0.55))
+    drop-shadow(0 0 28px rgba(21,81,188,0.35));
+  transition:stroke-dashoffset 1.4s cubic-bezier(.22,1,.36,1);
+}
+.prog-ring-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;
+}
+.prog-ring-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:62px;
+  color:var(--color-off-white);line-height:0.90;display:block;letter-spacing:-3px;
+}
+.prog-ring-label{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;display:block;
+  margin-top:6px;text-transform:uppercase;
+}
+.prog-ring-pct{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  color:var(--color-signal-blue);letter-spacing:1.95px;text-transform:uppercase;
+}
+
+.prog-date-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;}
+.prog-date-label{font-family:var(--font);font-size:9px;color:var(--color-mid-gray);letter-spacing:1.95px;text-transform:uppercase;font-weight:300;}
+.prog-date-input{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:8px 10px;color:var(--color-off-white);
+  font-family:var(--font);font-size:11px;font-weight:400;
+  outline:none;color-scheme:dark;width:140px;
+  letter-spacing:-0.5px;
+}
+.prog-date-input:focus{border-color:var(--color-signal-blue);}
+
+.prog-mid{display:flex;flex-direction:column;gap:24px;}
+.prog-mid-title{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;margin-bottom:12px;
+  text-transform:uppercase;
+}
+.prog-mid-title::before{content:'▼ ';color:var(--color-signal-blue);}
+.prog-strip-wrap{
+  position:relative;
+  height:48px;
+  margin-top:6px;
+}
+.prog-strip{
+  position:absolute;inset:0;
+  display:flex;height:48px;overflow:hidden;
+  background:#020716;
+  border:1px solid #04081A;
+  z-index:1;
+}
+.prog-strip-seg{
+  height:100%;flex-shrink:0;
+  background:rgba(255,255,255,0.02)!important;
+  border-right:1px solid rgba(255,255,255,0.04);
+  position:relative;
+}
+.prog-strip-seg:last-child{border-right:none;}
+.prog-strip-seg::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--color-dark-gray);opacity:.5;
+}
+.prog-strip-seg-label{display:none;}
+.prog-strip-fill{
+  position:absolute;top:0;bottom:0;left:0;
+  background:
+    linear-gradient(90deg,
+      rgba(8,53,132,0.20) 0%,
+      rgba(8,53,132,0.70) 35%,
+      rgba(21,81,188,0.95) 75%,
+      #2A6FD9 100%);
+  box-shadow:
+    0 0 24px rgba(21,81,188,0.55),
+    0 0 56px rgba(21,81,188,0.35),
+    0 0 96px rgba(21,81,188,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 0 32px rgba(8,53,132,0.30);
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  z-index:2;pointer-events:none;
+  border-right:1px solid rgba(255,255,255,0.30);
+}
+.prog-strip-fill::after{
+  /* Bright leading-edge halo */
+  content:'';position:absolute;top:-6px;bottom:-6px;right:-12px;width:24px;
+  background:radial-gradient(ellipse at left center,
+    rgba(42,111,217,0.85) 0%,
+    rgba(21,81,188,0.45) 50%,
+    transparent 100%);
+  pointer-events:none;
+}
+.prog-needle{
+  position:absolute;top:-10px;bottom:-10px;width:2px;
+  background:var(--color-off-white);
+  transform:translateX(-50%);pointer-events:none;
+  z-index:3;
+  box-shadow:0 0 16px rgba(255,255,255,0.85),0 0 32px rgba(21,81,188,0.7);
+  transition:left 1.0s cubic-bezier(.22,1,.36,1);
+}
+.prog-needle::before{
+  content:'';position:absolute;top:-4px;left:50%;
+  width:12px;height:12px;background:var(--color-off-white);transform:translateX(-50%) rotate(45deg);
+  box-shadow:0 0 12px rgba(255,255,255,0.9),0 0 24px rgba(21,81,188,0.8);
+}
+.prog-needle::after{
+  content:'';position:absolute;bottom:-4px;left:50%;
+  width:12px;height:12px;background:var(--color-off-white);transform:translateX(-50%) rotate(45deg);
+  box-shadow:0 0 12px rgba(255,255,255,0.9),0 0 24px rgba(21,81,188,0.8);
+}
+
+.prog-phase-info{display:flex;flex-direction:column;gap:10px;}
+.prog-curr-phase{
+  display:flex;align-items:center;gap:14px;
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:16px 18px;
+}
+.prog-curr-icon{display:inline-flex;align-items:center;flex-shrink:0;color:var(--color-light-gray);}
+.prog-curr-name{
+  font-family:var(--font-display);font-weight:300;font-size:24px;
+  letter-spacing:-1px;color:var(--color-off-white);line-height:1.0;
+  text-transform:uppercase;
+}
+.prog-curr-sub{font-family:var(--font);font-size:11px;color:var(--color-mid-gray);margin-top:6px;font-weight:400;letter-spacing:-0.5px;}
+
+.prog-phase-bar-wrap{
+  background:var(--color-dark-gray);height:2px;overflow:hidden;
+  margin-top:6px;
+}
+.prog-phase-bar-fill{height:100%;background:var(--color-signal-blue);transition:width 1.0s cubic-bezier(.22,1,.36,1);}
+
+.prog-stats-col{display:flex;flex-direction:column;gap:8px;}
+.prog-stat-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:14px 18px;
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+}
+.prog-stat-row.highlight{border-color:var(--color-signal-blue);}
+.prog-stat-key{font-family:var(--font);font-size:9px;color:var(--color-mid-gray);letter-spacing:1.95px;text-transform:uppercase;font-weight:300;}
+.prog-stat-val{font-family:var(--font-graphic);font-weight:300;font-size:24px;color:var(--color-off-white);letter-spacing:-1.2px;}
+.prog-stat-val.orange{color:var(--color-signal-blue);}
+.prog-next-ms{
+  padding:14px 18px;
+  background:transparent;
+  border:1px solid var(--color-signal-blue);
+}
+.prog-next-ms-label{font-family:var(--font);font-size:9px;color:var(--color-signal-blue);letter-spacing:1.95px;margin-bottom:8px;text-transform:uppercase;font-weight:300;}
+.prog-next-ms-label::before{content:'▼ ';}
+.prog-next-ms-text{font-family:var(--font);font-size:12px;color:var(--color-off-white);line-height:1.5;font-weight:400;letter-spacing:-0.5px;}
+.prog-next-ms-day{font-family:var(--font);font-size:10px;color:var(--color-mid-gray);margin-top:8px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ── BUTTONS ──────────────────────────────────────────────────────── */
+.btn-pill{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:10px 18px;
+  font-family:var(--font);font-size:11px;font-weight:300;
+  color:var(--color-light-gray);
+  cursor:pointer;
+  transition:all .15s ease;
+  letter-spacing:1.95px;
+  text-transform:uppercase;
+}
+.btn-pill:hover{color:var(--color-off-white);border-color:var(--color-off-white);}
+.btn-primary{
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  border:1px solid var(--color-signal-blue);
+}
+.btn-primary:hover{background:var(--color-blue-soft);border-color:var(--color-blue-soft);}
+
+.prog-reset{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:8px 14px;
+  font-family:var(--font);font-size:9px;font-weight:300;
+  color:var(--color-mid-gray);
+  cursor:pointer;transition:all .15s ease;
+  letter-spacing:1.95px;
+  text-transform:uppercase;
+}
+.prog-reset:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+
+/* ── OVERVIEW PHASE CARDS ─────────────────────────────────────────── */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0;margin-bottom:24px;border:1px solid var(--color-dark-gray);}
+.ov-card{
+  background:transparent;
+  border-right:1px solid var(--color-dark-gray);
+  border-bottom:1px solid var(--color-dark-gray);
+  padding:18px;
+  transition:background .15s ease;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  min-height:172px;
+}
+.ov-card:hover{background:rgba(8,53,132,0.04);}
+.ov-card-head{display:flex;align-items:flex-start;gap:12px;}
+.ov-card-icon{
+  width:32px;height:32px;
+  border:1px solid var(--color-dark-gray);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--color-light-gray);
+}
+.ov-card-title-wrap{min-width:0;flex:1;}
+.ov-card-title{
+  font-family:var(--font);font-size:14px;font-weight:300;
+  color:var(--color-off-white);letter-spacing:-0.01em;line-height:1.3;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  min-height:36px;
+}
+.ov-card-meta{
+  font-family:var(--font);font-size:11px;color:var(--color-mid-gray);
+  font-weight:300;margin-top:4px;letter-spacing:-0.3px;
+}
+.ov-card-bar{height:2px;background:var(--color-dark-gray);overflow:hidden;margin-top:auto;}
+.ov-card-fill{height:100%;background:var(--color-light-gray);}
+.ov-card-bottom{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-top:14px;
+}
+.ov-card-num{
+  font-family:var(--font);font-size:24px;font-weight:300;
+  color:var(--color-off-white);letter-spacing:-0.03em;
+  font-variant-numeric:tabular-nums;line-height:1;
+}
+.ov-card-detail{
+  font-family:var(--font);font-size:10px;color:var(--color-mid-gray);
+  letter-spacing:0.06em;text-transform:uppercase;font-weight:300;
+}
+
+/* ── GANTT ────────────────────────────────────────────────────────── */
+.gantt-wrap{
+  background:rgba(13,13,13,0.4);
+  border:1px solid var(--color-dark-gray);
+  overflow:hidden;
+}
+.gantt-header{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--color-dark-gray);}
+.gantt-label-col{
+  padding:12px 18px;font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;
+  border-right:1px solid var(--color-dark-gray);text-transform:uppercase;
+}
+.gantt-days-header{position:relative;height:54px;}
+.gantt-day-tick{
+  font-family:var(--font);position:absolute;transform:translateX(-50%);top:8px;
+  text-align:center;letter-spacing:1.5px;display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.gantt-day-tick-num{
+  font-weight:300;font-size:10px;color:var(--color-mid-gray);
+}
+.gantt-day-tick-date{
+  font-weight:300;font-size:9px;color:var(--color-light-gray);
+  letter-spacing:1.2px;
+}
+.gantt-row{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--color-dark-gray);min-height:48px;}
+.gantt-row:last-child{border-bottom:none;}
+.gantt-label{padding:0 18px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--color-dark-gray);}
+.gantt-label-name{font-family:var(--font);font-weight:300;font-size:11px;letter-spacing:1.5px;color:var(--color-off-white);text-transform:uppercase;}
+.gantt-label-days{font-family:var(--font);font-size:10px;color:var(--color-mid-gray);margin-top:3px;font-weight:400;letter-spacing:-0.5px;}
+.gantt-track{
+  position:relative;
+  background:repeating-linear-gradient(90deg,transparent,transparent calc(10% - 1px),rgba(255,255,255,0.02) calc(10% - 1px),rgba(255,255,255,0.02) 10%);
+}
+.gantt-bar{
+  position:absolute;top:50%;transform:translateY(-50%);height:22px;
+  display:flex;align-items:center;padding:0 12px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--color-dark-gray);
+  color:var(--color-light-gray);
+}
+.gantt-bar.accent{
+  background:var(--color-signal-blue);
+  border-color:var(--color-signal-blue);
+  color:var(--color-off-white);
+}
+.gantt-bar:hover{border-color:var(--color-light-gray);}
+.gantt-bar-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.25) 0%,
+    rgba(8,53,132,0.75) 35%,
+    rgba(21,81,188,0.95) 75%,
+    var(--accent-bright,#2A6FD9) 100%);
+  box-shadow:
+    0 0 8px rgba(21,81,188,0.55),
+    0 0 18px rgba(21,81,188,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  pointer-events:none;
+  border-right:1px solid rgba(255,255,255,0.30);
+  transition:width 1.2s cubic-bezier(.22,1,.36,1);
+}
+.gantt-bar.complete .gantt-bar-fill{border-right:none;}
+.gantt-bar-label{
+  position:relative;z-index:2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  width:100%;
+}
+.gantt-bar:not(.empty) .gantt-bar-label{color:var(--color-off-white);}
+.gantt-milestone-row{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--color-dark-gray);height:32px;}
+.gantt-milestone-track{position:relative;}
+.gantt-section{
+  padding:32px 28px 24px;
+  border-bottom:1px solid var(--color-dark-gray);
+  border-top:1px solid var(--color-dark-gray);
+  background:rgba(255,255,255,0.015);
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+}
+.gantt-section-title{
+  font-family:var(--font-display);font-weight:300;
+  font-size:48px;line-height:0.9;
+  letter-spacing:-2.4px;text-transform:uppercase;
+  color:var(--color-off-white);
+}
+.gantt-section-meta{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-light-gray);
+}
+
+/* ── SEARCH & FILTER CONTROLS ─────────────────────────────────────── */
+.cal-controls,.tl-controls{display:flex;align-items:center;gap:0;margin-bottom:18px;flex-wrap:wrap;border:1px solid var(--color-dark-gray);}
+.cal-search,.tl-search{
+  flex:1;min-width:240px;
+  background:transparent;
+  border:none;
+  border-right:1px solid var(--color-dark-gray);
+  padding:14px 18px;color:var(--color-off-white);
+  font-family:var(--font);font-size:12px;outline:none;
+  font-weight:400;letter-spacing:-0.5px;
+}
+.cal-search:focus,.tl-search:focus{background:rgba(8,53,132,0.04);}
+.cal-search::placeholder,.tl-search::placeholder{color:var(--color-mid-gray);font-family:var(--font);font-weight:300;letter-spacing:1.5px;text-transform:uppercase;font-size:10px;}
+
+.cal-toggle{
+  display:flex;gap:0;
+  background:transparent;
+  border:none;
+}
+.cal-toggle-btn{
+  padding:14px 20px;font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;cursor:pointer;text-transform:uppercase;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  background:transparent;color:var(--color-mid-gray);
+  transition:all .15s ease;
+}
+.cal-toggle-btn:last-child{border-right:none;}
+.cal-toggle-btn:hover{color:var(--color-off-white);}
+.cal-toggle-btn.active{background:var(--color-signal-blue);color:var(--color-off-white);}
+
+.tl-filter{
+  background:transparent;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  padding:14px 18px;color:var(--color-off-white);
+  font-family:var(--font);font-size:10px;font-weight:300;
+  letter-spacing:1.95px;text-transform:uppercase;
+  outline:none;cursor:pointer;
+}
+.tl-filter:focus{background:rgba(8,53,132,0.04);}
+.tl-count{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;margin-left:auto;text-transform:uppercase;
+  padding:14px 18px;
+}
+
+/* ── CALENDAR GRID ────────────────────────────────────────────────── */
+.cal-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:1px;background:#020716;border:1px solid #020716;}
+.cal-day{
+  padding:10px 6px 8px;cursor:pointer;transition:all .15s ease;
+  border:none;
+  background:#0C1B45;
+  text-align:center;min-height:88px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
+  position:relative;
+  overflow:hidden;
+}
+.cal-day:hover{background:#173072;}
+.cal-day.selected{
+  background:var(--color-signal-blue);
+  box-shadow:
+    0 0 0 1px var(--color-signal-blue),
+    0 0 24px rgba(8,53,132,0.55),
+    0 0 56px rgba(8,53,132,0.30),
+    inset 0 0 32px rgba(255,255,255,0.04);
+  z-index:2;
+}
+.cal-day.selected .cal-day-num,
+.cal-day.selected .cal-day-label,
+.cal-day.selected .cal-day-mkt{color:var(--color-off-white)!important;}
+.cal-day-num{
+  font-family:var(--font-graphic);font-weight:300;font-size:18px;
+  line-height:1;color:var(--color-off-white);letter-spacing:-1px;
+  height:18px;display:flex;align-items:center;justify-content:center;
+}
+.cal-day-date{
+  font-family:var(--font);font-size:8px;font-weight:300;
+  letter-spacing:1.2px;color:var(--color-mid-gray);
+  height:10px;line-height:10px;margin-top:2px;
+}
+.cal-day-label{
+  font-family:var(--font);font-size:9px;line-height:1.25;
+  color:var(--color-light-gray);word-break:break-word;text-align:center;
+  font-weight:400;letter-spacing:-0.3px;margin-top:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.cal-day-mkt{
+  font-family:var(--font);font-size:8px;line-height:1.25;
+  color:var(--color-mid-gray);word-break:break-word;text-align:center;
+  font-weight:400;letter-spacing:-0.3px;margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.cal-day-milestone{
+  position:absolute;top:5px;left:5px;width:5px;height:5px;
+  background:var(--color-signal-blue);box-shadow:0 0 6px var(--accent-glow);
+}
+
+.cal-day-done-ring{
+  position:absolute;top:5px;right:5px;width:5px;height:5px;
+  background:var(--color-signal-blue);
+}
+.cal-day.past{
+  opacity:.32;
+  background:#06091B;
+}
+.cal-day.past::after{
+  content:'';position:absolute;left:14%;right:14%;top:50%;height:1px;
+  background:var(--color-mid-gray);opacity:.7;transform:rotate(-18deg);transform-origin:center;
+  pointer-events:none;
+}
+.cal-day.past .cal-day-num,
+.cal-day.past .cal-day-label,
+.cal-day.past .cal-day-mkt{color:var(--color-mid-gray)!important;}
+.cal-day.today{
+  background:rgba(8,53,132,0.18);
+  box-shadow:inset 0 0 0 1px var(--color-signal-blue);
+  z-index:1;
+}
+.cal-day.today .cal-day-num{color:var(--color-off-white)!important;}
+.cal-day.today::before{
+  content:'TODAY';position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  font-family:var(--font);font-weight:300;font-size:8px;letter-spacing:1.95px;
+  padding:3px 8px;
+  text-transform:uppercase;
+}
+
+/* ── FLYOUT ───────────────────────────────────────────────────────── */
+.flyout{
+  background:rgba(13,13,13,0.55);
+  border:1px solid var(--color-dark-gray);
+  padding:32px;margin-top:18px;display:none;
+}
+.flyout.open{display:block;}
+.flyout-header{display:flex;align-items:center;gap:18px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--color-dark-gray);}
+.flyout-badge{
+  width:64px;height:64px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-graphic);font-weight:300;font-size:28px;
+  color:var(--color-off-white);flex-shrink:0;background:var(--color-signal-blue);
+  letter-spacing:-2px;
+}
+.flyout-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media(max-width:700px){.flyout-cols{grid-template-columns:1fr;}}
+.flyout-col-title{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid var(--color-dark-gray);
+  color:var(--color-light-gray);text-transform:uppercase;
+}
+.flyout-col-title::before{content:'▼ ';color:var(--color-signal-blue);}
+
+/* ── TASK ITEMS (Flyout) ──────────────────────────────────────────── */
+.task-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.task-item{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:12px 14px;font-family:var(--font);font-size:12px;
+  line-height:1.5;display:flex;gap:12px;align-items:flex-start;
+  cursor:pointer;transition:all .15s ease;
+  user-select:none;
+  font-weight:400;letter-spacing:-0.5px;color:var(--color-off-white);
+}
+.task-item:hover{background:rgba(255,255,255,0.02);border-color:var(--color-light-gray);}
+.task-item.done{
+  opacity:.45;
+  border-color:var(--color-signal-blue);
+  background:rgba(8,53,132,0.10);
+}
+.task-item.done .task-text{text-decoration:line-through;text-decoration-color:var(--color-signal-blue);}
+.task-icon{flex-shrink:0;font-size:11px;margin-top:1px;color:var(--color-mid-gray);}
+.task-check{
+  flex-shrink:0;width:16px;height:16px;
+  border:1.5px solid var(--color-light-gray);
+  margin-top:1px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:300;color:transparent;line-height:1;
+  transition:all .15s ease;background:transparent;
+}
+.task-item:hover .task-check{border-color:var(--color-off-white);}
+.task-item.done .task-check{background:var(--color-signal-blue);border-color:var(--color-signal-blue);color:var(--color-off-white);}
+.task-text{flex:1;color:var(--color-off-white);}
+
+/* ── DELIVERABLE BAR ──────────────────────────────────────────────── */
+.deliverable-bar{
+  margin-top:14px;padding:12px 14px;
+  font-family:var(--font);font-size:12px;font-weight:400;letter-spacing:-0.5px;
+  border:1px solid var(--color-signal-blue);
+  background:transparent;
+  color:var(--color-off-white);
+}
+
+/* ── TABLE TASK CHECKS ────────────────────────────────────────────── */
+.tcheck{
+  display:flex;align-items:flex-start;gap:10px;
+  cursor:pointer;padding:6px 0;line-height:1.5;
+  transition:opacity .15s ease;font-weight:400;letter-spacing:-0.5px;
+  color:var(--color-off-white);
+}
+.tcheck:hover{color:var(--color-off-white)!important;}
+.tcheck.done{opacity:.45;}
+.tcheck.done .tcheck-text{text-decoration:line-through;text-decoration-color:var(--color-signal-blue);}
+.tcheck-box{
+  flex-shrink:0;width:14px;height:14px;
+  border:1.5px solid var(--color-light-gray);
+  margin-top:2px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:300;color:transparent;line-height:1;
+  transition:all .15s ease;background:transparent;
+}
+.tcheck:hover .tcheck-box{border-color:var(--color-off-white);}
+.tcheck.done .tcheck-box{background:var(--color-signal-blue);border-color:var(--color-signal-blue);color:var(--color-off-white);}
+.tcheck-text{flex:1;}
+
+/* ── TASK / MARKETING TABLES ──────────────────────────────────────── */
+.tl-wrap{
+  max-height:78vh;
+  overflow-y:auto;
+  overflow-x:auto;
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  scrollbar-color:var(--color-signal-blue) transparent;
+  scrollbar-width:thin;
+}
+/* Hide the in-table horizontal scrollbar — replaced by floating one */
+.tl-wrap::-webkit-scrollbar{width:6px;height:0;}
+.tl-wrap::-webkit-scrollbar-thumb{background:var(--color-signal-blue);}
+.tl-wrap::-webkit-scrollbar-thumb:hover{background:var(--color-blue-soft);}
+.tl-wrap::-webkit-scrollbar-corner{background:transparent;}
+
+/* Floating sticky horizontal scrollbar */
+.floating-hscroll{
+  position:fixed;left:0;right:0;bottom:0;
+  height:14px;
+  overflow-x:scroll;overflow-y:hidden;
+  background:rgba(5,9,18,0.92);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-top:1px solid var(--color-signal-blue);
+  z-index:80;
+  display:none;
+  scrollbar-color:var(--color-signal-blue) rgba(255,255,255,0.06);
+  scrollbar-width:auto;
+}
+.floating-hscroll.visible{display:block;}
+.floating-hscroll::-webkit-scrollbar{height:14px;}
+.floating-hscroll::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.04);
+}
+.floating-hscroll::-webkit-scrollbar-thumb{
+  background:var(--color-signal-blue);
+  border:1px solid rgba(255,255,255,0.20);
+  min-width:80px;
+}
+.floating-hscroll::-webkit-scrollbar-thumb:hover{background:var(--color-blue-soft);}
+.floating-hscroll-inner{height:1px;}
+.tl-table{width:100%;border-collapse:collapse;min-width:800px;table-layout:fixed;}
+.tl-table th{
+  text-align:left;padding:14px 18px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;color:var(--color-mid-gray);
+  border-bottom:1px solid var(--color-dark-gray);
+  background:rgba(5,9,18,0.92);
+  position:sticky;top:0;z-index:1;
+  text-transform:uppercase;
+}
+.tl-table td{
+  padding:14px 18px;font-family:var(--font);font-size:12px;
+  border-bottom:1px solid var(--color-dark-gray);vertical-align:top;
+  color:var(--color-light-gray);font-weight:400;letter-spacing:-0.5px;
+  word-wrap:break-word;overflow-wrap:break-word;word-break:normal;
+}
+.tcheck-text{word-wrap:break-word;overflow-wrap:break-word;min-width:0;}
+.day-cell-row{
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+}
+.day-cell-num{
+  font-family:var(--font);font-weight:300;font-size:18px;
+  color:var(--color-off-white);letter-spacing:-0.02em;
+  font-variant-numeric:tabular-nums;
+}
+.day-cell-count{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  color:var(--color-light-gray);letter-spacing:1px;
+}
+.tl-table tr:hover td{background:rgba(255,255,255,0.02);}
+.tl-table tr:last-child td{border-bottom:none;}
+
+.phase-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  color:var(--color-light-gray);letter-spacing:1.5px;text-transform:uppercase;
+}
+.mkt-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  background:transparent;border:1px solid var(--color-signal-blue);
+  color:var(--color-signal-blue);letter-spacing:1.5px;text-transform:uppercase;
+}
+
+/* ── MARKETING CARDS ──────────────────────────────────────────────── */
+.mkt-card{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:18px;
+}
+.mkt-card-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.mkt-card-icon{
+  width:32px;height:32px;
+  border:1px solid var(--color-dark-gray);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--color-signal-blue);
+}
+.mkt-card-title{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;color:var(--color-off-white);
+  text-transform:uppercase;
+}
+.mkt-card-days{
+  font-family:var(--font);font-size:10px;color:var(--color-mid-gray);margin-top:4px;font-weight:400;letter-spacing:-0.5px;
+}
+
+/* ── SOCIAL PLANNER ───────────────────────────────────────────────── */
+.social-head{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+  margin-bottom:24px;
+}
+.social-stats{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--color-dark-gray);}
+.social-stat-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  padding:12px 18px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-light-gray);letter-spacing:1.95px;text-transform:uppercase;
+}
+.social-stat-pill:last-child{border-right:none;}
+.social-stat-pill .num{
+  font-family:var(--font-graphic);
+  font-weight:300;font-size:20px;color:var(--color-off-white);
+  letter-spacing:-1px;
+}
+.social-stat-pill .num.accent{color:var(--color-signal-blue);}
+
+.social-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:1px;background:#020716;border:1px solid #020716;}
+.social-cell{
+  position:relative;
+  padding:12px 8px 10px;cursor:pointer;transition:all .15s ease;
+  background:#0C1B45;
+  text-align:center;min-height:104px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;
+  overflow:hidden;
+}
+.social-cell:hover{background:#173072;}
+.social-cell-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:18px;
+  line-height:1;color:var(--color-off-white);letter-spacing:-1px;
+  height:18px;display:flex;align-items:center;justify-content:center;
+}
+.social-cell-concept{
+  font-family:var(--font);font-size:9px;line-height:1.35;
+  color:var(--color-mid-gray);font-weight:400;letter-spacing:-0.3px;
+  word-break:break-word;text-align:center;margin-top:6px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.social-cell-platforms{
+  display:flex;gap:4px;justify-content:center;margin-top:auto;flex-wrap:wrap;
+  min-height:11px;align-items:flex-end;
+}
+.social-cell-plat{
+  font-family:var(--font);font-size:9px;font-weight:300;letter-spacing:1px;
+  color:var(--color-light-gray);
+}
+.social-cell.has-content .social-cell-concept{color:var(--color-off-white);}
+.social-cell.status-ready{box-shadow:inset 0 0 0 1px rgba(8,53,132,0.5);}
+.social-cell.status-posted{
+  background:var(--color-signal-blue);
+}
+.social-cell.status-posted .social-cell-day,
+.social-cell.status-posted .social-cell-concept,
+.social-cell.status-posted .social-cell-plat{color:var(--color-off-white);}
+.social-cell-status-dot{
+  position:absolute;top:6px;right:6px;width:5px;height:5px;
+}
+.social-cell.status-idea .social-cell-status-dot{background:var(--color-light-gray);}
+.social-cell.status-ready .social-cell-status-dot{background:var(--color-signal-blue);}
+.social-cell.status-posted .social-cell-status-dot{background:var(--color-off-white);}
+
+/* Detail editor view */
+.social-editor{
+  background:rgba(13,13,13,0.5);
+  border:1px solid var(--color-dark-gray);
+  padding:36px;
+  max-width:920px;margin:0 auto;
+}
+.social-editor-head{
+  display:flex;align-items:center;gap:24px;margin-bottom:32px;
+  padding-bottom:24px;border-bottom:1px solid var(--color-dark-gray);
+}
+.social-back-btn{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:10px 18px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-light-gray);transition:all .15s ease;
+  letter-spacing:1.95px;text-transform:uppercase;
+}
+.social-back-btn:hover{color:var(--color-off-white);border-color:var(--color-off-white);}
+.social-editor-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:56px;
+  letter-spacing:-3px;color:var(--color-off-white);line-height:0.90;
+}
+.social-editor-meta{
+  font-family:var(--font);font-size:10px;font-weight:300;
+  color:var(--color-light-gray);letter-spacing:1.95px;text-transform:uppercase;
+  margin-top:8px;
+}
+
+.social-form{display:flex;flex-direction:column;gap:24px;}
+.social-field{display:flex;flex-direction:column;gap:10px;}
+.social-label{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;text-transform:uppercase;
+}
+.social-label::before{content:'▼ ';color:var(--color-signal-blue);}
+.social-input,.social-textarea,.social-select{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:14px 16px;
+  color:var(--color-off-white);
+  font-family:var(--font);font-size:13px;font-weight:400;
+  letter-spacing:-0.5px;
+  outline:none;transition:all .15s ease;
+  width:100%;
+}
+.social-input:focus,.social-textarea:focus,.social-select:focus{
+  border-color:var(--color-signal-blue);
+}
+.social-textarea{resize:vertical;min-height:100px;line-height:1.55;font-family:var(--font);}
+.social-select{cursor:pointer;color-scheme:dark;}
+
+.social-pills{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--color-dark-gray);}
+.social-pill{
+  background:transparent;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  padding:10px 16px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);transition:all .15s ease;
+  letter-spacing:1.95px;text-transform:uppercase;user-select:none;
+}
+.social-pill:last-child{border-right:none;}
+.social-pill:hover{color:var(--color-off-white);}
+.social-pill.active{
+  background:var(--color-signal-blue);color:var(--color-off-white);
+}
+
+.social-row-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:640px){.social-row-2{grid-template-columns:1fr;}}
+
+.social-actions{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  margin-top:8px;padding-top:24px;border-top:1px solid var(--color-dark-gray);
+}
+.social-save-status{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;text-transform:uppercase;
+}
+.social-save-status.saved{color:var(--color-signal-blue);}
+.social-save-btn{
+  background:var(--color-signal-blue);color:var(--color-off-white);border:1px solid var(--color-signal-blue);
+  padding:14px 28px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  transition:background .15s ease;
+}
+.social-save-btn:hover{background:var(--color-blue-soft);border-color:var(--color-blue-soft);}
+.social-delete-btn{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:10px 16px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);transition:all .15s ease;
+  letter-spacing:1.95px;text-transform:uppercase;
+}
+.social-delete-btn:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+
+/* ── FILES TAB ────────────────────────────────────────────────────── */
+.files-layout{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start;}
+@media(max-width:820px){.files-layout{grid-template-columns:1fr;}}
+.files-cat-list{
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  max-height:78vh;overflow-y:auto;
+}
+.files-cat-section-title{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;color:var(--color-light-gray);
+  padding:14px 18px 10px;text-transform:uppercase;
+  border-bottom:1px solid var(--color-dark-gray);
+}
+.files-cat-section-title::before{content:'▼ ';color:var(--color-signal-blue);}
+.files-cat-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 18px;cursor:pointer;
+  border-bottom:1px solid var(--color-dark-gray);
+  border-left:2px solid transparent;
+  transition:all .15s ease;
+}
+.files-cat-item:hover{background:rgba(255,255,255,0.02);}
+.files-cat-item.active{background:rgba(8,53,132,0.12);border-left-color:var(--color-signal-blue);}
+.files-cat-icon{display:inline-flex;align-items:center;flex-shrink:0;color:var(--color-light-gray);}
+.files-cat-name{
+  flex:1;font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;color:var(--color-off-white);text-transform:uppercase;
+}
+.files-cat-count{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);
+  padding:2px 8px;border:1px solid var(--color-dark-gray);
+  letter-spacing:1px;
+}
+.files-cat-item.active .files-cat-name{color:var(--color-signal-blue);}
+.files-cat-item.active .files-cat-count{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+
+.files-panel{
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  padding:32px;min-height:300px;
+}
+.files-panel-head{
+  display:flex;align-items:center;gap:18px;margin-bottom:24px;
+  padding-bottom:20px;border-bottom:1px solid var(--color-dark-gray);
+}
+.files-panel-icon{
+  width:54px;height:54px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--color-dark-gray);
+  color:var(--color-signal-blue);
+}
+.files-panel-title{
+  font-family:var(--font-display);font-weight:300;font-size:32px;
+  letter-spacing:-1.5px;color:var(--color-off-white);line-height:0.95;
+  text-transform:uppercase;
+}
+.files-panel-sub{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;margin-top:8px;text-transform:uppercase;
+}
+
+.files-drop{
+  border:1px dashed var(--color-dark-gray);
+  padding:36px;text-align:center;cursor:pointer;
+  transition:all .15s ease;background:transparent;
+  margin-bottom:18px;
+}
+.files-drop:hover,.files-drop.dragover{
+  border-color:var(--color-signal-blue);background:rgba(8,53,132,0.04);
+}
+.files-drop-icon{font-size:24px;color:var(--color-mid-gray);margin-bottom:10px;}
+.files-drop:hover .files-drop-icon,.files-drop.dragover .files-drop-icon{color:var(--color-signal-blue);}
+.files-drop-text{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;color:var(--color-light-gray);text-transform:uppercase;
+}
+.files-drop-sub{
+  font-family:var(--font);font-size:10px;color:var(--color-mid-gray);
+  margin-top:6px;font-weight:400;letter-spacing:-0.3px;
+}
+
+.files-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--color-dark-gray);}
+.file-item{
+  display:flex;align-items:center;gap:14px;
+  background:transparent;
+  border-bottom:1px solid var(--color-dark-gray);
+  padding:14px;transition:all .15s ease;
+}
+.file-item:last-child{border-bottom:none;}
+.file-item:hover{background:rgba(255,255,255,0.02);}
+.file-thumb{
+  width:48px;height:48px;flex-shrink:0;
+  background:rgba(255,255,255,0.04);border:1px solid var(--color-dark-gray);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;overflow:hidden;
+}
+.file-thumb img{width:100%;height:100%;object-fit:cover;}
+.file-meta{flex:1;min-width:0;}
+.file-name{
+  font-family:var(--font);font-size:13px;font-weight:400;
+  color:var(--color-off-white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:-0.5px;
+}
+.file-info{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  letter-spacing:1.5px;color:var(--color-mid-gray);
+  margin-top:4px;text-transform:uppercase;
+}
+.file-actions{display:flex;gap:0;flex-shrink:0;border:1px solid var(--color-dark-gray);}
+.file-btn{
+  background:transparent;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  padding:8px 14px;font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;color:var(--color-light-gray);
+  cursor:pointer;transition:all .15s ease;text-decoration:none;display:inline-flex;align-items:center;text-transform:uppercase;
+}
+.file-btn:last-child{border-right:none;}
+.file-btn:hover{color:var(--color-off-white);background:rgba(255,255,255,0.03);}
+.file-btn.danger:hover{color:var(--color-signal-blue);}
+
+.files-empty{
+  text-align:center;padding:48px 20px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;text-transform:uppercase;
+}
+
+.upload-progress{
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  padding:12px 16px;margin-bottom:8px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;color:var(--color-signal-blue);text-transform:uppercase;
+}
+
+/* ── SCROLLBAR ────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--color-dark-gray);}
+::-webkit-scrollbar-thumb:hover{background:var(--color-mid-gray);}
+
+/* ── MOBILE / RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:760px){
+  body{font-size:12px;}
+
+  /* Header */
+  .header{
+    padding:14px 16px;flex-direction:column;align-items:flex-start;gap:12px;
+  }
+  .header-left{gap:8px;}
+  .header h1{font-size:22px;letter-spacing:-1px;}
+  .header p{font-size:10px;letter-spacing:1.5px;margin-top:6px;}
+  .stats{width:100%;gap:0;flex-wrap:wrap;}
+  .stat{flex:1;min-width:64px;padding:8px 10px;}
+  .stat-n{font-size:18px;letter-spacing:-1px;}
+  .stat-l{font-size:8px;letter-spacing:1.4px;margin-top:3px;}
+
+  /* Tabs — horizontally scrollable */
+  .tabs{
+    padding:0 12px;
+    overflow-x:auto;flex-wrap:nowrap;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    padding:12px 14px;font-size:10px;letter-spacing:1.4px;
+    flex-shrink:0;white-space:nowrap;
+  }
+
+  .main{padding:18px 14px 36px;}
+
+  /* Progress dashboard — single column */
+  .prog-dashboard{padding:18px;gap:20px;}
+  .prog-top-row{
+    grid-template-columns:1fr!important;gap:18px;padding-bottom:18px;
+  }
+  .prog-overview-title{font-size:46px;letter-spacing:-1.8px;}
+  .prog-overview-sub{font-size:10px;letter-spacing:1.4px;margin-top:8px;}
+  .prog-overall-label{font-size:10px;letter-spacing:1.4px;}
+  .prog-overall-pct{font-size:42px;letter-spacing:-2px;}
+  .prog-overall-bar-wrap{height:14px;}
+  .prog-overall-detail{font-size:9px;letter-spacing:1.4px;}
+  .prog-timeline-row{padding-bottom:18px;}
+  .prog-timeline-title{font-size:28px;letter-spacing:-1.2px;}
+  .prog-timeline-meta{font-size:9px;letter-spacing:1.4px;}
+  .prog-strip-wrap{height:36px;}
+  .prog-strip,.prog-strip-fill{height:100%;}
+  .prog-strip-wrap .prog-strip{height:36px;}
+  .prog-bottom-grid{grid-template-columns:1fr!important;gap:18px;}
+  .prog-ring-wrap{width:140px;height:140px;}
+  .prog-ring-wrap svg{width:140px;height:140px;}
+  .prog-ring-day{font-size:46px;letter-spacing:-2px;}
+  .prog-curr-name{font-size:18px;letter-spacing:-0.5px;}
+  .prog-stat-val{font-size:18px;letter-spacing:-1px;}
+  .prog-stat-key{font-size:9px;letter-spacing:1.4px;}
+
+  /* Overview phase cards — 2 columns */
+  .ov-grid{grid-template-columns:repeat(2,1fr);}
+  .ov-card{padding:14px;min-height:158px;}
+  .ov-card-title{font-size:13px;}
+  .ov-card-num{font-size:22px;}
+
+  /* Two-col info grids → single column */
+  .panel-overview-twocol{grid-template-columns:1fr!important;}
+
+  /* Gantt — horizontal scroll */
+  .gantt-wrap{overflow-x:auto;}
+  .gantt-wrap > *{min-width:780px;}
+  .gantt-section{padding:20px 16px 16px;min-width:0;}
+  .gantt-section-title{font-size:30px;letter-spacing:-1.4px;}
+  .gantt-section-meta{font-size:9px;letter-spacing:1.4px;}
+  .gantt-label-col{padding:8px 10px;font-size:9px;letter-spacing:1.4px;}
+  .gantt-label{padding:0 10px;}
+  .gantt-label-name{font-size:10px;letter-spacing:1.2px;}
+  .gantt-label-days{font-size:9px;}
+
+  /* Calendar grid — keep 10 cols, shrink cells */
+  .cal-grid{gap:1px;}
+  .cal-day{min-height:54px;padding:5px 2px;}
+  .cal-day-num{font-size:13px;letter-spacing:-0.6px;height:13px;}
+  .cal-day-date{font-size:7px;letter-spacing:0.6px;height:8px;line-height:8px;}
+  .cal-day-label,.cal-day-mkt{display:none;}
+  .cal-day.today::before{font-size:7px;padding:2px 5px;letter-spacing:1.4px;top:-7px;}
+  .cal-controls{flex-direction:column;align-items:stretch;border:none;}
+  .cal-controls > *{border:1px solid var(--color-dark-gray);}
+  .cal-search{min-width:0;border-radius:0;border-right:1px solid var(--color-dark-gray);}
+  .cal-toggle{justify-content:stretch;}
+  .cal-toggle-btn{flex:1;}
+
+  /* Flyout */
+  .flyout{padding:18px;}
+  .flyout-header{gap:12px;}
+  .flyout-badge{width:48px;height:48px;font-size:22px;letter-spacing:-1.5px;}
+  .flyout-cols{grid-template-columns:1fr;gap:18px;}
+
+  /* Tables — horizontal scroll */
+  .tl-controls{flex-direction:column;align-items:stretch;border:none;}
+  .tl-controls > *{border:1px solid var(--color-dark-gray);}
+  .tl-search{min-width:0;}
+  .tl-count{padding:10px 14px;}
+  .tl-table th,.tl-table td{padding:10px 12px;font-size:11px;}
+  .day-cell-row{flex-direction:column;align-items:flex-start;gap:4px;}
+  .day-cell-num{font-size:16px;}
+  .day-cell-count{font-size:10px;letter-spacing:0.6px;}
+
+  /* Marketing overview cards — 1 col */
+  #mkt-overview-cards{grid-template-columns:1fr!important;}
+
+  /* Files tab */
+  .files-layout{gap:14px;}
+  .files-cat-list{max-height:220px;}
+  .files-panel{padding:18px;}
+  .files-panel-title{font-size:24px;letter-spacing:-1px;}
+  .files-drop{padding:24px;}
+  .file-item{flex-wrap:wrap;}
+  .file-actions{margin-top:8px;width:100%;justify-content:flex-end;}
+
+  /* Social grid — keep 10 cols, shrink */
+  .social-grid{gap:1px;}
+  .social-cell{min-height:62px;padding:6px 3px;}
+  .social-cell-day{font-size:13px;height:13px;letter-spacing:-0.6px;}
+  .social-cell-concept{font-size:7px;line-height:1.25;-webkit-line-clamp:2;margin-top:3px;}
+  .social-cell-platforms{display:none;}
+  .social-stats{flex-wrap:wrap;}
+  .social-stat-pill{padding:9px 12px;font-size:9px;letter-spacing:1.4px;}
+  .social-stat-pill .num{font-size:16px;letter-spacing:-0.6px;}
+
+  /* Social editor */
+  .social-editor{padding:20px;}
+  .social-editor-head{gap:14px;flex-wrap:wrap;}
+  .social-editor-day{font-size:38px;letter-spacing:-2px;}
+  .social-editor-meta{font-size:9px;letter-spacing:1.4px;}
+  .social-row-2{grid-template-columns:1fr;gap:14px;}
+  .social-pills{flex-wrap:wrap;}
+  .social-pill{padding:9px 12px;font-size:9px;letter-spacing:1.4px;}
+  .social-actions{flex-direction:column;align-items:stretch;gap:14px;}
+  .social-save-btn{width:100%;}
+  .social-back-btn{font-size:9px;letter-spacing:1.4px;padding:8px 14px;}
+
+  /* Panel cards generally */
+  .panel-card{padding:18px;}
+  .section-heading{font-size:28px;letter-spacing:-1.2px;}
+}
+
+/* Tiny phones */
+@media(max-width:380px){
+  .main{padding:14px 10px 28px;}
+  .header{padding:12px;}
+  .header h1{font-size:20px;}
+  .stat{padding:7px 8px;min-width:56px;}
+  .stat-n{font-size:16px;}
+  .prog-overview-title{font-size:38px;letter-spacing:-1.5px;}
+  .prog-overall-pct{font-size:34px;}
+  .prog-timeline-title{font-size:24px;}
+  .ov-grid{grid-template-columns:1fr;}
+  .cal-day{min-height:46px;}
+  .cal-day-num{font-size:11px;}
+  .cal-day-date{display:none;}
+  .social-cell{min-height:54px;}
+  .social-cell-concept{display:none;}
+}
+
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <div class="header-titles">
+      <h1>100 DAY <span class="accent">ROADMAP</span></h1>
+      <p>▼ Engineering · Design · Marketing</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">100</div><div class="stat-l">Days</div></div>
+    <div class="stat"><div class="stat-n">15</div><div class="stat-l">Dev Phases</div></div>
+    <div class="stat"><div class="stat-n" id="stt">—</div><div class="stat-l">Dev Tasks</div></div>
+    <div class="stat"><div class="stat-n" id="stm">—</div><div class="stat-l">Mkt Tasks</div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab" onclick="switchTab('gantt')">Gantt</button>
+  <button class="tab" onclick="switchTab('calendar')">Calendar</button>
+  <button class="tab" onclick="switchTab('tasks')">Dev Tasks</button>
+  <button class="tab" onclick="switchTab('marketing')">Marketing</button>
+  <button class="tab" onclick="switchTab('social')">Social</button>
+  <button class="tab" onclick="switchTab('files')">Files</button>
+  <div class="tab-indicator" id="tab-indicator"></div>
+</div>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="panel active" id="panel-overview">
+  <div class="prog-dashboard" id="prog-dashboard">
+
+    <!-- TOP ROW: Overview heading + overall completion -->
+    <div class="prog-top-row">
+      <div class="prog-overview-heading">
+        <div class="prog-overview-title">OVERVIEW</div>
+        <div class="prog-overview-sub">▼ 100 Day Operation</div>
+      </div>
+      <div class="prog-overall">
+        <div class="prog-overall-meta">
+          <span class="prog-overall-label">Overall Completion</span>
+          <span class="prog-overall-pct" id="prog-overall-pct">0%</span>
+        </div>
+        <div class="prog-overall-bar-wrap">
+          <div class="prog-overall-bar-fill" id="prog-overall-bar-fill" style="width:0%"></div>
+        </div>
+        <div class="prog-overall-detail" id="prog-overall-detail">0 / 0 tasks complete</div>
+      </div>
+    </div>
+
+    <!-- CURRENT PHASE ROW -->
+    <div class="prog-current-row">
+      <div class="prog-current-head">
+        <div class="prog-current-label">CURRENT PHASE</div>
+        <div class="prog-current-progress" id="prog-current-progress">—</div>
+      </div>
+      <div class="prog-current-name" id="prog-current-name-big">Set start date</div>
+      <div class="prog-current-bar-wrap">
+        <div class="prog-current-bar-fill" id="prog-current-bar-fill" style="width:0%"></div>
+      </div>
+      <p class="prog-current-desc" id="prog-current-desc">—</p>
+    </div>
+
+    <!-- TIMELINE ROW: Phase Timeline -->
+    <div class="prog-timeline-row">
+      <div class="prog-timeline-head">
+        <div class="prog-timeline-title">PHASE TIMELINE</div>
+        <div class="prog-timeline-meta">D1 → D100</div>
+      </div>
+      <div class="prog-strip-wrap">
+        <div class="prog-strip" id="prog-strip"></div>
+        <div class="prog-strip-fill" id="prog-strip-fill" style="width:0%"></div>
+        <div class="prog-needle" id="prog-needle" style="left:1%"></div>
+      </div>
+    </div>
+
+    <!-- BOTTOM GRID: ring · current phase · stats -->
+    <div class="prog-bottom-grid">
+      <div class="prog-ring-col">
+        <div class="prog-ring-wrap">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="prog-ring-bg" cx="100" cy="100" r="90"/>
+            <circle class="prog-ring-fill" id="prog-ring-fill" cx="100" cy="100" r="90"
+              stroke-dasharray="565.487" stroke-dashoffset="565.487"/>
+          </svg>
+          <div class="prog-ring-center">
+            <span class="prog-ring-day" id="prog-day-num">—</span>
+            <span class="prog-ring-label">of 100</span>
+          </div>
+        </div>
+        <div class="prog-ring-pct" id="prog-pct">0%</div>
+        <div class="prog-date-row">
+          <span class="prog-date-label">Start</span>
+          <input type="date" class="prog-date-input" id="prog-start-date" />
+        </div>
+        <button class="prog-reset" onclick="resetProgress()" title="Clear all ticked tasks">Reset</button>
+      </div>
+
+      <div class="prog-stats-col">
+        <div class="prog-stat-row highlight">
+          <span class="prog-stat-key">Days Elapsed</span>
+          <span class="prog-stat-val orange" id="pstat-elapsed">—</span>
+        </div>
+        <div class="prog-stat-row">
+          <span class="prog-stat-key">Days Remaining</span>
+          <span class="prog-stat-val" id="pstat-remaining">—</span>
+        </div>
+        <div class="prog-stat-row">
+          <span class="prog-stat-key">Dev Tasks Done</span>
+          <span class="prog-stat-val" id="pstat-tasks">—</span>
+        </div>
+        <div class="prog-stat-row">
+          <span class="prog-stat-key">Mkt Tasks Done</span>
+          <span class="prog-stat-val" id="pstat-mkt">—</span>
+        </div>
+        <div class="prog-next-ms" id="prog-next-ms">
+          <div class="prog-next-ms-label">Next Milestone</div>
+          <div class="prog-next-ms-text" id="pnext-text">—</div>
+          <div class="prog-next-ms-day" id="pnext-day"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ov-grid" id="ov-grid"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div class="panel-card">
+      <div class="panel-card-title">Tech Stack</div>
+      <div id="stack-list"></div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-card-title">Marketing Channels</div>
+      <div id="mkt-channels"></div>
+    </div>
+  </div>
+  <div class="panel-card">
+    <div class="panel-card-title">Key Milestones</div>
+    <div id="milestones-list"></div>
+  </div>
+</div>
+
+<!-- GANTT -->
+<div class="panel" id="panel-gantt">
+  <div class="gantt-wrap" id="gantt-wrap"></div>
+</div>
+
+<!-- CALENDAR -->
+<div class="panel" id="panel-calendar">
+  <div class="cal-controls">
+    <input class="cal-search" id="cal-search" placeholder="Search" oninput="filterCal()"/>
+    <div class="cal-toggle">
+      <button class="cal-toggle-btn active" onclick="calMode('both',this)">All</button>
+      <button class="cal-toggle-btn" onclick="calMode('dev',this)">Dev</button>
+      <button class="cal-toggle-btn" onclick="calMode('mkt',this)">Marketing</button>
+    </div>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="flyout" id="flyout"></div>
+</div>
+
+<!-- DEV TASKS -->
+<div class="panel" id="panel-tasks">
+  <div class="tl-controls">
+    <input class="tl-search" id="tl-search" placeholder="Search tasks" oninput="filterTasks()"/>
+    <select class="tl-filter" id="tl-pf" onchange="filterTasks()">
+      <option value="">All Phases</option>
+    </select>
+    <span class="tl-count" id="tl-count"></span>
+  </div>
+  <div class="tl-wrap">
+    <table class="tl-table">
+      <thead><tr><th style="width:96px">Day</th><th style="width:150px">Phase</th><th style="width:150px">Focus</th><th>Dev Tasks</th><th>Deliverable</th></tr></thead>
+      <tbody id="tl-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MARKETING -->
+<div class="panel" id="panel-marketing">
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:22px;" id="mkt-overview-cards"></div>
+  <div class="tl-controls">
+    <input class="tl-search" id="mtl-search" placeholder="Search tasks" oninput="filterMkt()"/>
+    <select class="tl-filter" id="mtl-cat" onchange="filterMkt()">
+      <option value="">All Categories</option>
+    </select>
+    <span class="tl-count" id="mtl-count"></span>
+  </div>
+  <div class="tl-wrap">
+    <table class="tl-table">
+      <thead><tr><th style="width:96px">Day</th><th style="width:120px">Category</th><th style="width:150px">Focus</th><th>Marketing Tasks</th><th>Deliverable</th></tr></thead>
+      <tbody id="mtl-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SOCIAL -->
+<div class="panel" id="panel-social">
+  <div id="social-grid-view">
+    <div class="social-head">
+      <div class="social-stats" id="social-stats"></div>
+    </div>
+    <div class="social-grid" id="social-grid"></div>
+  </div>
+  <div id="social-editor-view" style="display:none">
+    <div class="social-editor">
+      <div class="social-editor-head">
+        <button class="social-back-btn" onclick="socialBack()">← All days</button>
+        <div>
+          <div class="social-editor-day" id="social-editor-day">—</div>
+          <div class="social-editor-meta" id="social-editor-meta">—</div>
+        </div>
+      </div>
+      <form class="social-form" id="social-form" onsubmit="event.preventDefault();socialSave();">
+        <div class="social-field">
+          <label class="social-label">Status</label>
+          <div class="social-pills" id="social-status-pills"></div>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Concept</label>
+          <input class="social-input" id="social-concept" placeholder="One-line idea — what is this post about?"/>
+        </div>
+        <div class="social-row-2">
+          <div class="social-field">
+            <label class="social-label">Format</label>
+            <select class="social-select" id="social-format">
+              <option value="">Choose format</option>
+              <option>Reel</option>
+              <option>Carousel</option>
+              <option>Static</option>
+              <option>Story</option>
+              <option>Video</option>
+              <option>Thread</option>
+              <option>Short</option>
+              <option>Live</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="social-field">
+            <label class="social-label">Hook</label>
+            <input class="social-input" id="social-hook" placeholder="Opening line / scroll-stopper"/>
+          </div>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Platforms</label>
+          <div class="social-pills" id="social-platform-pills"></div>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Caption</label>
+          <textarea class="social-textarea" id="social-caption" placeholder="Full post copy — write it the way you'd publish it"></textarea>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Script</label>
+          <textarea class="social-textarea" id="social-script" style="min-height:160px" placeholder="Spoken/voiceover script — line by line, the words you'll say to camera"></textarea>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Shot List</label>
+          <textarea class="social-textarea" id="social-shotlist" style="min-height:160px" placeholder="Shot 1: wide of gym&#10;Shot 2: close-up of barbell&#10;Shot 3: piece-to-camera intro&#10;..."></textarea>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Hashtags</label>
+          <input class="social-input" id="social-hashtags" placeholder="#fitness #training #100day"/>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Notes / References</label>
+          <textarea class="social-textarea" id="social-notes" placeholder="Inspiration, links, shot list, b-roll, music — anything"></textarea>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Assets</label>
+          <div class="files-drop" id="social-assets-drop" onclick="document.getElementById('social-assets-input').click()">
+            <div class="files-drop-icon">↑</div>
+            <div class="files-drop-text">Drop or click to upload</div>
+            <div class="files-drop-sub">Overlays, images, videos, audio — anything</div>
+            <input type="file" id="social-assets-input" multiple style="display:none" onchange="handleSocialAssetUpload(event)"/>
+          </div>
+          <div id="social-assets-progress"></div>
+          <div class="files-list" id="social-assets-list"></div>
+        </div>
+        <div class="social-actions">
+          <div style="display:flex;align-items:center;gap:14px">
+            <button type="button" class="social-delete-btn" onclick="socialDelete()">Delete</button>
+            <span class="social-save-status" id="social-save-status"></span>
+          </div>
+          <button type="submit" class="social-save-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FILES -->
+<div class="panel" id="panel-files">
+  <div class="files-layout">
+    <div class="files-cat-list" id="files-cat-list"></div>
+    <div class="files-panel" id="files-panel">
+      <div class="files-empty" id="files-empty-default">// Select a category from the left to view or upload files</div>
+      <div id="files-content" style="display:none">
+        <div class="files-panel-head">
+          <div class="files-panel-icon" id="files-panel-icon">📁</div>
+          <div>
+            <div class="files-panel-title" id="files-panel-title">—</div>
+            <div class="files-panel-sub" id="files-panel-sub">—</div>
+          </div>
+        </div>
+        <div class="files-drop" id="files-drop" onclick="document.getElementById('files-input').click()">
+          <div class="files-drop-icon">↑</div>
+          <div class="files-drop-text">Drop or click to upload</div>
+          <div class="files-drop-sub">Any file type</div>
+          <input type="file" id="files-input" multiple style="display:none" onchange="handleFileInput(event)"/>
+        </div>
+        <div id="upload-progress-list"></div>
+        <div class="files-list" id="files-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- Floating sticky horizontal scrollbar (synced to active Dev/Mkt table) -->
+<div class="floating-hscroll" id="floating-hscroll">
+  <div class="floating-hscroll-inner" id="floating-hscroll-inner"></div>
+</div>
+
+<script type="module">
+import { ConvexClient } from "https://esm.sh/convex@1.17.0/browser";
+
+const CONVEX_URL = "https://optimistic-dinosaur-507.convex.cloud";
+const convex = new ConvexClient(CONVEX_URL);
+window.__convex = convex;
+</script>
+<script>
+// Grayscale tones — single accent reserved for the Launch phase + active states
+const PHASES=[
+  {id:1,  name:'Ideation & UX Planning',        short:'Ideation',   color:'#F5F5F7',bg:'rgba(255,255,255,0.08)',days:[1,7],   icon:'💡', desc:'Define the problem, the audience, and the shape of what gets built. Lock the MVP scope, wireframes, design system, and architecture before any code lands.'},
+  {id:2,  name:'Foundation & Tooling',          short:'Foundation', color:'#D4D4D7',bg:'rgba(255,255,255,0.06)',days:[8,14],  icon:'🏗️', desc:'Stand up the monorepo, deployment pipeline, and core tooling. From blank repo to a live preview deploy with a working auth gate and CI green.'},
+  {id:3,  name:'Auth, Profile & Onboarding',    short:'Auth',       color:'#A8A8AB',bg:'rgba(255,255,255,0.05)',days:[15,21], icon:'🔐', desc:'Wire end-to-end authentication, OAuth, profile creation, and the first-run onboarding flow that drops users on a working dashboard.'},
+  {id:4,  name:'Daily Log Schema & Mutations',  short:'Schema',     color:'#8E8E93',bg:'rgba(255,255,255,0.04)',days:[22,28], icon:'🗃️', desc:'Lock the data model for daily logs — schema, indexes, and the upsertDay mutation that powers every write across meals, workouts, and metrics.'},
+  {id:5,  name:'Daily Log UI',                  short:'Daily UI',   color:'#717174',bg:'rgba(255,255,255,0.04)',days:[29,35], icon:'📝', desc:'Build the day-view screens — photo upload, weight, mood, notes, calendar nav. Make logging a single day fast and frictionless.'},
+  {id:6,  name:'Meals & Macros',                short:'Meals',      color:'#F5F5F7',bg:'rgba(255,255,255,0.08)',days:[36,42], icon:'🥗', desc:'Add meal entry, food search, macro tracking, and a calorie budget that updates live with every meal logged.'},
+  {id:7,  name:'Workouts & Templates',          short:'Workouts',   color:'#D4D4D7',bg:'rgba(255,255,255,0.06)',days:[43,49], icon:'🏋️', desc:'Ship the workout logger, exercise library, set/rep/weight tracking, rest timer, and a template builder for repeated routines.'},
+  {id:8,  name:'Program & Calendar',            short:'Calendar',   color:'#A8A8AB',bg:'rgba(255,255,255,0.05)',days:[50,56], icon:'📅', desc:'Define multi-week programs, assign workouts to days, and render the 100-day calendar with progress states and missed-day warnings.'},
+  {id:9,  name:'Profile & Goal-Driven Macros',  short:'Macros',     color:'#8E8E93',bg:'rgba(255,255,255,0.04)',days:[57,63], icon:'🎯', desc:'TDEE calculation, goal selection (cut / maintain / bulk), and macros that auto-derive from bodyweight, activity level, and target.'},
+  {id:10, name:'Metrics & Charts',              short:'Metrics',    color:'#717174',bg:'rgba(255,255,255,0.04)',days:[64,70], icon:'📊', desc:'Render all five metrics — weight, body fat, energy, sleep, mood — as polished responsive charts with trend lines and date ranges.'},
+  {id:11, name:'AI Coach',                      short:'AI Coach',   color:'#F5F5F7',bg:'rgba(255,255,255,0.08)',days:[71,77], icon:'🤖', desc:'Hook up Claude with tool calls, context windows, and streaming responses. The coach reads your real data and gives grounded advice.'},
+  {id:12, name:'Share Cards',                   short:'Share',      color:'#D4D4D7',bg:'rgba(255,255,255,0.06)',days:[78,84], icon:'🎴', desc:'Canvas-based exportable cards — day summaries, workouts, progress photos. Share-ready PNGs the user actually wants to post.'},
+  {id:13, name:'Mobile Shell & Sync',           short:'Mobile',     color:'#A8A8AB',bg:'rgba(255,255,255,0.05)',days:[85,91], icon:'📱', desc:'Bootstrap the Expo app, port auth, and verify real-time sync between web and mobile through every screen and mutation.'},
+  {id:14, name:'UX Polish, Beta & Launch Prep', short:'Beta',       color:'#8E8E93',bg:'rgba(255,255,255,0.04)',days:[92,98], icon:'🧪', desc:'Stripe paywall, accessibility audit, beta soak with real users, performance tuning, bug bash. Ship-quality across every surface.'},
+  {id:15, name:'Launch',                        short:'Launch',     color:'#F5F5F7',bg:'rgba(255,255,255,0.08)',days:[99,100],icon:'🚀', desc:'Production deploy, public announcement, press blitz, and a post-launch monitoring window. Day-one metrics captured and reviewed.'},
+];
+
+const MKT_CATS=[
+  {id:'brand',    name:'Brand Identity',    color:'#F5F5F7',icon:'🎨'},
+  {id:'web',      name:'Website',           color:'#D4D4D7',icon:'🌐'},
+  {id:'social',   name:'Social Media',      color:'#A8A8AB',icon:'📱'},
+  {id:'content',  name:'Content Marketing', color:'#8E8E93',icon:'✍️'},
+  {id:'email',    name:'Email Marketing',   color:'#717174',icon:'📧'},
+  {id:'community',name:'Community',         color:'#F5F5F7',icon:'👥'},
+  {id:'pr',       name:'PR & Press',        color:'#D4D4D7',icon:'📰'},
+  {id:'ads',      name:'Paid Ads',          color:'#A8A8AB',icon:'💰'},
+  {id:'aso',      name:'App Store (ASO)',   color:'#8E8E93',icon:'📲'},
+  {id:'launch',   name:'Launch Campaign',   color:'#083584',icon:'🚀'},
+];
+
+const MILESTONES=[
+  {day:7,  label:'Ideation Complete — App Concept, Wireframes & Architecture Defined', icon:'💡'},
+  {day:14, label:'Monorepo + Auth Gate + Vercel Preview Deploy',                       icon:'🏗️'},
+  {day:21, label:'Auth Complete — Sign Up → Onboard → Dashboard',                     icon:'🔐'},
+  {day:28, label:'Daily Log Schema + upsertDay Mutation Finalised',                   icon:'🗃️'},
+  {day:35, label:'Full Daily Log UI + Photo Upload Live',                             icon:'📸'},
+  {day:42, label:'Meals + Macro Tracking Live',                                       icon:'🥗'},
+  {day:49, label:'Workouts + Template Builder Complete',                              icon:'🏋️'},
+  {day:56, label:'100-Day Calendar + Program Editor Live',                            icon:'📅'},
+  {day:63, label:'Profile + TDEE + Goal-Driven Macros Done',                         icon:'🎯'},
+  {day:70, label:'Metrics Charts Live — All 5 Metrics Wired',                        icon:'📊'},
+  {day:77, label:'AI Coach Live — Tool Calls + Streaming',                           icon:'🤖'},
+  {day:84, label:'Share Cards — Canvas API, All Variants',                           icon:'🎴'},
+  {day:91, label:'Mobile App Syncing in Real Time',                                  icon:'📱'},
+  {day:98, label:'UX Polish + Stripe Paywall + Beta Soak Complete',                  icon:'🧪'},
+  {day:99, label:'🚀 PRODUCTION LAUNCH',                                             icon:'🚀'},
+];
+
+const STACK=[
+  ['Monorepo','Turborepo + pnpm workspaces'],
+  ['Web','Next.js 15 App Router + React 19'],
+  ['Styling','Tailwind v4 + CSS design tokens'],
+  ['Mobile','Expo SDK 54 + Expo Router'],
+  ['Backend','Convex (queries, mutations, actions)'],
+  ['Auth','Convex Auth (email/password + Google OAuth)'],
+  ['Storage','Convex file storage'],
+  ['AI','Claude claude-haiku-4-5 via Anthropic API'],
+  ['Types','packages/types — Zod + TypeScript'],
+  ['Deployment','Vercel (web) + Convex Cloud'],
+  ['Payments','Stripe (subscriptions + webhooks)'],
+  ['Monitoring','Sentry + PostHog'],
+];
+const MKT_CHANNELS=[
+  ['Website','Next.js landing page + blog (Vercel)'],
+  ['Email','Loops / Resend — drip campaigns'],
+  ['Instagram','Reels, stories, carousel posts'],
+  ['TikTok','Short-form demo + lifestyle content'],
+  ['X / Twitter','Dev log, launch threads'],
+  ['YouTube','Long-form tutorials + app walkthroughs'],
+  ['Discord','Early adopter community'],
+  ['PR','Fitness + tech media, Product Hunt'],
+  ['Paid Ads','Google UAC + Meta Ads (launch window)'],
+  ['ASO','App Store + Play Store optimization'],
+];
+
+const DAYS=[
+{day:1, phase:1, focus:"Problem & vision", tasks:["Define the core problem CENTUM solves","Draft the app's mission statement + north star metric","Identify 3–4 target user personas with pain points","Map the 'why now' — market timing + opportunity"], deliverable:"Problem / Solution brief doc", mktCat:'brand', mktFocus:'Brand Foundation', mktTasks:['Brainstorm brand name options (min 10 candidates)','Define brand mission statement and core values','Write brand positioning statement','Define brand voice and tone guidelines','Map target audience demographics and psychographics'], mktDeliverable:'Brand Mission + Positioning Doc'},
+{day:2, phase:1, focus:"Competitive analysis", tasks:["Audit 6 competitors: MyFitnessPal, Hevy, Strong, MacroFactor, Whoop, Lose It!","Document feature gaps + unmet user needs","Define CENTUM's core differentiation — 100-day structured challenge framing","Identify 3 wedge features to win early adopters"], deliverable:"Competitive landscape doc + differentiation matrix", mktCat:'brand', mktFocus:'Brand Naming', mktTasks:['Shortlist 3 brand name finalists','Check trademark availability (USPTO / EUIPO)','Check domain availability (.com, .io, .app)','Reserve all social media handles immediately (@centum across all platforms)','Purchase primary domain name'], mktDeliverable:'Domain + Social Handles Secured'},
+{day:3, phase:1, focus:"Feature scoping & MVP", tasks:["Brainstorm full feature list — unbounded, no filter","Apply MoSCoW prioritisation: Must / Should / Could / Won't","Define MVP feature set + explicit scope boundary","Estimate effort per MVP feature (S/M/L t-shirt sizing)"], deliverable:"MVP feature list + scope boundary doc", mktCat:'brand', mktFocus:'Logo Design Brief', mktTasks:['Write logo design brief (style, mood, constraints)','Brief 2–3 designers or open 99designs contest','Collect 10 logo concept references','Define icon / app icon requirements','Define logo usage contexts: app, web, print, dark/light'], mktDeliverable:'Logo Design Brief Submitted'},
+{day:4, phase:1, focus:"User flows & IA", tasks:["Map core user journeys: new user → first log → Day 7 check-in","Define app information architecture (tab structure + nav hierarchy)","Draft full screen inventory (all screens in MVP)","Identify edge cases: no data states, error states, permission flows"], deliverable:"User flow diagrams + full screen inventory", mktCat:'brand', mktFocus:'Visual Identity', mktTasks:['Review first logo concepts from designer','Shortlist 2 logo directions for feedback','Define primary color palette (3–5 colors)','Select brand typography: heading + body fonts','Create initial mood board for brand aesthetic'], mktDeliverable:'Color Palette + Typography Locked'},
+{day:5, phase:1, focus:"UX wireframes", tasks:["Wireframe key screens: Onboarding, Daily Log, 100-Day Calendar, Metrics, AI Coach","Define interaction patterns: swipe, drill-down, sheet vs page","Map component inventory from wireframes","Validate with a walk-through of the core user journey"], deliverable:"Lo-fi wireframe set — 8 key screens", mktCat:'brand', mktFocus:'Logo Refinement', mktTasks:['Logo revision round 1 — feedback to designer','Finalize primary logo mark + wordmark','Export logo in all formats (SVG, PNG, dark, light, icon)','Define spacing rules and minimum sizes','Test logo at app icon dimensions (1024×1024)'], mktDeliverable:'Logo Files (all formats)'},
+{day:6, phase:1, focus:"Design system & visual direction", tasks:["Define design tokens: color palette, type scale, spacing, radius","Define component patterns: cards, inputs, charts, badges","Create app icon concept + brand mark","Document design system in a single spec file"], deliverable:"Design system spec doc + app icon direction", mktCat:'brand', mktFocus:'Brand Style Guide', mktTasks:['Compile brand style guide v1 (Notion/Figma)','Document: logo rules, colors (hex/RGB/CMYK), fonts','Define iconography style (line, filled, outlined)','Define photography style (moody gym vs bright lifestyle)','Define illustration style if applicable'], mktDeliverable:'Brand Style Guide v1'},
+{day:7, phase:1, focus:"Architecture & repo init", tasks:["Confirm final tech stack: Turborepo + Convex + Next.js 15 + Expo SDK 54","Document architecture decisions (ADRs) — why each tech choice","Define high-level data model: entities, relationships, key queries","Initialise monorepo, push to GitHub, wire Vercel project"], deliverable:"Milestone: Ideation Complete — Architecture Defined + Repo Live", mktCat:'web', mktFocus:'Website Planning', mktTasks:['Define website goals and conversion objectives','Map website sitemap: Home, Features, Pricing, Blog, About','Website stack: Next.js + Tailwind deployed on Vercel','Set up GitHub repo for marketing site with Vercel integration','Define CTA hierarchy: primary = download, secondary = waitlist'], mktDeliverable:'Website Sitemap + Tech Decision (Vercel)'},
+{day:8, phase:2, focus:"Monorepo scaffold", tasks:["Init Turborepo + pnpm workspaces","Create apps/web, apps/mobile, packages/*","Configure tsconfig paths + Biome"], deliverable:"Clean monorepo builds with no errors", mktCat:'web', mktFocus:'Website Wireframes', mktTasks:['Wireframe homepage (hero, features, social proof, CTA)','Wireframe features page','Wireframe pricing page (freemium model)','Wireframe blog listing + article pages','Wireframe "Coming Soon" pre-launch page'], mktDeliverable:'Website Wireframes (all pages)'},
+{day:9, phase:2, focus:"Convex setup", tasks:["Install Convex in apps/web","Run npx convex dev","Wire CONVEX_URL to .env.local"], deliverable:"Convex dashboard accessible, dev server live", mktCat:'web', mktFocus:'Website Design Mockups', mktTasks:['Design homepage hero section in Figma','Define above-the-fold messaging + headline copy','Design feature highlights section (3 core features)','Design social proof section (coming soon: placeholder)','Design footer with newsletter signup'], mktDeliverable:'Homepage Figma Mockup'},
+{day:10, phase:2, focus:"Next.js baseline", tasks:["Bootstrap Next.js 15 App Router","Install Tailwind v4 + CSS tokens","Set up root layout + fonts"], deliverable:"Vercel preview URL live", mktCat:'web', mktFocus:'Coming Soon Page Live', mktTasks:['Build and deploy coming soon landing page','Install email capture form (Loops/Mailchimp)','Integrate analytics (Plausible / GA4)','Set up Facebook Pixel + Google Tag Manager','Share coming soon page link on personal social'], mktDeliverable:'Coming Soon Page Live (MILESTONE)'},
+{day:11, phase:2, focus:"Convex schema draft", tasks:["Define users, profiles tables","Add by_clerk_id index","Run convex dev to validate"], deliverable:"Schema compiles clean", mktCat:'web', mktFocus:'Website Development', mktTasks:['Begin website development — homepage Hero','Wire email capture to Loops list','Set up Plausible analytics goals (signups, clicks)','Write homepage headline variants (A/B test later)','Test email capture form + welcome email'], mktDeliverable:'Homepage Dev Started'},
+{day:12, phase:2, focus:"Packages scaffold", tasks:["Create packages/types with Zod","Create packages/ui placeholder","Create packages/utils"], deliverable:"packages/* importable from apps/web", mktCat:'social', mktFocus:'Social Accounts Setup', mktTasks:['Create Instagram business account','Create TikTok creator account','Create X/Twitter account','Create YouTube channel','Create LinkedIn company page'], mktDeliverable:'All Social Accounts Created'},
+{day:13, phase:2, focus:"CI + env wiring", tasks:["GitHub Actions: lint + typecheck","Configure Vercel project + env vars","Add .env.example"], deliverable:"CI green on first push", mktCat:'social', mktFocus:'Social Profile Setup', mktTasks:['Write social bios for all platforms (consistent brand voice)','Upload profile photo + banner on all platforms','Pin brand story post template','Set up Linktree / bio link (link to coming soon page)','Follow 50 target fitness accounts/influencers per platform'], mktDeliverable:'All Social Profiles Optimized'},
+{day:14, phase:2, focus:"Auth gate placeholder", tasks:["Add /login route with placeholder UI","Protect /dashboard with middleware","Milestone: Monorepo + Vercel preview live"], deliverable:"Milestone: Monorepo + Auth Gate + Vercel Deploy", mktCat:'content', mktFocus:'Content Strategy', mktTasks:['Define content pillars (3–5 themes, e.g. workout tips, nutrition, motivation)','Build 90-day editorial calendar (2–3 posts/week per platform)','Define content formats per platform: Reels, carousels, static, stories','Write first 5 blog post topics with target keywords','Define YouTube video series concept'], mktDeliverable:'90-Day Editorial Calendar'},
+{day:15, phase:3, focus:"Convex Auth install", tasks:["Install convex-auth","Configure AuthProvider in layout","Add email/password provider"], deliverable:"Sign up + sign in working", mktCat:'web', mktFocus:'Landing Page Features Section', mktTasks:['Build website features page (workout tracking section)','Write feature copy: headline + 2 sentences per feature','Source or create feature mockup screenshots (design)','Add FAQ section to website','Set up chat widget (Crisp / Intercom) for early visitors'], mktDeliverable:'Features Page Live (MILESTONE: Landing Page Live)'},
+{day:16, phase:3, focus:"Google OAuth", tasks:["Add Google OAuth provider to Convex Auth","Test OAuth flow end-to-end","Handle account linking"], deliverable:"Google OAuth sign in live", mktCat:'social', mktFocus:'First Social Posts', mktTasks:['Post #1 Instagram/X: Brand intro "We are building something..."','Post TikTok teaser: founder face-to-camera "Day 1 of building CENTUM"','Set up social scheduling tool (Buffer / Later)','Schedule first week of content (3 posts)','Engage with 20 target fitness accounts (comments, follows)'], mktDeliverable:'First Social Posts Live'},
+{day:17, phase:3, focus:"Session + middleware", tasks:["Implement auth middleware for App Router","Redirect unauthenticated users","Add useCurrentUser hook"], deliverable:"Protected routes enforced", mktCat:'content', mktFocus:'Blog Setup', mktTasks:['Set up blog on website (Contentlayer / MDX or Sanity)','Write blog post #1: "Why We Built CENTUM — The Founding Story"','Optimize post for SEO (title, meta, headings, internal links)','Submit sitemap to Google Search Console','Set up Ahrefs / SEMrush for keyword tracking'], mktDeliverable:'Blog Live — Post #1 Published'},
+{day:18, phase:3, focus:"Onboarding flow", tasks:["Create /onboard multi-step form","Collect: name, goal, start date, photo","Write profiles upsert mutation"], deliverable:"Onboarding data saved to Convex", mktCat:'social', mktFocus:'Week 2 Social Content', mktTasks:['Post #2: Problem statement carousel "Most fitness apps suck because..."','Post TikTok: "The #1 mistake people make tracking workouts"','Engage with 30 target comments/posts','DM 5 micro-influencers (personalized cold outreach)','Track follower growth baseline'], mktDeliverable:'Week 2 Social Content Posted'},
+{day:19, phase:3, focus:"Profile schema", tasks:["Add profiles table: tdee, goal, macroTargets","Add by_user index","Seed test user"], deliverable:"Profile readable via useQuery", mktCat:'email', mktFocus:'Email Marketing Setup', mktTasks:['Set up Loops (or Resend) email platform','Import waitlist subscribers from landing page','Design email template with brand colors + fonts','Write Welcome Email #1: "Thanks for joining the waitlist!"','Set up 5-email onboarding drip sequence structure'], mktDeliverable:'Email Platform Live + Welcome Email Sent'},
+{day:20, phase:3, focus:"Auth UI polish", tasks:["Design login/signup screens","Add form validation + error states","Loading skeletons"], deliverable:"Auth UI matches design system", mktCat:'content', mktFocus:'SEO Content', mktTasks:['Write blog post #2: "The Science of Progressive Overload Explained"','Share post on social (Instagram carousel adapted from blog)','Research long-tail keywords: "best fitness tracking app 2025"','Write meta descriptions for all website pages','Set up Google Search Console + Bing Webmaster Tools'], mktDeliverable:'Blog Post #2 Published'},
+{day:21, phase:3, focus:"Dashboard skeleton", tasks:["Create /dashboard layout","Add nav sidebar/bottom bar","Milestone: Auth Complete"], deliverable:"Milestone: Sign Up → Onboard → Dashboard", mktCat:'web', mktFocus:'Website About Page', mktTasks:['Build About/Team page on website','Write team bios (founder story focus)','Add "Our Mission" section with brand values','Add company timeline graphic','Embed Twitter/X feed widget for social proof'], mktDeliverable:'About Page Live'},
+{day:22, phase:4, focus:"dailyLogs schema", tasks:["Define dailyLogs table","Fields: userId, date, photoUrl, weight, notes, mood","Add by_user_date index"], deliverable:"dailyLogs table in Convex schema", mktCat:'email', mktFocus:'Drip Email #2', mktTasks:['Write email #2: "Here is what CENTUM will do for you" (features preview)','Add GIF/screenshots to email (app UI preview)','A/B test subject lines on welcome email','Set up email click tracking','Review open rates from email #1 (target >40%)'], mktDeliverable:'Email #2 Sent — Features Preview'},
+{day:23, phase:4, focus:"upsertDay mutation", tasks:["Write upsertDay mutation","Upsert by userId + date","Return full day doc"], deliverable:"upsertDay callable from client", mktCat:'community', mktFocus:'Community Strategy', mktTasks:['Define community platform: Discord vs Slack vs Circle','Create Discord server with channels: #general, #progress, #nutrition, #feedback','Write community guidelines and code of conduct','Create welcome automation in Discord (MEE6/Carl-bot)','Soft-invite waitlist subscribers to Discord'], mktDeliverable:'Discord Community Server Live'},
+{day:24, phase:4, focus:"getDay query", tasks:["Write getDay query by userId + date","Write getDayRange for calendar view","Add optimistic update pattern"], deliverable:"getDay returns correct doc", mktCat:'social', mktFocus:'Week 3 Social Content', mktTasks:['Post #3: "Behind the scenes — building the workout tracker" (Reel)','TikTok: screen recording of app UI in progress (teaser)','Stories series: "Building in public Day X" cadence begins','Post X/Twitter: weekly dev log thread','Respond to every comment and DM personally'], mktDeliverable:'Week 3 Content Posted + Dev Log Thread'},
+{day:25, phase:4, focus:"Meals sub-schema", tasks:["Define meals[] nested or separate table","Fields: name, calories, protein, carbs, fat, time","Link to dailyLog by date"], deliverable:"Meals readable per day", mktCat:'pr', mktFocus:'Press Kit v1', mktTasks:['Create press kit v1 document','Include: logo files, brand colors, product description, screenshots','Write 3-sentence company boilerplate','Write founder bio (100 words)','Set up presskit.centum.app page or Notion public page'], mktDeliverable:'Press Kit v1 Live'},
+{day:26, phase:4, focus:"Workouts sub-schema", tasks:["Define workoutSets[] table","Fields: exercise, sets, reps, weight, duration","Link to dailyLog"], deliverable:"WorkoutSets table scaffolded", mktCat:'social', mktFocus:'Workout Feature Teaser', mktTasks:['Post: "We have 800+ exercises in our database 💪" graphic reveal','TikTok: exercise database scrolling demo','Blog post outline: "The 10 Best Exercises for Building Muscle"','Instagram story poll: "What do you track more — reps or time?"','Engage with fitness hashtag community (#FitnessMotivation, #GymLife)'], mktDeliverable:'Workout Feature Reveal Post'},
+{day:27, phase:4, focus:"Metrics sub-schema", tasks:["Define metrics table: weight, bodyFat, energy, sleep, mood","By user + date index","Write upsertMetric"], deliverable:"Metrics mutation working", mktCat:'content', mktFocus:'Blog Post #3', mktTasks:['Write blog post #3: "How to Build the Perfect Workout Routine"','Optimize for keyword: "workout routine builder app"','Create social graphic version of the article (carousel)','Submit post to fitness subreddits (r/fitness, r/weightroom)','Share on Discord community'], mktDeliverable:'Blog Post #3 Published'},
+{day:28, phase:4, focus:"Schema validation", tasks:["Run full convex dev validation","Check all indexes compile","Milestone: upsertDay finalised"], deliverable:"Milestone: Daily Log Schema Finalised", mktCat:'social', mktFocus:'Week 4 Social Content', mktTasks:['Post: "Create your own custom workout templates" feature spotlight','TikTok: side-by-side — pen + paper workout log vs CENTUM','Instagram Reel: 30-second workout tracker demo','Twitter/X: "What feature would make you switch fitness apps?" poll','Pin best performing tweet/post of the week'], mktDeliverable:'Workout Feature Spotlight Posts'},
+{day:29, phase:5, focus:"DayView page", tasks:["Create /log/[date] route","Fetch day data with useQuery(getDay)","Render day summary card"], deliverable:"DayView renders with real data", mktCat:'email', mktFocus:'Email #3', mktTasks:['Write email #3: "Your workout tracker is almost ready..." (sneak peek)','Include animated GIF of workout logging UI','Add CTA: "Invite a friend to the waitlist"','Set up referral tracking (ReferralHero or Viral Loops)','Review email #2 click-through rates'], mktDeliverable:'Email #3 Sent + Referral Program Live'},
+{day:30, phase:5, focus:"Photo upload", tasks:["Integrate Convex file storage","Add photo capture/upload to DayView","Store photoUrl in dailyLog"], deliverable:"Photo uploads to Convex storage", mktCat:'web', mktFocus:'Beta Waitlist Page', mktTasks:['Design and build beta waitlist landing page','Add social proof counter: "X people waiting for access"','Add referral mechanic: refer 3 friends → jump the queue','Integrate with email platform for auto-confirmation','Share beta waitlist link across all social channels'], mktDeliverable:'Beta Waitlist Page Live (MILESTONE)'},
+{day:31, phase:5, focus:"Weight + mood inputs", tasks:["Add weight input with unit toggle (kg/lb)","Add mood selector (1-5 emoji scale)","Auto-save on blur via upsertDay"], deliverable:"Weight + mood save to Convex", mktCat:'social', mktFocus:'Week 5 Content', mktTasks:['Post: "The workout timer that actually works" screen recording','TikTok: rest timer feature demo (satisfying UX)','Instagram story: "Rate your workout" poll (feature preview)','Post motivational quote graphic (high-engagement filler)','Community Discord: weekly workout challenge post'], mktDeliverable:'Week 5 Social Content'},
+{day:32, phase:5, focus:"Notes field", tasks:["Add freetext notes textarea","Debounced auto-save","Character count"], deliverable:"Notes persist across page reload", mktCat:'content', mktFocus:'YouTube Planning', mktTasks:['Outline YouTube channel strategy (educational + product demos)','Script YouTube video #1: "How to Track Your Workouts Properly"','Set up YouTube channel art with brand assets','Write YouTube channel description (SEO optimized)','Research top fitness YouTube channels for collaboration opportunities'], mktDeliverable:'YouTube Channel Ready'},
+{day:33, phase:5, focus:"Day summary stats", tasks:["Compute calories in/out for the day","Show macro breakdown rings","Workout summary badge"], deliverable:"Day stats compute correctly", mktCat:'social', mktFocus:'Week 5 Engagement', mktTasks:['Reply to every comment across all platforms (engagement hour)','DM follow-up to 10 influencers from initial outreach','Post: "See your previous performance while logging — no more guessing"','Twitter thread: "7 things I wish my fitness app did"','Instagram story Q&A: "What do you want to track in CENTUM?"'], mktDeliverable:'Engagement Sprint + Influencer Follow-Ups'},
+{day:34, phase:5, focus:"Date navigation", tasks:["Previous/Next day arrows","Jump-to-date picker","Disable future dates"], deliverable:"Date nav works across month boundaries", mktCat:'content', mktFocus:'Blog Post #4', mktTasks:['Write blog post #4: "Rest Intervals: The Missing Variable in Your Training"','Repurpose as TikTok (talking head + text overlay)','Create Pinterest infographic version','Submit to Medium Fitness publication','Cross-post to LinkedIn with professional angle'], mktDeliverable:'Blog Post #4 + Cross-Platform Distribution'},
+{day:35, phase:5, focus:"DayView polish", tasks:["Skeleton loading states","Empty state illustrations","Milestone: Full Daily Log UI"], deliverable:"Milestone: Full Daily Log UI + Photo Upload Live", mktCat:'email', mktFocus:'Email #4', mktTasks:['Write email #4: "You will love this — workout summary feature"','Include mockup image of post-workout summary screen','Add social share buttons in email','Segment list: engaged (opened >2 emails) vs cold (opened 0)','Send re-engagement email to cold segment separately'], mktDeliverable:'Email #4 Sent — Workout Summary Feature'},
+{day:36, phase:6, focus:"Add meal flow", tasks:["Create AddMeal sheet/modal","Fields: name, calories, protein, carbs, fat","Submit calls addMeal mutation"], deliverable:"Meals appear in day list instantly", mktCat:'social', mktFocus:'Week 6 Content', mktTasks:['Post: "Your entire workout history, beautifully organized" carousel','TikTok: calendar heatmap view demo','Instagram Reel: 60-second "Day in the life logging workouts with CENTUM"','Weekly dev update thread on X/Twitter','Discord: share app progress update with community (screenshots)'], mktDeliverable:'Week 6 Social Content'},
+{day:37, phase:6, focus:"Meal list UI", tasks:["Render meals grouped by time (breakfast/lunch/dinner/snack)","Swipe-to-delete on mobile","Edit meal inline"], deliverable:"Meals CRUD works end-to-end", mktCat:'community', mktFocus:'Discord Growth', mktTasks:['Run Discord community challenge: "Log 3 workouts this week = early access"','Create #progress-photos channel in Discord','Host first Discord voice session: founder Q&A','Invite 50 new waitlist subscribers to Discord','Set up Discord welcome flow with role assignment'], mktDeliverable:'Discord Community Activation Event'},
+{day:38, phase:6, focus:"Food search", tasks:["Integrate Open Food Facts API or manual entry","Search by name, return nutrition","Map result to AddMeal form"], deliverable:"Food search returns results", mktCat:'content', mktFocus:'Blog Post #5', mktTasks:['Write blog post #5: "The Best Free Workout Plans for Every Goal"','Embed email capture at bottom of post (gated PDF version)','Repurpose into 5-part Twitter/X thread','Post "workout plan" infographic to Pinterest','Submit to AllTop fitness category'], mktDeliverable:'Blog Post #5 Published (Lead Magnet)'},
+{day:39, phase:6, focus:"Macro summary bar", tasks:["Protein / Carbs / Fat progress bars","Target vs actual per macro","Color-coded over/under"], deliverable:"Macro bars update live with each meal", mktCat:'social', mktFocus:'Week 7 Content', mktTasks:['Post: "10 pre-built workout programs — pick your goal" feature reveal','TikTok: PPL vs 5x5 comparison (education + product tie-in)','Instagram story countdown: "X days until beta access"','Partner outreach email to 5 fitness YouTubers (collaboration ask)','Reddit r/fitness: "What features should a workout tracking app have?"'], mktDeliverable:'Programs Feature Reveal + Reddit Engagement'},
+{day:40, phase:6, focus:"Calorie budget", tasks:["Compute TDEE - workout calories + meals","Show net calories remaining","Warning state when over budget"], deliverable:"Net calorie budget correct", mktCat:'community', mktFocus:'Influencer Outreach Round 1', mktTasks:['Send personalized DMs to first 25 micro-influencers (5K–50K followers)','Offer: early access + revenue share / free premium tier','Track responses in outreach CRM (Notion spreadsheet)','Research fitness influencer rates for sponsored posts','Create influencer media kit (one-pager PDF)'], mktDeliverable:'25 Influencer Outreach DMs Sent (MILESTONE)'},
+{day:41, phase:6, focus:"Quick-add recents", tasks:["Store last 10 meals per user","Surface in quick-add list","One-tap re-add"], deliverable:"Recent meals accessible", mktCat:'email', mktFocus:'Email #5', mktTasks:['Write email #5: "Track your body, not just your lifts" (measurements feature)','Include before/after transformation concept graphic','Add "Share with a friend" CTA','Review list growth — target 500 subscribers by Day 45','Segment: gym-goers vs home workout users'], mktDeliverable:'Email #5 Sent — Body Tracking Feature'},
+{day:42, phase:6, focus:"Meals polish", tasks:["Error states + validation","Loading skeletons","Milestone: Meals + Macro Tracking Live"], deliverable:"Milestone: Meals + Macro Tracking Live", mktCat:'content', mktFocus:'Blog Post #6', mktTasks:['Write blog post #6: "How to Measure Strength Gains (Beyond the Scale)"','Create data visualization graphic (1RM progress chart example)','Pitch guest post to Barbend.com or T-Nation','Record 60-second YouTube Short: "How to track your 1RM progress"','Share progress chart mockup on social — "track gains over time"'], mktDeliverable:'Blog Post #6 + YouTube Short'},
+{day:43, phase:7, focus:"Exercise library", tasks:["Define exercises table: name, category, muscleGroup","Seed 50+ exercises","searchExercises query"], deliverable:"Exercise search returns results", mktCat:'social', mktFocus:'Week 8 Content', mktTasks:['Post: "Progress photos — private, secure, side-by-side comparison" reveal','TikTok: "Your transformation, tracked" emotional concept video','Repost user-shared progress transformations (ask permission)','Instagram story: "Do you take progress photos?" poll','Build social proof with before/after template graphic'], mktDeliverable:'Progress Photos Feature Reveal'},
+{day:44, phase:7, focus:"Log workout flow", tasks:["AddWorkout sheet: pick exercises","Add sets/reps/weight per exercise","Submit calls logWorkout mutation"], deliverable:"Workout logged to Convex", mktCat:'community', mktFocus:'Community Challenge', mktTasks:['Discord challenge: "30-Day Consistency Challenge — log every workout"','Create challenge leaderboard (Google Sheet shared in Discord)','Post challenge to Twitter/X and Instagram stories','Email challenge invite to waitlist ("Join us + get early access")','Reward top 3 challengers with beta access promise'], mktDeliverable:'30-Day Community Challenge Live'},
+{day:45, phase:7, focus:"Workout list UI", tasks:["Render workouts on DayView","Expandable set rows","Delete workout"], deliverable:"Workouts display and delete correctly", mktCat:'social', mktFocus:'Workout MVP Announcement', mktTasks:['Post: "Workout tracker is DONE. Here is everything it can do" mega-thread','TikTok: full feature walkthrough demo (60 seconds)','Email blast: "The workout tracker is complete — nutrition coming next"','Update website features page with finalized workout screenshots','Discord: celebrate milestone with community (post screenshots)'], mktDeliverable:'Workout MVP Announcement (all channels)'},
+{day:46, phase:7, focus:"Template builder", tasks:["Create WorkoutTemplate schema","UI to build named template from exercises","Save + load template to AddWorkout form"], deliverable:"Templates save and load correctly", mktCat:'social', mktFocus:'Nutrition Feature Teaser', mktTasks:['Post: "Nutrition tracking is coming to CENTUM 🥗" announcement','TikTok: "Why calorie counting apps fail you" education video','Instagram carousel: "The truth about macros — protein, carbs, fats explained"','X/Twitter: "What is your biggest frustration with nutrition tracking?" thread','Discord: open #nutrition channel for discussion'], mktDeliverable:'Nutrition Feature Announcement'},
+{day:47, phase:7, focus:"Volume tracking", tasks:["Compute total volume per workout","Weekly volume per muscle group","Sparkline for progressive overload"], deliverable:"Volume metrics compute correctly", mktCat:'content', mktFocus:'Blog Post #7', mktTasks:['Write blog post #7: "Macro Tracking for Beginners: The Complete Guide"','Target keyword: "how to track macros for beginners"','Create downloadable macro calculation worksheet (gated lead magnet)','Repurpose into 10-slide Instagram carousel','Pitch to Healthline / Verywell Fit for guest feature'], mktDeliverable:'Blog Post #7 + Macro Worksheet Lead Magnet'},
+{day:48, phase:7, focus:"Rest timer", tasks:["Countdown timer component","Vibrate on completion (mobile)","Persist across tab switches"], deliverable:"Rest timer works on mobile", mktCat:'social', mktFocus:'Barcode Scanner Demo', mktTasks:['TikTok: barcode scanner demo — scan snack, instant macros (viral format)','Instagram Reel: "Log your entire day of eating in 2 minutes" challenge','Post on r/nutrition and r/MacroFit communities','Story: "Could you log everything you eat for 7 days?" challenge','Collect UGC: invite community to share their daily macro logs'], mktDeliverable:'Barcode Scanner Demo Content'},
+{day:49, phase:7, focus:"Workouts polish", tasks:["Superset support","Notes per set","Milestone: Workouts + Template Builder"], deliverable:"Milestone: Workouts + Template Builder Complete", mktCat:'email', mktFocus:'Email #6', mktTasks:['Write email #6: "Know your numbers — TDEE and macro calculator inside"','Add interactive TDEE calculator link (website tool)','Build TDEE calculator as free web tool on website (SEO magnet)','A/B test email subject: "Your calorie goal" vs "Calculate your TDEE"','Review list growth — target 1,000 subscribers by Day 60'], mktDeliverable:'Email #6 + TDEE Calculator Tool Live'},
+{day:50, phase:8, focus:"programs schema", tasks:["Define programs table: name, durationDays, phases[]","Define programDays: dayNumber, workoutTemplateId, focus","Add by_user index"], deliverable:"Programs schema in Convex", mktCat:'community', mktFocus:'Discord Milestone', mktTasks:['Discord: celebrate 100-member milestone event','Host: "Nutrition Q&A with the founders" voice session','Launch: "Macro Accountability" Discord channel + partner system','Email invite to full waitlist: "Join our Discord community"','Post community milestone on social (screenshot of server)'], mktDeliverable:'Discord Community — 100 Members (MILESTONE)'},
+{day:51, phase:8, focus:"Program editor", tasks:["Create /program/[id]/edit route","Drag-drop day assignment","Assign workout templates to days"], deliverable:"Program editor saves to Convex", mktCat:'social', mktFocus:'Week 11 Content', mktTasks:['Post: "Search 500,000+ foods in seconds" UI demo','TikTok: "I tracked everything I ate for 7 days — here\'s what happened"','Instagram story: "Which meal do you track least?" (breakfast/dinner/snacks)','Content series launch: "Macro Monday" weekly nutrition tip','Discord: weekly "Log Your Lunch" accountability post'], mktDeliverable:'Macro Monday Series Launch'},
+{day:52, phase:8, focus:"Activate program", tasks:["activateProgram mutation","Maps program days → calendar dates from startDate","Stores assignments in programAssignments table"], deliverable:"Activating program fills calendar", mktCat:'content', mktFocus:'Blog Post #8', mktTasks:['Write blog post #8: "The Best High-Protein Foods to Hit Your Macros"','Create printable "high-protein food swaps" checklist (lead magnet)','Repurpose as Pinterest pin + infographic','Submit to Stronger by Science newsletter for cross-promotion','YouTube Short: "5 high-protein snacks under 200 calories"'], mktDeliverable:'Blog Post #8 + Protein Checklist'},
+{day:53, phase:8, focus:"Calendar grid view", tasks:["Create /calendar route","100-day grid (10x10)","Color-code: completed / scheduled / rest / missed"], deliverable:"Calendar renders 100 days", mktCat:'social', mktFocus:'Influencer Follow-Up Round 2', mktTasks:['Follow up with all 25 influencers from Day 40 outreach','Expand to 25 new influencers (batch 2) — nutrition/diet focus','Offer beta access + affiliate commission (20%) at launch','Track: responses, interested, not interested in outreach CRM','Post influencer collab teaser if any confirmed'], mktDeliverable:'50 Total Influencers Outreached'},
+{day:54, phase:8, focus:"Day detail from cal", tasks:["Click calendar day → DayView","Breadcrumb back to calendar","Highlight today"], deliverable:"Calendar → DayView navigation works", mktCat:'web', mktFocus:'Website Blog Page', mktTasks:['Launch official blog on website (publish all posts)','Add blog to main navigation','Implement internal linking strategy between posts','Add email subscribe widget in blog sidebar','Submit all blog posts to Google Search Console'], mktDeliverable:'Blog Section Live on Website'},
+{day:55, phase:8, focus:"Program progress bar", tasks:["Days completed / days remaining","Phase breakdown bar","% complete badge"], deliverable:"Progress bar correct on day 55", mktCat:'pr', mktFocus:'Media Outreach List', mktTasks:['Build media list: 50 fitness + tech journalists (email addresses)','Segment by: fitness apps, health tech, nutrition, wellness lifestyle','Research each journalist\'s recent articles (personalize pitches)','Write pitch email template v1','Identify 5 target publications: TechCrunch, Healthline, Wirecutter, etc.'], mktDeliverable:'Press Contact List (50 journalists)'},
+{day:56, phase:8, focus:"Calendar polish", tasks:["Month labels on grid","Missed-day warning banner","Milestone: Calendar + Program Live"], deliverable:"Milestone: 100-Day Calendar + Program Editor Live", mktCat:'email', mktFocus:'Email #7', mktTasks:['Write email #7: "Are you consistent? Track your nutrition streak"','Add streak concept visual to email','Include CTA to share streak on social','Survey: "What is your biggest nutrition challenge?" (6 options)','Use survey results for content calendar and product prioritization'], mktDeliverable:'Email #7 Sent + Subscriber Survey'},
+{day:57, phase:9, focus:"Profile page", tasks:["Create /profile route","Display: name, avatar, start date, program name","Edit basic info inline"], deliverable:"Profile page renders user data", mktCat:'social', mktFocus:'Hydration Feature Reveal', mktTasks:['Post: "Hydration tracking — because most people are chronically dehydrated" feature reveal','TikTok: "I drank my daily water goal for 30 days" concept video','Instagram story: "How much water do you drink daily?" slider poll','X/Twitter: "Hot take: water tracking is underrated" engagement post','Blog outline: "How Much Water Should You Actually Drink?"'], mktDeliverable:'Hydration Feature Social Reveal'},
+{day:58, phase:9, focus:"Body stats", tasks:["Height, current weight, goal weight inputs","Unit preferences (kg/lb, cm/ft)","Persist to profiles table"], deliverable:"Body stats save correctly", mktCat:'content', mktFocus:'Blog Post #9', mktTasks:['Write blog post #9: "IIFYM (If It Fits Your Macros) — Complete Guide"','Include meal plan examples with macro breakdowns','Create companion recipe card template','Cross-post to Reddit r/IIFYM, r/MacroFit communities','Record YouTube video: "What I Eat in a Day on CENTUM"'], mktDeliverable:'Blog Post #9 Published + YouTube Video'},
+{day:59, phase:9, focus:"TDEE calculator", tasks:["Mifflin-St Jeor BMR formula","Activity multiplier selector","Display TDEE in kcal"], deliverable:"TDEE calculates correctly for test user", mktCat:'social', mktFocus:'AI Feature Buzz', mktTasks:['Post: "We added AI meal suggestions to CENTUM — here\'s how it works" reveal','TikTok: AI suggesting meals in real-time demo (high viral potential)','Press teaser: send AI feature exclusive to 2 journalists','Discord: live demo of AI feature in voice channel','Twitter/X thread: "Why we built AI into nutrition tracking"'], mktDeliverable:'AI Feature Reveal + Press Teaser'},
+{day:60, phase:9, focus:"Goal selection", tasks:["Goal enum: cut / maintain / bulk","Calorie adjustment: -500 / 0 / +300 from TDEE","Derive macro split from goal"], deliverable:"Goal drives calorie target", mktCat:'email', mktFocus:'1K Email Milestone', mktTasks:['Email milestone celebration: "1,000 people waiting for CENTUM 🎉"','Send exclusive "founding member" offer to list (e.g., 50% off lifetime)','Post milestone on social: screenshot of subscriber count','Press update: send list growth milestone to journalists as social proof','Announce: nutrition feature complete, launch prep begins'], mktDeliverable:'1,000 Email Subscribers (MILESTONE)'},
+{day:61, phase:9, focus:"Macro targets", tasks:["Protein: 2.2g/kg bodyweight","Fill remaining with carbs/fat based on goal","Display targets on dashboard"], deliverable:"Macro targets auto-compute from profile", mktCat:'social', mktFocus:'Launch Countdown Begins', mktTasks:['Announce launch countdown: "40 days to launch 🚀"','TikTok: "In 40 days, CENTUM goes live — here\'s what we built" recap','Instagram story countdown sticker pinned','Post goal-setting feature teaser','Discord: launch countdown announcement + excitement post'], mktDeliverable:'Launch Countdown Begins (40 Days Out)'},
+{day:62, phase:9, focus:"Target vs actual chart", tasks:["Weekly avg macros vs targets bar chart","Recharts or Canvas","Percentage adherence label"], deliverable:"Macro adherence chart renders", mktCat:'content', mktFocus:'Blog Post #10', mktTasks:['Write blog post #10: "Goal Setting for Fitness: The SMART Method That Actually Works"','Target keyword: "fitness goal setting app"','Create goal-setting worksheet PDF (email opt-in)','Promote worksheet across social + Discord','Record YouTube video: "How to set fitness goals you will actually achieve"'], mktDeliverable:'Blog Post #10 + Goal Worksheet Lead Magnet'},
+{day:63, phase:9, focus:"Profile polish", tasks:["Avatar upload via Convex storage","Danger zone: reset program","Milestone: Profile + TDEE + Macros Done"], deliverable:"Milestone: Profile + TDEE + Goal-Driven Macros Done", mktCat:'email', mktFocus:'Email #8', mktTasks:['Write email #8: "Your personal fitness dashboard is ready" preview','Show dashboard screenshot mockup in email','Add "Invite a friend — both get early access" CTA','Track referral signups from email (#8 most important referral driver)','Segment analysis: who are the most engaged subscribers?'], mktDeliverable:'Email #8 Sent — Dashboard Preview'},
+{day:64, phase:10, focus:"Metrics data model", tasks:["Confirm metrics table: weight, bodyFat, energy, sleep, mood","upsertMetric + getMetricHistory queries","Seed test data for 60 days"], deliverable:"Metric history query returns array", mktCat:'social', mktFocus:'Dashboard Reveal', mktTasks:['Post: "Your personal fitness command center" dashboard reveal','TikTok: dashboard animated walkthrough','Instagram carousel: "Everything you need to see on one screen"','Add dashboard screenshot to website homepage','X/Twitter: "Product update — here\'s the CENTUM home dashboard"'], mktDeliverable:'Dashboard Feature Reveal'},
+{day:65, phase:10, focus:"Weight chart", tasks:["Line chart: weight over 100 days","Trend line (7-day moving avg)","Goal weight reference line"], deliverable:"Weight chart renders with trend", mktCat:'pr', mktFocus:'Journalist Outreach Round 1', mktTasks:['Send personalized pitches to 10 journalists on press list','Pitch angle: "AI-powered fitness tracker launches in 35 days"','Include press kit, app screenshots, founder headshot','Set up embargo: coverage drops on launch day','Follow up on AI feature exclusive sent Day 59'], mktDeliverable:'10 Press Pitches Sent'},
+{day:66, phase:10, focus:"Body fat chart", tasks:["Line chart: body fat %","Same chart component, different dataset","Estimated lean mass secondary line"], deliverable:"Body fat chart renders", mktCat:'social', mktFocus:'TikTok Series', mktTasks:['TikTok Day 1/5: "Day in the life using CENTUM — morning workout log"','Film raw, authentic content (no heavy editing)','Caption: "Would you use this to track your fitness?"','Post at peak time (6PM–8PM local)','Monitor comments for product insight and engagement'], mktDeliverable:'TikTok "Day in the Life" Series Begins'},
+{day:67, phase:10, focus:"Energy & sleep charts", tasks:["Energy level (1-5) bar chart","Sleep hours area chart","Side-by-side or tabbed"], deliverable:"Energy + sleep charts render", mktCat:'social', mktFocus:'TikTok Series Day 2', mktTasks:['TikTok Day 2/5: "What I ate tracking macros with CENTUM" food log','Show barcode scanner + meal logging in real use','Cross-post to Instagram Reels','Add closed captions (accessibility + discoverability)','Stitch/duet reply to top fitness creators'], mktDeliverable:'TikTok Series Day 2'},
+{day:68, phase:10, focus:"Mood chart", tasks:["Mood score (1-5) over time","Overlay with workout days","Correlation annotation"], deliverable:"Mood chart renders with workout overlay", mktCat:'social', mktFocus:'TikTok Series Day 3', mktTasks:['TikTok Day 3/5: "My 30-day streak — how CENTUM keeps me consistent" streaks demo','Post streak feature screenshot to Instagram','Discord: "Share your current streak" community post','X/Twitter: "Streaks in fitness apps — are they motivating or anxiety-inducing?" debate post','Collect community answers for future streak feature improvements'], mktDeliverable:'TikTok Series Day 3 + Streaks Reveal'},
+{day:69, phase:10, focus:"Metrics dashboard", tasks:["Combine all 5 charts on /metrics","Date range picker (7d / 30d / all)","Export as PNG"], deliverable:"Metrics dashboard loads < 1s", mktCat:'social', mktFocus:'TikTok Series Day 4', mktTasks:['TikTok Day 4/5: "I just hit a new PR — here\'s how CENTUM tracked it" achievements demo','Post achievement badge designs on Instagram (graphic reveal)','Discord: "Design a badge" community contest','Email teaser: achievements coming to CENTUM','Add achievements to website features page'], mktDeliverable:'TikTok Series Day 4 + Achievements Reveal'},
+{day:70, phase:10, focus:"Charts polish", tasks:["Responsive chart sizing","Touch tooltips on mobile","Milestone: All 5 Metrics Wired"], deliverable:"Milestone: Metrics Charts Live — All 5 Metrics Wired", mktCat:'social', mktFocus:'Feature Complete Announcement', mktTasks:['TikTok Day 5/5: "CENTUM is FEATURE COMPLETE — 30 days to launch" recap','Mega post: full feature overview thread on X/Twitter','Instagram carousel: "Everything CENTUM can do" feature gallery','Email blast: "We are feature complete — here\'s what you get on launch day"','Discord: feature complete celebration + early access raffle'], mktDeliverable:'Feature Complete Announcement (All Channels) (MILESTONE)'},
+{day:71, phase:11, focus:"Claude integration", tasks:["Install @anthropic-ai/sdk","Create Convex action: runAICoach","Wire ANTHROPIC_API_KEY env var"], deliverable:"runAICoach action callable", mktCat:'pr', mktFocus:'Press Release Draft', mktTasks:['Write press release v1: "CENTUM Launches AI-Powered Fitness Tracker"','Include: product description, key features, founder quote, launch date','Review embargo list — who is holding coverage for launch?','Brief key journalists on exclusive preview offer','Draft FAQ document for press (10 anticipated questions)'], mktDeliverable:'Press Release v1 Draft'},
+{day:72, phase:11, focus:"Context builder", tasks:["Gather last 7 days data: meals, workouts, metrics, mood","Format as structured prompt context","Token budget check"], deliverable:"Context serialises under 4k tokens", mktCat:'social', mktFocus:'Social Features Reveal', mktTasks:['Post: "CENTUM gets social — see what your friends are lifting" reveal','TikTok: friend leaderboard first look','Instagram story: "Would you compete with friends on a leaderboard?" poll','X/Twitter: "Social fitness apps — motivating or cringe?" debate post','Build hype for social layer with community'], mktDeliverable:'Social Features Teaser Campaign'},
+{day:73, phase:11, focus:"Tool definitions", tasks:["Define tools: adjustMacros, suggestWorkout, logNote","Implement tool handlers in Convex action","Return structured tool results"], deliverable:"Tool calls round-trip correctly", mktCat:'social', mktFocus:'Sharing Feature Demo', mktTasks:['TikTok: "Share your workout as a card — works like a screenshot but better"','Design shareable workout card templates (branded, minimal, bold options)','Post sample workout cards on Instagram (viral graphic potential)','X/Twitter: sharing concept + open link preview demo','Discord: "Design a workout card theme" community vote'], mktDeliverable:'Workout Card Sharing Demo + Design Vote'},
+{day:74, phase:11, focus:"Streaming response", tasks:["Stream Claude response via Vercel AI SDK","Display streaming text in coach chat UI","Show tool call badges inline"], deliverable:"Streaming renders progressively", mktCat:'ads', mktFocus:'Paid Ads Setup', mktTasks:['Set up Google UAC (Universal App Campaign) account','Set up Meta Ads Manager account + pixel verified','Define target audiences: fitness apps, gym-goers, 18-35 age','Design 5 ad creative variants (static + video)','Set launch budget: $500 first 2 weeks (test)'], mktDeliverable:'Ad Accounts Setup + Creatives Designed'},
+{day:75, phase:11, focus:"Coach chat UI", tasks:["Create /coach route","Chat bubble layout","Input with send button + Enter key"], deliverable:"Chat UI works end-to-end", mktCat:'pr', mktFocus:'Media Outreach Round 2', mktTasks:['Send pitches to next 20 journalists on list','Pitch angle: "CENTUM adds social layer — compete with friends on fitness"','Include video demo link (Loom walkthrough)','Follow up on all Day 65 pitches (no response = follow up)','Secure 2+ confirmed coverage pieces before launch'], mktDeliverable:'20 Additional Press Pitches Sent'},
+{day:76, phase:11, focus:"Coach memory", tasks:["Store conversation turns in coachMessages table","Load last 10 turns as history","Clear history button"], deliverable:"Coach remembers context across sessions", mktCat:'social', mktFocus:'21-Day Countdown', mktTasks:['Announce: "21 days to launch" countdown campaign begins','Daily countdown stories on Instagram (21 → 0)','TikTok: "21 days to launch — here\'s what we built" recap video','Email: "21 days left — here is your early access link" (founding members)','Discord: pin launch date + create #launch-countdown channel'], mktDeliverable:'21-Day Countdown Campaign Live'},
+{day:77, phase:11, focus:"AI Coach polish", tasks:["Rate limit: 5 messages/day free tier","Typing indicator","Milestone: AI Coach Live"], deliverable:"Milestone: AI Coach Live — Tool Calls + Streaming", mktCat:'community', mktFocus:'Beta Tester Recruitment', mktTasks:['Open beta applications: Google Form + Discord announcement','Select 50 beta testers from waitlist (engaged community members)','Send TestFlight (iOS) and APK (Android) invites to beta group','Create private #beta-feedback channel in Discord','Set up bug report template for beta testers'], mktDeliverable:'50 Beta Testers Recruited'},
+{day:78, phase:12, focus:"Share card design", tasks:["Define 3 card variants: Day Summary, Workout, Progress Photo","Sketch tokens + card dimensions (1080x1080)","Get visual direction approved"], deliverable:"Card designs approved", mktCat:'social', mktFocus:'App Preview Video', mktTasks:['Script app preview video (30 seconds max, App Store format)','Film app preview video (screen record + voiceover)','Edit app preview video — punchy cuts, no fluff','Film second version for ads (landscape, YouTube pre-roll)','Post 15-second teaser of app preview on TikTok + Instagram'], mktDeliverable:'App Preview Video Filmed + Edited'},
+{day:79, phase:12, focus:"Canvas renderer", tasks:["Use html2canvas or Canvas API","Render DayView data onto card template","Export as PNG blob"], deliverable:"Canvas renders Day Summary card", mktCat:'email', mktFocus:'Email #9 — Launch Date', mktTasks:['Write email #9: "The launch date is confirmed — mark your calendar 📅"','Include countdown timer graphic in email (use Sendtric or litmus)','Add app store pre-registration links','Personalized subject by segment: "Gene, we launch in X days!"','Monitor email open rate — this should be highest open rate of campaign'], mktDeliverable:'Email #9 — Official Launch Date Announcement'},
+{day:80, phase:12, focus:"Workout card", tasks:["Render workout name, exercises, sets, volume","Brand overlay: logo + day number","Export PNG"], deliverable:"Workout card exports correctly", mktCat:'social', mktFocus:'Launch Date Public Announcement', mktTasks:['Post launch date announcement across ALL channels simultaneously','Instagram: launch date announcement graphic (polished, branded)','TikTok: founder face-to-camera launch date announcement','X/Twitter: pinned launch announcement tweet with countdown','Discord: @everyone launch date message + celebration emojis'], mktDeliverable:'Launch Date Publicly Announced (MILESTONE)'},
+{day:81, phase:12, focus:"Progress photo card", tasks:["Composite progress photo + stats overlay","Before/After split if day > 30","Export PNG"], deliverable:"Progress photo card renders", mktCat:'aso', mktFocus:'App Store Screenshots', mktTasks:['Design App Store screenshots (iOS — all required sizes)','Screenshot sequence: Dashboard, Workout, Nutrition, Leaderboard, Goals','Add text overlays to screenshots ("Track Every Rep", "Hit Your Macros")','Design App Store feature graphic for Play Store','Create App Store Preview video title cards'], mktDeliverable:'App Store Screenshots Designed'},
+{day:82, phase:12, focus:"Share flow", tasks:["Native share sheet on mobile (expo-sharing)","Copy to clipboard on web","Download PNG button"], deliverable:"Share flow works on iOS + web", mktCat:'aso', mktFocus:'App Store Copy', mktTasks:['Write App Store title (30 chars): "CENTUM: Workout + Nutrition Log"','Write App Store subtitle (30 chars): "Track Gains, Macros & Progress"','Write App Store description (4,000 chars) — keyword-optimized','Research top 100 App Store keywords (Sensor Tower / AppFollow)','Write promotional text (170 chars, can change without re-review)'], mktDeliverable:'App Store Listing Copy Written'},
+{day:83, phase:12, focus:"Card variants", tasks:["Day N of 100 badge variant","Weekly summary card (7-day collage)","Custom message overlay input"], deliverable:"All card variants render", mktCat:'aso', mktFocus:'Play Store Assets', mktTasks:['Design Play Store feature graphic (1024×500px)','Write Play Store full description (4,000 chars)','Write Play Store short description (80 chars)','Select app category: Health & Fitness','Define content rating: Everyone (complete IARC questionnaire)'], mktDeliverable:'Play Store Listing Assets Complete'},
+{day:84, phase:12, focus:"Share cards polish", tasks:["Loading state during render","Error fallback","Milestone: Share Cards — Canvas API"], deliverable:"Milestone: Share Cards — Canvas API, All Variants", mktCat:'ads', mktFocus:'Ad Creatives Final', mktTasks:['Finalize 5 Meta/Instagram ad creatives (A/B test variants)','Create Google UAC video assets (6s, 15s, 30s formats)','Write ad copy variants for each creative','Set up tracking: install conversion event in Google + Meta','Define KPIs: target CPI < $2.50, CTR > 2%'], mktDeliverable:'All Ad Creatives Final + Tracking Setup'},
+{day:85, phase:13, focus:"Expo baseline", tasks:["expo init in apps/mobile","Install Expo Router","Configure Convex client for React Native"], deliverable:"Expo app builds on simulator", mktCat:'pr', mktFocus:'Press Release Final', mktTasks:['Finalize press release v2 (incorporate any last feature updates)','Get founder review + legal review on press release','Distribute press release to embargo list','Prepare 3 exclusive angles for 3 different publications','Send app review links (TestFlight) to journalists who confirmed coverage'], mktDeliverable:'Press Release Finalized + Embargoed'},
+{day:86, phase:13, focus:"Auth in mobile", tasks:["Port Convex Auth to Expo","SecureStore token persistence","Test sign in on iOS simulator"], deliverable:"Auth works on mobile", mktCat:'aso', mktFocus:'ASO Keyword Optimization', mktTasks:['Final keyword research pass (Sensor Tower / AppFollow data)','Optimize all 100 keyword slots in App Store Connect','Localization plan: English (US), English (UK), English (AU) as v1','Plan localization roadmap for Spanish, German, Portuguese (v1.1)','Set up App Store review response templates'], mktDeliverable:'ASO Keyword Strategy Finalized'},
+{day:87, phase:13, focus:"Core screens", tasks:["Implement: Today, Log, Calendar, Metrics, Coach, Profile tabs","Use shared packages/types + packages/ui","Navigation stack"], deliverable:"All 6 tabs navigate correctly", mktCat:'community', mktFocus:'Beta Community Launch', mktTasks:['Open beta to 50 selected Discord community members','Send TestFlight + APK links to beta group','Pin feedback form in #beta-feedback channel','Beta tester weekly check-in call (30 min)','Post: "Beta testers are live — they are loving it 🔥" teaser (no screenshots)'], mktDeliverable:'Community Beta Live (50 Testers)'},
+{day:88, phase:13, focus:"Real-time sync", tasks:["useQuery reactivity across web + mobile","Open web + mobile simultaneously","Edit on web → update on mobile < 500ms"], deliverable:"Real-time sync verified", mktCat:'launch', mktFocus:'Launch Week Prep', mktTasks:['Create launch week content calendar (Day 89–100)','Pre-write all launch day social captions','Schedule email sequences for launch week (3 emails)','Brief influencers on launch day posting schedule','Prepare Product Hunt launch page and hunter outreach'], mktDeliverable:'Launch Week Content Calendar + All Assets Ready'},
+{day:89, phase:13, focus:"Camera integration", tasks:["expo-camera for progress photos","Permission flow","Upload to Convex storage from mobile"], deliverable:"Photo upload works on mobile", mktCat:'launch', mktFocus:'Product Hunt Preparation', mktTasks:['Create Product Hunt page: tagline, description, gallery, video','Line up 50 upvoters from Discord community for launch day','Brief community: "Vote for us on Product Hunt on Day 99!"','Reach out to Product Hunt newsletter for featuring consideration','DM 10 top Product Hunt hunters for support'], mktDeliverable:'Product Hunt Page Ready'},
+{day:90, phase:13, focus:"Push notifications", tasks:["expo-notifications setup","Notify: daily log reminder (8pm)","Workout rest timer completion"], deliverable:"Push notifications fire on device", mktCat:'launch', mktFocus:'Launch Email Sequence', mktTasks:['Write launch email sequence (3 emails over launch week)','Email A (D99): "We are LIVE — download CENTUM now"','Email B (D100+1): "Download tips + how to get the most from CENTUM"','Email C (D100+3): "Share CENTUM with a friend + get free premium"','Schedule all 3 emails in email platform'], mktDeliverable:'Launch Email Sequence Scheduled'},
+{day:91, phase:13, focus:"Mobile polish", tasks:["Safe area insets","Keyboard avoiding views","Milestone: Mobile App Syncing"], deliverable:"Milestone: Mobile App Syncing in Real Time", mktCat:'launch', mktFocus:'Influencer Briefing', mktTasks:['Final briefing call with all confirmed influencers','Provide: brand kit, talking points, caption templates, hashtags (#CENTUM)','Confirm posting schedule: launch day (Day 99) + Day 100','Review draft posts from influencers — approve or request edits','Set up affiliate tracking links for each influencer'], mktDeliverable:'All Influencers Briefed + Posts Approved'},
+{day:92, phase:14, focus:"Stripe + paywall", tasks:["Install stripe + @stripe/stripe-js","Create Stripe products: Free / Premium","Configure webhooks → Convex action","Wrap premium features in PremiumGate component"], deliverable:"Stripe paywall gate live in test mode", mktCat:'launch', mktFocus:'PR Distribution Prep', mktTasks:['Finalize PR Newswire / Business Wire distribution list','Set embargo lift time: launch day 6AM EST','Send journalist reminder: embargo lifts Day 99','Prepare founder availability for interview requests','Draft 3 quote variants for press (short, medium, detailed)'], mktDeliverable:'PR Distribution Ready (Embargo Set)'},
+{day:93, phase:14, focus:"Checkout + webhooks", tasks:["Build /upgrade route with plan comparison","Stripe Checkout session creation + redirect","Handle checkout.session.completed webhook","Upsert subscription + user.tier in Convex"], deliverable:"Checkout flow completes, user tier updates", mktCat:'launch', mktFocus:'Paid Ads Launch', mktTasks:['Activate Google UAC campaigns (start Day 93, budget $50/day pre-launch)','Activate Meta retargeting (website visitors + email list upload)','Set bid strategy: target CPI optimization','Monitor early ad performance — adjust creatives if CTR < 1%','Create custom audience: waitlist subscribers (upload CSV to Meta)'], mktDeliverable:'Paid Ad Campaigns Live (Pre-Launch)'},
+{day:94, phase:14, focus:"Animations + a11y", tasks:["Page transition animations + micro-interactions","Add aria labels to all interactive elements","Keyboard navigation audit","Color contrast check — pass axe scan"], deliverable:"Transitions smooth + axe scan passes", mktCat:'launch', mktFocus:'Social Pre-Scheduling', mktTasks:['Pre-schedule all Day 99 launch posts in Buffer/Later','Instagram: launch graphic + caption scheduled 9AM EST','TikTok: launch announcement video scheduled 9AM EST','X/Twitter: launch thread scheduled 9AM EST','YouTube: launch walkthrough video uploaded (premiere scheduled)'], mktDeliverable:'All Launch Day Posts Pre-Scheduled'},
+{day:95, phase:14, focus:"Beta invite flow", tasks:["Create beta invite codes table","/join?code=XYZ activation route","Email invite via Resend","In-app feedback widget (Sentry feedback)"], deliverable:"Beta invite codes activate accounts", mktCat:'launch', mktFocus:'Final Launch Countdown', mktTasks:['Post: "4 days to launch — are you on the waitlist?" story urgency push','Send SMS to waitlist if SMS platform set up (e.g. Postscript)','Discord: "4 days!" countdown post + pin store links','Email: "4 days! Here is exactly what to do on launch day"','All systems go — final marketing check: tracking, pixels, links'], mktDeliverable:'All Systems Go — 4 Days to Launch'},
+{day:96, phase:14, focus:"Bug bash", tasks:["Triage all Sentry issues from internal testing","Fix P0 crashes + P1 UI issues","Performance audit: Lighthouse > 90","Reduce bundle size"], deliverable:"Zero P0 crashes, Lighthouse > 90", mktCat:'launch', mktFocus:'Soft Launch Social', mktTasks:['Post: "Soft launch is live — early birds can download now" on X/Twitter','Email segmented notification to Discord members (first access)','Monitor every App Store / Play Store review — respond within 1 hour','Social listening: search "CENTUM" on all platforms for mentions','Screenshot first download and post on stories'], mktDeliverable:'Soft Launch Announced — Early Downloads Live'},
+{day:97, phase:14, focus:"Load test + integrity", tasks:["Simulate 100 concurrent users","Verify upsertDay idempotency","Cross-device sync edge cases","Fix any N+1 query patterns"], deliverable:"Load test passes at 100 concurrent users", mktCat:'launch', mktFocus:'Pre-Launch Hype', mktTasks:['Post countdown: "2 days" countdown graphic on all platforms','TikTok: "In 2 days CENTUM goes public — last chance to prepare" urgency video','Email: "Tomorrow is the day — set your download reminder"','DM reminder to all confirmed influencers: "Post goes live tomorrow"','Verify all links, tracking pixels, and attribution are working'], mktDeliverable:'Pre-Launch Hype Content + All Systems Verified'},
+{day:98, phase:14, focus:"Beta soak + sign-off", tasks:["24h soak with 20 beta users","Final bug triage","Regression test auth + log flows","Milestone: Beta Complete"], deliverable:"Milestone: UX Polish + Stripe + Beta Soak Complete", mktCat:'launch', mktFocus:'Launch Day Eve', mktTasks:['Schedule Product Hunt launch for midnight EST (Day 99)','Final influencer confirmation — everyone confirmed? Y/N','Upload launch day YouTube video (set to premiere at 10AM EST)','Founders post personal "day before launch" behind-the-scenes story','Set phone alarms — tomorrow is the day'], mktDeliverable:'Product Hunt Queued + Launch Day Ready'},
+{day:99, phase:15, focus:"Launch day", tasks:["Tag v1.0.0 release","Run convex deploy --prod","Merge to main → Vercel prod deploy","Announce on social + email list"], deliverable:"MILESTONE: PRODUCTION LAUNCH", mktCat:'launch', mktFocus:'LAUNCH DAY BLITZ', mktTasks:['6AM EST: Press release distributed via PR Newswire','9AM EST: All social posts go live simultaneously (pre-scheduled)','9AM EST: Launch email sent to full subscriber list','9AM EST: Influencer posts go live across all partnered accounts','Noon EST: Product Hunt page goes live — all hands on upvoting'], mktDeliverable:'🚀 PUBLIC LAUNCH — App Live + Full Marketing Blitz'},
+{day:100, phase:15, focus:"Post-launch", tasks:["Monitor Sentry for new errors","PostHog funnel: Sign Up → Log Day → Share","Reply to all launch-day feedback"], deliverable:"Day-1 metrics captured and reviewed", mktCat:'launch', mktFocus:'Post-Launch Marketing', mktTasks:['Post launch recap: "We launched CENTUM — here are the numbers 📊"','Email: "Thank you for downloading — here is how to get the most out of CENTUM"','Reply to every App Store/Play Store review personally','Compile press coverage round-up + share on social','Begin planning v1.1 feature content + launch campaign for next update'], mktDeliverable:'Launch Recap Published + V1.1 Content Plan Started'}
+];
+
+function getPhase(day){return PHASES.find(p=>day>=p.days[0]&&day<=p.days[1]);}
+function getMktCat(id){return MKT_CATS.find(c=>c.id===id);}
+
+// ── Thin-line SVG icon set — replaces emojis ──
+const ICONS={
+  '💡':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>',
+  '🏗️':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/></svg>',
+  '🔐':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  '🗃️':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/></svg>',
+  '📝':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18 2l4 4-10 10H8v-4z"/></svg>',
+  '🥗':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11a7 7 0 0 1 14 0M3 14h18l-2 4a3 3 0 0 1-3 2H8a3 3 0 0 1-3-2z"/></svg>',
+  '🏋️':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h2m16 0h2M5 8v8M19 8v8M9 6v12M15 6v12"/></svg>',
+  '📅':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  '🎯':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
+  '📊':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 16V9M12 16V5M17 16v-4"/></svg>',
+  '🤖':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="1"/><path d="M12 6V2M9 13h.01M15 13h.01M9 17h6"/></svg>',
+  '🎴':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="16" rx="1"/><path d="M7 2h14v14"/></svg>',
+  '📱':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+  '🧪':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v7L4 18a3 3 0 0 0 3 4h10a3 3 0 0 0 3-4l-6-9V2"/></svg>',
+  '🚀':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l3 3M16 8l-7 7-3 3-1-3-3-1 3-3 7-7 4-1z"/><circle cx="15" cy="9" r="1"/></svg>',
+  '🎨':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="7" cy="11" r="1" fill="currentColor"/><circle cx="11" cy="7" r="1" fill="currentColor"/><circle cx="16" cy="9" r="1" fill="currentColor"/><circle cx="17" cy="14" r="1" fill="currentColor"/></svg>',
+  '🌐':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+  '✍️':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16 4l4 4-12 12H4v-4z"/></svg>',
+  '📧':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>',
+  '👥':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 20a5 5 0 0 1 7 0"/></svg>',
+  '📰':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h6M7 12h10M7 16h10"/></svg>',
+  '💰':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/></svg>',
+  '📲':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2M9 7l3-3 3 3M12 4v8"/></svg>',
+  '📸':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="1"/><path d="M9 6V4h6v2"/><circle cx="12" cy="13" r="4"/></svg>',
+  '🏁':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3M5 4l14 4-14 4"/></svg>',
+};
+function iconHtml(key,size){
+  size=size||16;
+  const svg=ICONS[key];
+  if(!svg)return '';
+  return svg.replace('<svg ',`<svg style="width:${size}px;height:${size}px;display:inline-block;vertical-align:middle;flex-shrink:0" `);
+}
+
+function getStartDate(){
+  const inp=document.getElementById('prog-start-date');
+  if(!inp||!inp.value)return null;
+  return new Date(inp.value+'T00:00:00');
+}
+function dateForDay(n){
+  const start=getStartDate();
+  if(!start)return '';
+  const d=new Date(start);
+  d.setDate(d.getDate()+(n-1));
+  return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}).toUpperCase();
+}
+function barText(color){
+  const light=['#F9F9F9','#f9f9f9','#A7A7A7','#a7a7a7'];
+  return light.includes(color)?'#000000':'#F9F9F9';
+}
+
+// ── Task completion state (synced to Convex, real-time) ───────────
+const done=new Set();
+let convexReady=false;
+function tkey(type,day,idx){return type+':'+day+':'+idx;}
+function isDone(k){return done.has(k);}
+
+// Subscribe to Convex ticks query — auto-refresh on any change
+function initConvexSync(){
+  const c=window.__convex;
+  if(!c){setTimeout(initConvexSync,50);return;}
+  c.onUpdate("ticks:list",{},(keys)=>{
+    done.clear();
+    keys.forEach(k=>done.add(k));
+    convexReady=true;
+    // re-render everything that shows ticks
+    document.querySelectorAll('[data-tkey]').forEach(el=>{
+      el.classList.toggle('done',done.has(el.dataset.tkey));
+    });
+    renderProgress();
+    renderCal();
+    // refresh tables (counters per row)
+    if(typeof filterTasks==='function')filterTasks();
+    if(typeof filterMkt==='function')filterMkt();
+    // refresh flyout day counter if open
+    if(selDay){const d=selDay;selDay=null;selectDay(d);}
+  });
+}
+initConvexSync();
+
+async function toggleTask(key){
+  // Optimistic local update
+  const next=!done.has(key);
+  if(next)done.add(key);else done.delete(key);
+  document.querySelectorAll('[data-tkey="'+key+'"]').forEach(el=>{
+    el.classList.toggle('done',next);
+  });
+  renderProgress();
+  // Push to Convex (subscription will reconcile)
+  try{
+    await window.__convex.mutation("ticks:set",{key,done:next});
+  }catch(e){
+    // rollback on failure
+    if(next)done.delete(key);else done.add(key);
+    document.querySelectorAll('[data-tkey="'+key+'"]').forEach(el=>{
+      el.classList.toggle('done',!next);
+    });
+    renderProgress();
+    console.error('Tick sync failed',e);
+  }
+}
+function dayDoneCount(d){
+  let dev=0,mkt=0;
+  d.tasks.forEach((_,i)=>{if(done.has(tkey('dev',d.day,i)))dev++;});
+  d.mktTasks.forEach((_,i)=>{if(done.has(tkey('mkt',d.day,i)))mkt++;});
+  return {dev,mkt,devTotal:d.tasks.length,mktTotal:d.mktTasks.length};
+}
+function dayFullyDone(d){
+  const c=dayDoneCount(d);
+  return c.dev===c.devTotal && c.mkt===c.mktTotal;
+}
+async function resetProgress(){
+  if(!confirm('Clear all ticked tasks across all devices? This cannot be undone.'))return;
+  try{
+    await window.__convex.mutation("ticks:reset",{});
+  }catch(e){console.error('Reset failed',e);alert('Reset failed — check console.');}
+}
+window.toggleTask=toggleTask;
+window.resetProgress=resetProgress;
+
+function switchTab(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  const names=['overview','gantt','calendar','tasks','marketing','social','files'];
+  document.querySelectorAll('.tab')[names.indexOf(name)]?.classList.add('active');
+  if(typeof updateFloatingScroll==='function')updateFloatingScroll();
+  if(typeof updateTabIndicator==='function')updateTabIndicator();
+}
+
+function updateTabIndicator(){
+  const indicator=document.getElementById('tab-indicator');
+  if(!indicator)return;
+  const active=document.querySelector('.tab.active');
+  if(!active){indicator.classList.remove('ready');return;}
+  const inset=14;
+  indicator.style.left=(active.offsetLeft+inset)+'px';
+  indicator.style.width=Math.max(0,active.offsetWidth-(inset*2))+'px';
+  indicator.classList.add('ready');
+}
+
+// ── Floating sticky horizontal scrollbar ──
+let floatingActiveWrap=null;
+let floatingSyncing=false;
+
+function getActiveTableWrap(){
+  const activePanel=document.querySelector('.panel.active');
+  if(!activePanel)return null;
+  return activePanel.querySelector('.tl-wrap');
+}
+
+function updateFloatingScroll(){
+  const float=document.getElementById('floating-hscroll');
+  const inner=document.getElementById('floating-hscroll-inner');
+  if(!float||!inner)return;
+  const wrap=getActiveTableWrap();
+  if(!wrap){
+    float.classList.remove('visible');
+    floatingActiveWrap=null;
+    return;
+  }
+  const table=wrap.querySelector('.tl-table');
+  if(!table){
+    float.classList.remove('visible');
+    floatingActiveWrap=null;
+    return;
+  }
+  const hasOverflow=table.scrollWidth>wrap.clientWidth+1;
+  if(!hasOverflow){
+    float.classList.remove('visible');
+    return;
+  }
+  inner.style.width=table.scrollWidth+'px';
+  float.classList.add('visible');
+  if(floatingActiveWrap!==wrap){
+    floatingActiveWrap=wrap;
+    float.scrollLeft=wrap.scrollLeft;
+  }
+}
+
+function setupFloatingScroll(){
+  const float=document.getElementById('floating-hscroll');
+  if(!float)return;
+  // Bidirectional sync — floating bar drives the wrap
+  float.addEventListener('scroll',()=>{
+    if(floatingSyncing||!floatingActiveWrap)return;
+    floatingSyncing=true;
+    floatingActiveWrap.scrollLeft=float.scrollLeft;
+    floatingSyncing=false;
+  });
+  // Wrap drives the floating bar
+  document.querySelectorAll('.tl-wrap').forEach(wrap=>{
+    wrap.addEventListener('scroll',()=>{
+      if(floatingSyncing||wrap!==floatingActiveWrap)return;
+      floatingSyncing=true;
+      float.scrollLeft=wrap.scrollLeft;
+      floatingSyncing=false;
+    });
+  });
+  window.addEventListener('resize',updateFloatingScroll);
+  setInterval(updateFloatingScroll,800);
+  setTimeout(updateFloatingScroll,200);
+}
+
+function buildLegends(){
+  ['ov','gantt','cal'].forEach(id=>{
+    const el=document.getElementById('legend-'+id);
+    if(!el)return;
+    const stripIcons=(id==='gantt');
+    PHASES.forEach(p=>{
+      const d=document.createElement('div');
+      d.className='legend-item';
+      d.innerHTML=`<span class="legend-dot" style="background:${p.color}"></span>${stripIcons?'':'<span style="display:inline-flex;align-items:center;margin-right:5px">'+iconHtml(p.icon,11)+'</span>'}${p.short} D${p.days[0]}–${p.days[1]}`;
+      el.appendChild(d);
+    });
+    const mkt=document.createElement('div');
+    mkt.className='legend-item';
+    mkt.innerHTML=`<span class="legend-dot" style="background:var(--color-signal-blue)"></span>Marketing — D1 to D100`;
+    el.appendChild(mkt);
+  });
+}
+
+function buildOverview(){
+  const grid=document.getElementById('ov-grid');
+  PHASES.forEach(p=>{
+    const pDays=p.days[1]-p.days[0]+1;
+    const pTasks=DAYS.filter(d=>d.phase===p.id).reduce((a,d)=>a+d.tasks.length,0);
+    const pMkt=DAYS.filter(d=>d.phase===p.id).reduce((a,d)=>a+d.mktTasks.length,0);
+    const c=document.createElement('div');c.className='ov-card';
+    c.innerHTML=`<div class="ov-card-head"><div class="ov-card-icon">${iconHtml(p.icon,16)}</div><div class="ov-card-title-wrap"><div class="ov-card-title">${p.name}</div><div class="ov-card-meta">D${p.days[0]}–${p.days[1]} · ${pDays}d</div></div></div><div class="ov-card-bar"><div class="ov-card-fill" style="width:${(pDays/100)*100}%"></div></div><div class="ov-card-bottom"><div class="ov-card-num">${pTasks+pMkt}</div><div class="ov-card-detail">${pTasks} Dev / ${pMkt} Mkt</div></div>`;
+    grid.appendChild(c);
+  });
+
+  const sl=document.getElementById('stack-list');
+  STACK.forEach(([k,v])=>{
+    const d=document.createElement('div');
+    d.className='info-row';
+    d.innerHTML=`<span class="info-row-key">${k}</span><span class="info-row-val">${v}</span>`;
+    sl.appendChild(d);
+  });
+
+  const mc=document.getElementById('mkt-channels');
+  MKT_CHANNELS.forEach(([k,v])=>{
+    const d=document.createElement('div');
+    d.className='info-row';
+    d.innerHTML=`<span class="info-row-key">${k}</span><span class="info-row-val">${v}</span>`;
+    mc.appendChild(d);
+  });
+
+  const ml=document.getElementById('milestones-list');
+  MILESTONES.forEach(m=>{
+    const ph=getPhase(m.day);
+    const el=document.createElement('div');
+    el.className='info-row';
+    el.style.gap='12px';
+    el.innerHTML=`<div style="width:36px;height:36px;background:var(--glass-2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.85;color:var(--color-light-gray)">${iconHtml(m.icon,18)}</div><div style="flex:1;font-family:var(--font);font-size:13px;color:var(--text);font-weight:300;letter-spacing:-0.005em">${m.label}</div><div style="font-family:var(--font);font-size:18px;font-weight:300;color:var(--accent);letter-spacing:-0.02em;font-variant-numeric:tabular-nums;flex-shrink:0">${m.day}</div>`;
+    ml.appendChild(el);
+  });
+
+  const total=DAYS.reduce((a,d)=>a+d.tasks.length,0);
+  const totalMkt=DAYS.reduce((a,d)=>a+d.mktTasks.length,0);
+  document.getElementById('stt').textContent=total;
+  document.getElementById('stm').textContent=totalMkt;
+}
+
+function buildProgress(){
+  const inp=document.getElementById('prog-start-date');
+  const todayStr=new Date().toISOString().slice(0,10);
+  inp.value=todayStr;
+  inp.addEventListener('change',renderProgress);
+
+  const strip=document.getElementById('prog-strip');
+  PHASES.forEach(p=>{
+    const width=((p.days[1]-p.days[0]+1)/100*100).toFixed(2);
+    const seg=document.createElement('div');
+    seg.className='prog-strip-seg';
+    seg.style.cssText=`width:${width}%;background:${p.bg};border-right:1px solid rgba(0,0,0,0.4);`;
+    seg.title=`${p.name} (D${p.days[0]}–${p.days[1]})`;
+    const lbl=document.createElement('span');
+    lbl.className='prog-strip-seg-label';
+    lbl.style.color=p.color==='#F9F9F9'||p.color==='#A7A7A7'?'#000000':p.color;
+    lbl.textContent=p.short;
+    seg.appendChild(lbl);
+    strip.appendChild(seg);
+  });
+
+  renderProgress();
+}
+
+function renderProgress(){
+  const inp=document.getElementById('prog-start-date');
+  if(!inp.value)return;
+
+  const start=new Date(inp.value+'T00:00:00');
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const diffDays=Math.floor((today-start)/86400000)+1;
+  const currentDay=Math.max(1,Math.min(100,diffDays));
+  currentDayGlobal=diffDays;
+  const pct=currentDay/100;
+
+  const CIRC=2*Math.PI*90;
+  const fill=document.getElementById('prog-ring-fill');
+  fill.setAttribute('stroke-dasharray',CIRC.toFixed(3));
+  fill.setAttribute('stroke-dashoffset',(CIRC*(1-pct)).toFixed(3));
+  document.getElementById('prog-day-num').textContent=currentDay;
+  document.getElementById('prog-pct').textContent=Math.round(pct*100)+'%';
+
+  const needlePct=((currentDay-0.5)/100*100).toFixed(2);
+  document.getElementById('prog-needle').style.left=needlePct+'%';
+  const fillEl=document.getElementById('prog-strip-fill');
+  if(fillEl)fillEl.style.width=Math.max(0,Math.min(100,(currentDay/100)*100)).toFixed(2)+'%';
+
+  const ph=getPhase(currentDay);
+  if(ph){
+    const phDay=currentDay-ph.days[0]+1;
+    const phLen=ph.days[1]-ph.days[0]+1;
+    const phPct=Math.round((phDay/phLen)*100);
+    const nameEl=document.getElementById('prog-current-name-big');
+    const descEl=document.getElementById('prog-current-desc');
+    const progEl=document.getElementById('prog-current-progress');
+    const fillEl2=document.getElementById('prog-current-bar-fill');
+    if(nameEl)nameEl.textContent=ph.name;
+    if(descEl)descEl.textContent=ph.desc||'';
+    if(progEl)progEl.textContent=`Day ${phDay} of ${phLen} · ${phPct}% through phase`;
+    if(fillEl2)fillEl2.style.width=phPct+'%';
+  }
+
+  const daysLeft=Math.max(0,100-currentDay);
+  let devTasksDone=0,mktTasksDone=0;
+  DAYS.forEach(d=>{
+    d.tasks.forEach((_,i)=>{if(done.has(tkey('dev',d.day,i)))devTasksDone++;});
+    d.mktTasks.forEach((_,i)=>{if(done.has(tkey('mkt',d.day,i)))mktTasksDone++;});
+  });
+  const totalDev=DAYS.reduce((a,d)=>a+d.tasks.length,0);
+  const totalMkt=DAYS.reduce((a,d)=>a+d.mktTasks.length,0);
+
+  document.getElementById('pstat-elapsed').textContent=currentDay;
+  document.getElementById('pstat-remaining').textContent=daysLeft;
+  document.getElementById('pstat-tasks').textContent=devTasksDone+' / '+totalDev;
+  document.getElementById('pstat-mkt').textContent=mktTasksDone+' / '+totalMkt;
+
+  // Overall project completion (all ticked tasks vs all tasks)
+  const totalAll=totalDev+totalMkt;
+  const doneAll=devTasksDone+mktTasksDone;
+  const overallPct=totalAll>0?(doneAll/totalAll)*100:0;
+  const oPctEl=document.getElementById('prog-overall-pct');
+  const oFillEl=document.getElementById('prog-overall-bar-fill');
+  const oDetailEl=document.getElementById('prog-overall-detail');
+  if(oPctEl)oPctEl.textContent=Math.round(overallPct)+'%';
+  if(oFillEl)oFillEl.style.width=overallPct.toFixed(2)+'%';
+  if(oDetailEl)oDetailEl.textContent=doneAll+' / '+totalAll+' tasks complete';
+
+  const nextMs=MILESTONES.find(m=>m.day>=currentDay);
+  if(nextMs){
+    document.getElementById('pnext-text').innerHTML='<span style="display:inline-flex;align-items:center;margin-right:8px;color:var(--color-signal-blue);vertical-align:middle">'+iconHtml(nextMs.icon,14)+'</span>'+nextMs.label;
+    const daysToMs=nextMs.day-currentDay;
+    document.getElementById('pnext-day').textContent=
+      daysToMs===0?'TODAY — Milestone Day!':
+      daysToMs===1?'Tomorrow (Day '+nextMs.day+')':
+      'Day '+nextMs.day+' · '+daysToMs+' days away';
+  } else {
+    document.getElementById('pnext-text').innerHTML='<span style="display:inline-flex;align-items:center;margin-right:8px;color:var(--color-signal-blue);vertical-align:middle">'+iconHtml('🏁',14)+'</span>All milestones complete';
+    document.getElementById('pnext-day').textContent='';
+  }
+  if(typeof renderCal==='function')renderCal();
+  if(typeof renderGanttTicks==='function')renderGanttTicks();
+  if(typeof renderGanttBarFills==='function')renderGanttBarFills();
+}
+
+function buildGantt(){
+  const wrap=document.getElementById('gantt-wrap');
+
+  const hdr=document.createElement('div');
+  hdr.className='gantt-header';
+  hdr.innerHTML=`<div class="gantt-label-col">PHASE / TRACK</div><div class="gantt-days-header" id="gdh"></div>`;
+  wrap.appendChild(hdr);
+
+  const mRow=document.createElement('div');
+  mRow.className='gantt-milestone-row';
+  mRow.innerHTML=`<div class="gantt-label-col" style="font-size:9px">MILESTONES</div><div class="gantt-milestone-track" id="gmt"></div>`;
+  wrap.appendChild(mRow);
+
+  const mktHeader=document.createElement('div');
+  mktHeader.className='gantt-section';
+  mktHeader.innerHTML=`<div class="gantt-section-title">MARKETING</div><div class="gantt-section-meta">10 Tracks · D1–D100</div>`;
+  wrap.appendChild(mktHeader);
+
+  const mktSubs=[
+    {name:'Brand Identity',  icon:'🎨', start:1,  end:10,  color:'#F5F5F7'},
+    {name:'Website',         icon:'🌐', start:7,  end:100, color:'#D4D4D7'},
+    {name:'Social Media',    icon:'📱', start:12, end:100, color:'#A8A8AB'},
+    {name:'Content + Blog',  icon:'✍️', start:17, end:100, color:'#8E8E93'},
+    {name:'Email Marketing', icon:'📧', start:19, end:100, color:'#717174'},
+    {name:'Community',       icon:'👥', start:23, end:100, color:'#F5F5F7'},
+    {name:'PR + Press',      icon:'📰', start:55, end:100, color:'#D4D4D7'},
+    {name:'Paid Ads',        icon:'💰', start:74, end:100, color:'#A8A8AB'},
+    {name:'ASO',             icon:'📲', start:81, end:99,  color:'#8E8E93'},
+    {name:'Launch Campaign', icon:'🚀', start:88, end:100, color:'#083584'},
+  ];
+
+  mktSubs.forEach(t=>{
+    const left=((t.start-1)/100*100).toFixed(2);
+    const width=((t.end-t.start+1)/100*100).toFixed(2);
+    const isAccent=t.color==='#083584';
+    const row=document.createElement('div');
+    row.className='gantt-row';
+    row.style.cssText='min-height:42px;background:rgba(21,81,188,0.025);';
+    row.innerHTML=`
+      <div class="gantt-label" style="padding-left:28px;border-right:1px solid var(--color-dark-gray);background:rgba(21,81,188,0.05)">
+        <div class="gantt-label-name" style="font-size:11px">${t.name}</div>
+        <div class="gantt-label-days">D${t.start}–D${t.end}</div>
+      </div>
+      <div class="gantt-track">
+        <div class="gantt-bar${isAccent?' accent':''}" data-start="${t.start}" data-end="${t.end}" style="left:${left}%;width:${width}%">
+          <div class="gantt-bar-fill"></div>
+          <span class="gantt-bar-label">${t.name}</span>
+        </div>
+      </div>`;
+    wrap.appendChild(row);
+  });
+
+  const devHeader=document.createElement('div');
+  devHeader.className='gantt-section';
+  devHeader.innerHTML=`<div class="gantt-section-title">DEVELOPMENT</div><div class="gantt-section-meta">15 Phases · D1–D100</div>`;
+  wrap.appendChild(devHeader);
+
+  PHASES.forEach(p=>{
+    const row=document.createElement('div');row.className='gantt-row';
+    const left=((p.days[0]-1)/100*100).toFixed(1);
+    const width=((p.days[1]-p.days[0]+1)/100*100).toFixed(1);
+    const isLaunch=p.id===15;
+    row.innerHTML=`<div class="gantt-label"><div class="gantt-label-name">${p.name}</div><div class="gantt-label-days">D${p.days[0]}–${p.days[1]}</div></div><div class="gantt-track"><div class="gantt-bar${isLaunch?' accent':''}" data-start="${p.days[0]}" data-end="${p.days[1]}" style="left:${left}%;width:${width}%"><div class="gantt-bar-fill"></div><span class="gantt-bar-label">${p.name}</span></div></div>`;
+    wrap.appendChild(row);
+  });
+
+  setTimeout(()=>{
+    renderGanttTicks();
+    const gmt=document.getElementById('gmt');
+    if(gmt){
+      gmt.innerHTML='';
+      MILESTONES.forEach(m=>{
+        const l=((m.day-1)/99*100);
+        const mk=document.createElement('div');
+        mk.style.cssText=`position:absolute;left:${l}%;top:50%;transform:translate(-50%,-50%);text-align:center;`;
+        mk.innerHTML=`<div style="width:8px;height:8px;background:var(--accent);border-radius:999px;margin:0 auto;box-shadow:0 0 8px var(--accent-glow)"></div>`;
+        gmt.appendChild(mk);
+      });
+    }
+  },50);
+}
+
+function renderGanttTicks(){
+  const gdh=document.getElementById('gdh');
+  if(!gdh)return;
+  gdh.innerHTML='';
+  [1,10,20,30,40,50,60,70,80,90,100].forEach(d=>{
+    const t=document.createElement('span');t.className='gantt-day-tick';
+    t.style.left=((d-1)/99*100)+'%';
+    const dateStr=dateForDay(d);
+    t.innerHTML=`<div class="gantt-day-tick-num">D${d}</div>${dateStr?`<div class="gantt-day-tick-date">${dateStr}</div>`:''}`;
+    gdh.appendChild(t);
+  });
+}
+
+function renderGanttBarFills(){
+  const day=currentDayGlobal;
+  document.querySelectorAll('.gantt-bar[data-start]').forEach(bar=>{
+    const start=parseInt(bar.dataset.start);
+    const end=parseInt(bar.dataset.end);
+    const fill=bar.querySelector('.gantt-bar-fill');
+    if(!fill||isNaN(start)||isNaN(end))return;
+    let pct=0;
+    if(day>=end+1) pct=100;
+    else if(day>=start) pct=((day-start+1)/(end-start+1))*100;
+    fill.style.width=pct.toFixed(2)+'%';
+    bar.classList.toggle('complete',pct>=100);
+  });
+}
+
+let selDay=null,calFilter='',calViewMode='both',currentDayGlobal=0;
+
+function calMode(mode,btn){
+  calViewMode=mode;
+  document.querySelectorAll('.cal-toggle-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCal();
+}
+
+function buildCalendar(){
+  renderCal();
+}
+
+function renderCal(){
+  const grid=document.getElementById('cal-grid');grid.innerHTML='';
+  const q=calFilter.toLowerCase();
+  DAYS.forEach(d=>{
+    const ph=getPhase(d.day);
+    const mc=getMktCat(d.mktCat);
+    const matchesDev=!q||(d.focus+d.tasks.join(' ')+d.deliverable).toLowerCase().includes(q);
+    const matchesMkt=!q||(d.mktFocus+d.mktTasks.join(' ')+d.mktDeliverable).toLowerCase().includes(q);
+    const matches=(calViewMode==='dev'&&matchesDev)||(calViewMode==='mkt'&&matchesMkt)||(calViewMode==='both'&&(matchesDev||matchesMkt));
+    const isMilestone=MILESTONES.some(m=>m.day===d.day);
+    const cell=document.createElement('div');
+    const isToday=currentDayGlobal===d.day;
+    const isPast=currentDayGlobal>d.day;
+    cell.className='cal-day'+(selDay===d.day?' selected':'')+(isToday?' today':'')+(isPast?' past':'');
+    cell.style.background=matches?ph.bg:'rgba(255,255,255,0.03)';
+    cell.style.borderColor=matches?ph.color+'44':'var(--dark-gray)';
+    cell.style.opacity=matches?'1':'0.25';
+    cell.onclick=()=>selectDay(d.day);
+    const c=dayDoneCount(d);
+    const fullyDone=c.dev===c.devTotal&&c.mkt===c.mktTotal;
+    const partlyDone=!fullyDone&&(c.dev>0||c.mkt>0);
+    const dStr=dateForDay(d.day);
+    let inner=`${isMilestone?'<div class="cal-day-milestone"></div>':''}<div class="cal-day-num" style="color:${matches?'var(--text)':'var(--text-4)'}">${d.day}</div>${dStr?`<div class="cal-day-date">${dStr}</div>`:''}`;
+    if(calViewMode!=='mkt') inner+=`<div class="cal-day-label" style="color:${matches?'var(--text-3)':'var(--text-4)'}">${d.focus}</div>`;
+    if(calViewMode!=='dev') inner+=`<div class="cal-day-mkt" style="color:${matches?'var(--text-4)':'var(--text-4)'}">${d.mktFocus}</div>`;
+    if(fullyDone) inner+=`<div class="cal-day-done-ring" title="Day complete"></div>`;
+    else if(partlyDone) inner+=`<div class="cal-day-done-ring" style="background:transparent;border:1.5px solid var(--orange);width:6px;height:6px" title="${c.dev+c.mkt}/${c.devTotal+c.mktTotal} tasks"></div>`;
+    cell.innerHTML=inner;
+    grid.appendChild(cell);
+  });
+}
+
+function filterCal(){calFilter=document.getElementById('cal-search').value;renderCal();}
+
+function selectDay(dayNum){
+  selDay=selDay===dayNum?null:dayNum;
+  renderCal();
+  const flyout=document.getElementById('flyout');
+  if(!selDay){flyout.classList.remove('open');return;}
+  const d=DAYS.find(x=>x.day===dayNum);
+  const ph=getPhase(dayNum);
+  const mc=getMktCat(d.mktCat);
+  const mil=MILESTONES.find(m=>m.day===dayNum);
+  flyout.classList.add('open');
+  flyout.innerHTML=`
+    <div class="flyout-header">
+      <div class="flyout-badge">${dayNum}</div>
+      <div>
+        <div style="font-family:var(--font);font-size:22px;font-weight:300;letter-spacing:-0.025em;line-height:1.15;color:var(--text)">${d.focus}</div>
+        <div style="font-family:var(--font);font-size:12px;font-weight:300;color:var(--text-3);margin-top:4px;letter-spacing:-0.005em"><span style="opacity:.7;display:inline-flex;align-items:center;margin-right:6px">${iconHtml(ph.icon,14)}</span>${ph.name}</div>
+        <div style="font-family:var(--font);font-size:11px;color:var(--text-3);margin-top:6px;letter-spacing:0.04em;text-transform:uppercase;font-weight:300">Day ${dayNum} of 100${mil?` · Milestone — ${mil.label}`:''}</div>
+      </div>
+    </div>
+    <div class="flyout-cols">
+      <div>
+        <div class="flyout-col-title">Development <span style="float:right;color:var(--text-3);font-weight:300">${dayDoneCount(d).dev}/${d.tasks.length}</span></div>
+        <ul class="task-list">${d.tasks.map((t,i)=>{const k=tkey('dev',dayNum,i);return `<li class="task-item${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="task-check">✓</span><span class="task-text">${t}</span></li>`;}).join('')}</ul>
+        <div class="deliverable-bar"><span style="font-size:10px;font-weight:300;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:4px">Deliverable</span>${d.deliverable}</div>
+      </div>
+      <div>
+        <div class="flyout-col-title">Marketing <span style="float:right;color:var(--text-3);font-weight:300">${dayDoneCount(d).mkt}/${d.mktTasks.length}</span></div>
+        <ul class="task-list">${d.mktTasks.map((t,i)=>{const k=tkey('mkt',dayNum,i);return `<li class="task-item${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="task-check">✓</span><span class="task-text">${t}</span></li>`;}).join('')}</ul>
+        <div class="deliverable-bar"><span style="font-size:10px;font-weight:300;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:4px">Deliverable</span>${d.mktDeliverable}</div>
+      </div>
+    </div>`;
+}
+
+function buildTaskList(){
+  const pf=document.getElementById('tl-pf');
+  PHASES.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;pf.appendChild(o);});
+  filterTasks();
+}
+
+function filterTasks(){
+  const q=document.getElementById('tl-search').value.toLowerCase();
+  const pf=parseInt(document.getElementById('tl-pf').value)||0;
+  const filtered=DAYS.filter(d=>{
+    const mp=!pf||d.phase===pf;
+    const mq=!q||(d.focus+d.tasks.join(' ')+d.deliverable).toLowerCase().includes(q);
+    return mp&&mq;
+  });
+  document.getElementById('tl-count').textContent=filtered.length+' of 100 days';
+  const tbody=document.getElementById('tl-body');tbody.innerHTML='';
+  filtered.forEach(d=>{
+    const ph=getPhase(d.day);
+    const mil=MILESTONES.find(m=>m.day===d.day);
+    const tr=document.createElement('tr');
+    const tasksHtml=d.tasks.map((t,i)=>{const k=tkey('dev',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${t}</span></div>`;}).join('');
+    const c=dayDoneCount(d);
+    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.dev}/${c.devTotal}</span></div></td><td><span class="phase-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(ph.icon,12)}</span>${ph.short}</span></td><td style="font-weight:300;color:var(--text)">${d.focus}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--text-2);font-weight:300">${d.deliverable}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildMarketing(){
+  const oc=document.getElementById('mkt-overview-cards');
+  MKT_CATS.forEach(cat=>{
+    const catDays=DAYS.filter(d=>d.mktCat===cat.id);
+    const total=catDays.reduce((a,d)=>a+d.mktTasks.length,0);
+    const card=document.createElement('div');card.className='mkt-card';
+    card.innerHTML=`<div class="mkt-card-head"><div class="mkt-card-icon">${iconHtml(cat.icon,16)}</div><div style="min-width:0;flex:1"><div class="mkt-card-title">${cat.name}</div><div class="mkt-card-days">${catDays.length} days · ${total} tasks</div></div></div><div style="font-size:12px;color:var(--text-3);line-height:1.5;font-weight:300;letter-spacing:-0.005em">${catDays.slice(0,3).map(d=>`D${d.day} · ${d.mktFocus}`).join('<br>')}${catDays.length>3?`<br>+${catDays.length-3} more`:''}</div>`;
+    oc.appendChild(card);
+  });
+
+  const catSel=document.getElementById('mtl-cat');
+  MKT_CATS.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name;catSel.appendChild(o);});
+  filterMkt();
+}
+
+function filterMkt(){
+  const q=document.getElementById('mtl-search').value.toLowerCase();
+  const cat=document.getElementById('mtl-cat').value;
+  const filtered=DAYS.filter(d=>{
+    const mc=!cat||d.mktCat===cat;
+    const mq=!q||(d.mktFocus+d.mktTasks.join(' ')+d.mktDeliverable).toLowerCase().includes(q);
+    return mc&&mq;
+  });
+  document.getElementById('mtl-count').textContent=filtered.length+' of 100 days';
+  const tbody=document.getElementById('mtl-body');tbody.innerHTML='';
+  filtered.forEach(d=>{
+    const mc=getMktCat(d.mktCat);
+    const ph=getPhase(d.day);
+    const mil=MILESTONES.find(m=>m.day===d.day);
+    const tr=document.createElement('tr');
+    const tasksHtml=d.mktTasks.map((t,i)=>{const k=tkey('mkt',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${t}</span></div>`;}).join('');
+    const c=dayDoneCount(d);
+    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.mkt}/${c.mktTotal}</span></div></td><td><span class="mkt-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(mc.icon,12)}</span>${mc.name}</span></td><td style="font-weight:300;color:var(--text)">${d.mktFocus}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--accent);font-weight:300">${d.mktDeliverable}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── FILES TAB ────────────────────────────────────────────────────
+const FILE_CATS=[
+  ...PHASES.map(p=>({id:'phase:'+p.id,name:p.name,short:p.short,icon:p.icon,group:'Dev Phases',color:p.color,bg:p.bg})),
+  ...MKT_CATS.map(c=>({id:'mkt:'+c.id,name:c.name,short:c.name,icon:c.icon,group:'Marketing',color:c.color,bg:c.color+'22'})),
+];
+let allFiles=[];
+let activeFileCat=null;
+
+function buildFilesSidebar(){
+  const wrap=document.getElementById('files-cat-list');
+  wrap.innerHTML='';
+  ['Dev Phases','Marketing'].forEach(group=>{
+    const title=document.createElement('div');
+    title.className='files-cat-section-title';
+    title.textContent=group;
+    wrap.appendChild(title);
+    FILE_CATS.filter(c=>c.group===group).forEach(c=>{
+      const count=allFiles.filter(f=>f.category===c.id).length;
+      const item=document.createElement('div');
+      item.className='files-cat-item'+(activeFileCat===c.id?' active':'');
+      item.dataset.catId=c.id;
+      item.onclick=()=>selectFileCat(c.id);
+      item.innerHTML=`<div class="files-cat-icon">${iconHtml(c.icon,14)}</div><div class="files-cat-name">${c.short}</div><div class="files-cat-count">${count}</div>`;
+      wrap.appendChild(item);
+    });
+  });
+}
+
+function selectFileCat(id){
+  activeFileCat=id;
+  buildFilesSidebar();
+  renderFilesPanel();
+}
+
+function fmtBytes(n){
+  if(n<1024)return n+' B';
+  if(n<1048576)return (n/1024).toFixed(1)+' KB';
+  if(n<1073741824)return (n/1048576).toFixed(1)+' MB';
+  return (n/1073741824).toFixed(2)+' GB';
+}
+function fmtDate(ms){
+  const d=new Date(ms);
+  return d.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' '+d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+}
+function fileIcon(mime){
+  if(!mime)return '📄';
+  if(mime.startsWith('image/'))return '🖼';
+  if(mime.startsWith('video/'))return '🎬';
+  if(mime.startsWith('audio/'))return '🎵';
+  if(mime.includes('pdf'))return '📕';
+  if(mime.includes('zip')||mime.includes('compressed'))return '🗜';
+  if(mime.startsWith('text/')||mime.includes('json')||mime.includes('javascript'))return '📝';
+  if(mime.includes('sheet')||mime.includes('csv')||mime.includes('excel'))return '📊';
+  if(mime.includes('word')||mime.includes('document'))return '📃';
+  return '📄';
+}
+
+function renderFilesPanel(){
+  const empty=document.getElementById('files-empty-default');
+  const content=document.getElementById('files-content');
+  if(!activeFileCat){empty.style.display='block';content.style.display='none';return;}
+  empty.style.display='none';content.style.display='block';
+  const cat=FILE_CATS.find(c=>c.id===activeFileCat);
+  document.getElementById('files-panel-icon').innerHTML=iconHtml(cat.icon,22);
+  document.getElementById('files-panel-icon').style.background=cat.bg;
+  document.getElementById('files-panel-title').textContent=cat.name;
+  document.getElementById('files-panel-sub').textContent=cat.group;
+  const list=document.getElementById('files-list');
+  const items=allFiles.filter(f=>f.category===activeFileCat);
+  if(items.length===0){
+    list.innerHTML='<div class="files-empty">// No files yet — upload some above</div>';
+    return;
+  }
+  list.innerHTML='';
+  items.forEach(f=>{
+    const row=document.createElement('div');
+    row.className='file-item';
+    const isImg=f.mimeType&&f.mimeType.startsWith('image/');
+    const thumb=isImg&&f.url?`<img src="${f.url}" alt=""/>`:fileIcon(f.mimeType);
+    row.innerHTML=`
+      <div class="file-thumb">${thumb}</div>
+      <div class="file-meta">
+        <div class="file-name">${escapeHtml(f.name)}</div>
+        <div class="file-info">${f.mimeType||'unknown'} · ${fmtBytes(f.size)} · ${fmtDate(f.uploadedAt)}</div>
+      </div>
+      <div class="file-actions">
+        <a class="file-btn" href="${f.url}" target="_blank" rel="noopener">Open</a>
+        <a class="file-btn" href="${f.url}" download="${escapeHtml(f.name)}">⬇</a>
+        <button class="file-btn danger" onclick="deleteFileById('${f._id}','${escapeHtml(f.name)}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+async function handleFileInput(e){
+  const files=[...e.target.files];
+  e.target.value='';
+  await uploadFiles(files);
+}
+
+async function uploadFiles(files){
+  if(!activeFileCat){alert('Select a category first');return;}
+  const progressList=document.getElementById('upload-progress-list');
+  for(const file of files){
+    const row=document.createElement('div');
+    row.className='upload-progress';
+    row.textContent=`▸ Uploading ${file.name}...`;
+    progressList.appendChild(row);
+    try{
+      const url=await window.__convex.mutation("files:generateUploadUrl",{});
+      const res=await fetch(url,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file});
+      if(!res.ok)throw new Error('Upload failed: '+res.status);
+      const {storageId}=await res.json();
+      await window.__convex.mutation("files:saveFile",{
+        category:activeFileCat,
+        name:file.name,
+        mimeType:file.type||'application/octet-stream',
+        size:file.size,
+        storageId,
+      });
+      row.textContent=`✓ ${file.name} uploaded`;
+      row.style.color='var(--off-white)';
+      setTimeout(()=>row.remove(),1500);
+    }catch(err){
+      console.error(err);
+      row.textContent=`✕ ${file.name} failed: ${err.message}`;
+      row.style.color='var(--orange)';
+    }
+  }
+}
+
+async function deleteFileById(id,name){
+  if(!confirm(`Delete "${name}"? This cannot be undone.`))return;
+  try{
+    await window.__convex.mutation("files:deleteFile",{id});
+  }catch(e){console.error(e);alert('Delete failed.');}
+}
+
+window.handleFileInput=handleFileInput;
+window.deleteFileById=deleteFileById;
+
+function initFilesSync(){
+  const c=window.__convex;
+  if(!c){setTimeout(initFilesSync,50);return;}
+  c.onUpdate("files:listAll",{},(files)=>{
+    allFiles=files||[];
+    buildFilesSidebar();
+    renderFilesPanel();
+    if(typeof renderSocialAssets==='function')renderSocialAssets();
+  });
+}
+
+function setupFilesDnD(){
+  const drop=document.getElementById('files-drop');
+  if(!drop)return;
+  ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('dragover');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('dragover');}));
+  drop.addEventListener('drop',e=>{
+    const files=[...(e.dataTransfer?.files||[])];
+    if(files.length)uploadFiles(files);
+  });
+}
+
+// ── SOCIAL PLANNER ────────────────────────────────────────────────
+const SOCIAL_PLATFORMS=['Instagram','TikTok','X','YouTube','LinkedIn','Threads','Pinterest','Facebook'];
+const SOCIAL_STATUSES=[
+  {id:'idea',   label:'Idea'},
+  {id:'ready',  label:'Ready'},
+  {id:'posted', label:'Posted'},
+];
+const PLAT_GLYPH={'Instagram':'IG','TikTok':'TT','X':'X','YouTube':'YT','LinkedIn':'LI','Threads':'TH','Pinterest':'P','Facebook':'FB'};
+
+let socialMap=new Map();
+let socialEditingDay=null;
+let socialDirty=false;
+
+function getSocial(day){return socialMap.get(day);}
+
+function buildSocialGrid(){
+  const grid=document.getElementById('social-grid');
+  grid.innerHTML='';
+  for(let day=1;day<=100;day++){
+    const s=getSocial(day);
+    const status=s?.status||'';
+    const cell=document.createElement('div');
+    cell.className='social-cell'+(s&&(s.concept||s.caption)?' has-content':'')+(status?' status-'+status:'');
+    cell.onclick=()=>socialOpen(day);
+    const platforms=(s?.platforms||[]).slice(0,4).map(p=>`<span class="social-cell-plat">${PLAT_GLYPH[p]||p[0]}</span>`).join('');
+    cell.innerHTML=`
+      ${status?'<div class="social-cell-status-dot"></div>':''}
+      <div class="social-cell-day">${day}</div>
+      <div class="social-cell-concept">${s?.concept?escapeHtml(s.concept):''}</div>
+      <div class="social-cell-platforms">${platforms}</div>`;
+    grid.appendChild(cell);
+  }
+  const stats=document.getElementById('social-stats');
+  const all=[...socialMap.values()];
+  const ideas=all.filter(s=>s.status==='idea').length;
+  const ready=all.filter(s=>s.status==='ready').length;
+  const posted=all.filter(s=>s.status==='posted').length;
+  const planned=all.filter(s=>s.concept||s.caption).length;
+  stats.innerHTML=`
+    <div class="social-stat-pill"><span class="num">${planned}</span> planned</div>
+    <div class="social-stat-pill"><span class="num">${ideas}</span> ideas</div>
+    <div class="social-stat-pill"><span class="num">${ready}</span> ready</div>
+    <div class="social-stat-pill"><span class="num accent">${posted}</span> posted</div>`;
+}
+
+function socialOpen(day){
+  socialEditingDay=day;
+  socialDirty=false;
+  document.getElementById('social-grid-view').style.display='none';
+  document.getElementById('social-editor-view').style.display='block';
+  const s=getSocial(day)||{};
+  document.getElementById('social-editor-day').textContent='Day '+day;
+  const dayData=DAYS.find(d=>d.day===day);
+  const phase=dayData?getPhase(day):null;
+  const mc=dayData?getMktCat(dayData.mktCat):null;
+  document.getElementById('social-editor-meta').textContent=
+    (phase?phase.name:'')+(mc?' · '+mc.name:'')+(dayData?' · '+dayData.mktFocus:'');
+  document.getElementById('social-concept').value=s.concept||'';
+  document.getElementById('social-hook').value=s.hook||'';
+  document.getElementById('social-caption').value=s.caption||'';
+  document.getElementById('social-script').value=s.script||'';
+  document.getElementById('social-shotlist').value=s.shotList||'';
+  document.getElementById('social-hashtags').value=s.hashtags||'';
+  document.getElementById('social-notes').value=s.notes||'';
+  document.getElementById('social-format').value=s.format||'';
+  // status pills
+  const statusWrap=document.getElementById('social-status-pills');
+  statusWrap.innerHTML='';
+  SOCIAL_STATUSES.forEach(st=>{
+    const p=document.createElement('div');
+    p.className='social-pill'+(s.status===st.id?' active':'');
+    p.textContent=st.label;
+    p.onclick=()=>{
+      statusWrap.querySelectorAll('.social-pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      p.dataset.value=st.id;
+      socialMarkDirty();
+    };
+    p.dataset.value=st.id;
+    statusWrap.appendChild(p);
+  });
+  // platforms pills
+  const platWrap=document.getElementById('social-platform-pills');
+  platWrap.innerHTML='';
+  const sel=new Set(s.platforms||[]);
+  SOCIAL_PLATFORMS.forEach(name=>{
+    const p=document.createElement('div');
+    p.className='social-pill'+(sel.has(name)?' active':'');
+    p.textContent=name;
+    p.dataset.value=name;
+    p.onclick=()=>{
+      p.classList.toggle('active');
+      socialMarkDirty();
+    };
+    platWrap.appendChild(p);
+  });
+  document.getElementById('social-save-status').textContent='';
+  document.getElementById('social-save-status').classList.remove('saved');
+  // mark dirty on any field change
+  ['social-concept','social-hook','social-caption','social-script','social-shotlist','social-hashtags','social-notes','social-format'].forEach(id=>{
+    document.getElementById(id).oninput=socialMarkDirty;
+    document.getElementById(id).onchange=socialMarkDirty;
+  });
+  // Per-day asset uploader
+  setupSocialAssetsDnD();
+  renderSocialAssets();
+}
+
+function socialMarkDirty(){
+  socialDirty=true;
+  const el=document.getElementById('social-save-status');
+  el.textContent='Unsaved changes';
+  el.classList.remove('saved');
+}
+
+function socialBack(){
+  if(socialDirty&&!confirm('You have unsaved changes. Discard?'))return;
+  document.getElementById('social-editor-view').style.display='none';
+  document.getElementById('social-grid-view').style.display='block';
+  socialEditingDay=null;
+  socialDirty=false;
+}
+
+async function socialSave(){
+  if(socialEditingDay==null)return;
+  const statusEl=document.querySelector('#social-status-pills .social-pill.active');
+  const platforms=[...document.querySelectorAll('#social-platform-pills .social-pill.active')].map(p=>p.dataset.value);
+  const args={
+    day:socialEditingDay,
+    concept:document.getElementById('social-concept').value.trim(),
+    hook:document.getElementById('social-hook').value.trim(),
+    caption:document.getElementById('social-caption').value,
+    script:document.getElementById('social-script').value,
+    shotList:document.getElementById('social-shotlist').value,
+    hashtags:document.getElementById('social-hashtags').value.trim(),
+    notes:document.getElementById('social-notes').value,
+    format:document.getElementById('social-format').value,
+    status:statusEl?statusEl.dataset.value:'',
+    platforms,
+  };
+  const status=document.getElementById('social-save-status');
+  status.textContent='Saving…';
+  status.classList.remove('saved');
+  try{
+    await window.__convex.mutation("social:upsert",args);
+    socialDirty=false;
+    status.textContent='Saved';
+    status.classList.add('saved');
+  }catch(e){
+    console.error(e);
+    status.textContent='Save failed';
+  }
+}
+
+async function socialDelete(){
+  if(socialEditingDay==null)return;
+  if(!confirm(`Delete all content for Day ${socialEditingDay}?`))return;
+  try{
+    await window.__convex.mutation("social:remove",{day:socialEditingDay});
+    socialDirty=false;
+    socialBack();
+  }catch(e){console.error(e);alert('Delete failed.');}
+}
+
+window.socialBack=socialBack;
+window.socialSave=socialSave;
+window.socialDelete=socialDelete;
+
+function initSocialSync(){
+  const c=window.__convex;
+  if(!c){setTimeout(initSocialSync,50);return;}
+  c.onUpdate("social:list",{},(rows)=>{
+    socialMap=new Map((rows||[]).map(r=>[r.day,r]));
+    buildSocialGrid();
+  });
+}
+
+function socialDayCategory(day){return 'social:day:'+day;}
+
+function renderSocialAssets(){
+  if(!socialEditingDay)return;
+  const list=document.getElementById('social-assets-list');
+  if(!list)return;
+  const cat=socialDayCategory(socialEditingDay);
+  const items=allFiles.filter(f=>f.category===cat);
+  if(items.length===0){
+    list.innerHTML='<div class="files-empty" style="padding:20px">// No assets yet — upload above</div>';
+    return;
+  }
+  list.innerHTML='';
+  items.forEach(f=>{
+    const row=document.createElement('div');
+    row.className='file-item';
+    const isImg=f.mimeType&&f.mimeType.startsWith('image/');
+    const thumb=isImg&&f.url?`<img src="${f.url}" alt=""/>`:fileIcon(f.mimeType);
+    row.innerHTML=`
+      <div class="file-thumb">${thumb}</div>
+      <div class="file-meta">
+        <div class="file-name">${escapeHtml(f.name)}</div>
+        <div class="file-info">${f.mimeType||'unknown'} · ${fmtBytes(f.size)} · ${fmtDate(f.uploadedAt)}</div>
+      </div>
+      <div class="file-actions">
+        <a class="file-btn" href="${f.url}" target="_blank" rel="noopener">Open</a>
+        <a class="file-btn" href="${f.url}" download="${escapeHtml(f.name)}">⬇</a>
+        <button class="file-btn danger" onclick="deleteFileById('${f._id}','${escapeHtml(f.name)}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+async function handleSocialAssetUpload(e){
+  const files=[...e.target.files];
+  e.target.value='';
+  if(!socialEditingDay){alert('Open a day first');return;}
+  const cat=socialDayCategory(socialEditingDay);
+  const progressList=document.getElementById('social-assets-progress');
+  for(const file of files){
+    const row=document.createElement('div');
+    row.className='upload-progress';
+    row.textContent=`▸ Uploading ${file.name}…`;
+    progressList.appendChild(row);
+    try{
+      const url=await window.__convex.mutation("files:generateUploadUrl",{});
+      const res=await fetch(url,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file});
+      if(!res.ok)throw new Error('Upload failed: '+res.status);
+      const {storageId}=await res.json();
+      await window.__convex.mutation("files:saveFile",{
+        category:cat,
+        name:file.name,
+        mimeType:file.type||'application/octet-stream',
+        size:file.size,
+        storageId,
+      });
+      row.textContent=`✓ ${file.name} uploaded`;
+      row.style.color='var(--color-off-white)';
+      setTimeout(()=>row.remove(),1500);
+    }catch(err){
+      console.error(err);
+      row.textContent=`✕ ${file.name} failed`;
+    }
+  }
+}
+
+function setupSocialAssetsDnD(){
+  const drop=document.getElementById('social-assets-drop');
+  if(!drop||drop.dataset.dndReady)return;
+  drop.dataset.dndReady='1';
+  ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('dragover');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('dragover');}));
+  drop.addEventListener('drop',async e=>{
+    const files=[...(e.dataTransfer?.files||[])];
+    if(!files.length)return;
+    if(!socialEditingDay){alert('Open a day first');return;}
+    const cat=socialDayCategory(socialEditingDay);
+    const progressList=document.getElementById('social-assets-progress');
+    for(const file of files){
+      const row=document.createElement('div');
+      row.className='upload-progress';
+      row.textContent=`▸ Uploading ${file.name}…`;
+      progressList.appendChild(row);
+      try{
+        const url=await window.__convex.mutation("files:generateUploadUrl",{});
+        const res=await fetch(url,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file});
+        if(!res.ok)throw new Error('Upload failed: '+res.status);
+        const {storageId}=await res.json();
+        await window.__convex.mutation("files:saveFile",{
+          category:cat,name:file.name,
+          mimeType:file.type||'application/octet-stream',
+          size:file.size,storageId,
+        });
+        row.textContent=`✓ ${file.name} uploaded`;
+        row.style.color='var(--color-off-white)';
+        setTimeout(()=>row.remove(),1500);
+      }catch(err){
+        console.error(err);
+        row.textContent=`✕ ${file.name} failed`;
+      }
+    }
+  });
+}
+
+window.handleSocialAssetUpload=handleSocialAssetUpload;
+
+// buildLegends — removed
+buildOverview();
+buildProgress();
+buildGantt();
+buildCalendar();
+buildTaskList();
+buildMarketing();
+buildFilesSidebar();
+setupFilesDnD();
+initFilesSync();
+buildSocialGrid();
+initSocialSync();
+setupFloatingScroll();
+// Initial position + listen for resize
+setTimeout(updateTabIndicator,50);
+window.addEventListener('resize',updateTabIndicator);
+</script>
+</body>
+</html>

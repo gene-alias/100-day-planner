@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GH BRAND SYSTEM v2.4 — Starter</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;700&family=Geist:wght@200;300;400;500;700&family=Geist+Mono:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Tokens ──────────────────────────────────────────────────────── */
+:root{
+  --color-navy-bg:    #050912;
+  --color-near-black: #0D0D0D;
+  --color-signal-blue:#083584;
+  --color-blue-soft:  #1551BC;
+  --color-off-white:  #F9F9F9;
+  --color-light-gray: #A7A7A7;
+  --color-mid-gray:   #646464;
+  --color-dark-gray:  #333333;
+  --accent:        var(--color-signal-blue);
+  --accent-soft:   rgba(8,53,132,0.18);
+  --accent-glow:   rgba(8,53,132,0.40);
+  --accent-bright: #2A6FD9;
+  --font-display: 'Gemunu Libre',sans-serif;
+  --font-graphic: 'Geist',sans-serif;
+  --font:         'Geist Mono',monospace;
+  --r-pill: 999px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--color-navy-bg);
+  color:var(--color-off-white);
+  font-family:var(--font);
+  font-size:13px;line-height:1.55;letter-spacing:-0.5px;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 130% 130% at 45% 55%, transparent 0%, rgba(2,5,11,0.40) 55%, rgba(1,2,4,0.80) 100%),
+    radial-gradient(ellipse 68% 54% at 72% 18%, rgba(10,32,80,0.55) 0%, rgba(6,18,49,0.22) 50%, transparent 100%),
+    radial-gradient(ellipse 60% 48% at 2% 42%, rgba(24,72,168,0.55) 0%, rgba(14,46,120,0.30) 38%, transparent 100%),
+    radial-gradient(ellipse 92% 74% at 30% 35%, rgba(12,42,102,0.55) 0%, rgba(7,24,64,0.25) 45%, transparent 100%);
+  background-attachment:fixed;
+}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--color-dark-gray);}
+
+/* ── Header ──────────────────────────────────────────────────────── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(5,9,18,0.82);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--color-dark-gray);
+  padding:22px 36px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.header h1{
+  font-family:var(--font-display);font-weight:300;
+  font-size:34px;line-height:0.90;letter-spacing:-1.5px;
+  text-transform:uppercase;color:var(--color-off-white);
+}
+.header h1 .accent{color:var(--color-signal-blue);}
+.header p{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-light-gray);margin-top:8px;
+}
+.stats{display:flex;gap:0;align-items:stretch;}
+.stat{
+  text-align:center;background:transparent;
+  border:1px solid var(--color-dark-gray);
+  border-right-width:0;padding:12px 20px;min-width:84px;
+}
+.stat:last-child{border-right-width:1px;}
+.stat-n{
+  font-family:var(--font-graphic);font-weight:300;font-size:26px;
+  letter-spacing:-1.2px;line-height:1;color:var(--color-off-white);display:block;
+}
+.stat:first-child .stat-n{color:var(--color-signal-blue);}
+.stat-l{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;
+  margin-top:6px;display:block;text-transform:uppercase;
+}
+
+/* ── Tabs with sliding indicator ─────────────────────────────────── */
+.tabs{
+  position:relative;
+  display:flex;gap:0;padding:0 36px;
+  border-bottom:1px solid var(--color-dark-gray);
+  flex-wrap:wrap;
+}
+.tab{
+  padding:14px 22px;
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  cursor:pointer;border:none;
+  background:transparent;color:var(--color-mid-gray);
+  transition:color .22s ease, text-shadow .35s ease;
+}
+.tab:hover{color:var(--color-off-white);}
+.tab.active{
+  color:var(--color-off-white);
+  text-shadow:
+    0 0 14px rgba(21,81,188,0.75),
+    0 0 28px rgba(21,81,188,0.50),
+    0 0 48px rgba(21,81,188,0.30);
+}
+.tab-indicator{
+  position:absolute;bottom:-1px;left:0;width:0;height:3px;
+  background:var(--color-signal-blue);
+  pointer-events:none;opacity:0;
+  transition:
+    left .42s cubic-bezier(.22,1,.36,1),
+    width .42s cubic-bezier(.22,1,.36,1),
+    opacity .25s ease;
+  box-shadow:
+    0 0 18px rgba(21,81,188,1),
+    0 0 36px rgba(21,81,188,0.75),
+    0 0 60px rgba(21,81,188,0.50),
+    0 0 96px rgba(21,81,188,0.28);
+}
+.tab-indicator.ready{opacity:1;}
+
+/* ── Layout ──────────────────────────────────────────────────────── */
+.main{padding:36px;max-width:1500px;margin:0 auto;}
+.row{display:grid;gap:16px;margin-bottom:24px;}
+.row.cols-2{grid-template-columns:1fr 1fr;}
+.row.cols-3{grid-template-columns:1fr 1fr 1fr;}
+@media(max-width:780px){.row.cols-2,.row.cols-3{grid-template-columns:1fr;}}
+
+/* ── Panel card ──────────────────────────────────────────────────── */
+.panel-card{
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  padding:24px;
+}
+.panel-card-title{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;color:var(--color-light-gray);
+  margin-bottom:18px;padding-bottom:14px;
+  border-bottom:1px solid var(--color-dark-gray);
+  text-transform:uppercase;
+}
+.panel-card-title::before{
+  content:'▼ ';color:var(--color-signal-blue);
+  font-size:10px;margin-right:6px;
+}
+
+/* ── Big section heading ─────────────────────────────────────────── */
+.section-heading{
+  font-family:var(--font-display);font-weight:300;
+  font-size:48px;line-height:0.9;letter-spacing:-2px;
+  text-transform:uppercase;color:var(--color-off-white);
+  margin-bottom:24px;
+}
+
+/* ── Glowing progress ring ───────────────────────────────────────── */
+.ring-wrap{position:relative;width:200px;height:200px;}
+.ring-wrap svg{width:200px;height:200px;transform:rotate(-90deg);overflow:visible;}
+.ring-bg{fill:none;stroke:var(--color-dark-gray);stroke-width:5;}
+.ring-fill{
+  fill:none;stroke:var(--color-signal-blue);stroke-width:5;
+  stroke-linecap:round;
+  filter:
+    drop-shadow(0 0 6px rgba(21,81,188,0.85))
+    drop-shadow(0 0 14px rgba(21,81,188,0.55))
+    drop-shadow(0 0 28px rgba(21,81,188,0.35));
+  transition:stroke-dashoffset 1.4s cubic-bezier(.22,1,.36,1);
+}
+.ring-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;
+}
+.ring-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:62px;
+  color:var(--color-off-white);line-height:0.90;letter-spacing:-3px;
+  display:block;
+}
+.ring-label{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;display:block;
+  margin-top:6px;text-transform:uppercase;
+}
+
+/* ── Glowing progress bar ────────────────────────────────────────── */
+.progress-bar{
+  position:relative;height:18px;
+  background:#020716;border:1px solid #04081A;
+  overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.30) 0%,
+    rgba(8,53,132,0.80) 35%,
+    rgba(21,81,188,0.95) 75%,
+    var(--accent-bright) 100%);
+  box-shadow:
+    0 0 16px rgba(21,81,188,0.55),
+    0 0 32px rgba(21,81,188,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  border-right:1px solid rgba(255,255,255,0.30);
+}
+
+/* ── Bar with progressive fill (Gantt) ───────────────────────────── */
+.bar-row{
+  display:grid;grid-template-columns:160px 1fr;
+  border-bottom:1px solid var(--color-dark-gray);min-height:42px;
+}
+.bar-label-wrap{
+  padding:0 16px;display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--color-dark-gray);
+}
+.bar-label-name{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--color-off-white);
+}
+.bar-label-days{font-family:var(--font);font-size:10px;color:var(--color-mid-gray);margin-top:3px;}
+.bar-track{
+  position:relative;
+  background:repeating-linear-gradient(90deg,transparent,transparent calc(10% - 1px),rgba(255,255,255,0.02) calc(10% - 1px),rgba(255,255,255,0.02) 10%);
+}
+.bar{
+  position:absolute;top:50%;transform:translateY(-50%);height:22px;
+  display:flex;align-items:center;padding:0 12px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--color-dark-gray);
+  color:var(--color-light-gray);
+}
+.bar-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.25) 0%,
+    rgba(8,53,132,0.75) 35%,
+    rgba(21,81,188,0.95) 75%,
+    var(--accent-bright) 100%);
+  box-shadow:
+    0 0 8px rgba(21,81,188,0.55),
+    0 0 18px rgba(21,81,188,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  pointer-events:none;
+  border-right:1px solid rgba(255,255,255,0.30);
+  transition:width 1.2s cubic-bezier(.22,1,.36,1);
+}
+.bar.complete .bar-fill{border-right:none;}
+.bar-text{
+  position:relative;z-index:2;color:var(--color-off-white);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.btn-primary{
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  border:1px solid var(--color-signal-blue);
+  padding:14px 28px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  transition:background .15s ease;
+}
+.btn-primary:hover{background:var(--color-blue-soft);}
+.btn-outline{
+  background:transparent;color:var(--color-light-gray);
+  border:1px solid var(--color-dark-gray);
+  padding:10px 18px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  transition:all .15s ease;
+}
+.btn-outline:hover{color:var(--color-off-white);border-color:var(--color-off-white);}
+
+/* ── Inputs ──────────────────────────────────────────────────────── */
+.input{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:14px 18px;color:var(--color-off-white);
+  font-family:var(--font);font-size:13px;font-weight:400;
+  letter-spacing:-0.5px;outline:none;width:100%;
+}
+.input:focus{border-color:var(--color-signal-blue);}
+.input::placeholder{
+  color:var(--color-mid-gray);font-weight:300;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+}
+
+/* ── Badges ──────────────────────────────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  background:transparent;
+  border:1px solid var(--color-dark-gray);
+  color:var(--color-light-gray);
+}
+.badge.accent{
+  border-color:var(--color-signal-blue);
+  color:var(--color-signal-blue);
+}
+
+/* ── Pills / segmented ───────────────────────────────────────────── */
+.pills{display:flex;gap:0;border:1px solid var(--color-dark-gray);}
+.pill{
+  padding:10px 16px;
+  border:none;border-right:1px solid var(--color-dark-gray);
+  background:transparent;color:var(--color-mid-gray);
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  cursor:pointer;transition:color .15s ease;
+}
+.pill:last-child{border-right:none;}
+.pill:hover{color:var(--color-off-white);}
+.pill.active{background:var(--color-signal-blue);color:var(--color-off-white);}
+
+/* ── Day grid (calendar) ─────────────────────────────────────────── */
+.day-grid{
+  display:grid;grid-template-columns:repeat(10,1fr);gap:1px;
+  background:#020716;border:1px solid #020716;
+}
+.day-cell{
+  padding:10px 6px 8px;background:#0C1B45;
+  text-align:center;min-height:88px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  cursor:pointer;transition:background .15s ease;
+  position:relative;overflow:hidden;
+}
+.day-cell:hover{background:#173072;}
+.day-cell.selected{
+  background:var(--color-signal-blue);
+  box-shadow:
+    0 0 0 1px var(--color-signal-blue),
+    0 0 24px rgba(8,53,132,0.55),
+    0 0 56px rgba(8,53,132,0.30);
+  z-index:2;
+}
+.day-cell.today{
+  background:rgba(8,53,132,0.18);
+  box-shadow:inset 0 0 0 1px var(--color-signal-blue);
+}
+.day-cell.today::before{
+  content:'TODAY';
+  position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  font-family:var(--font);font-weight:300;font-size:8px;
+  letter-spacing:1.95px;padding:3px 8px;text-transform:uppercase;
+}
+.day-cell.past{opacity:.32;background:#06091B;}
+.day-cell.past::after{
+  content:'';position:absolute;left:14%;right:14%;top:50%;height:1px;
+  background:var(--color-mid-gray);opacity:.7;transform:rotate(-18deg);
+}
+.day-cell-num{
+  font-family:var(--font-graphic);font-weight:300;font-size:18px;
+  color:var(--color-off-white);letter-spacing:-1px;
+  height:18px;display:flex;align-items:center;justify-content:center;
+}
+.day-cell-meta{font-family:var(--font);font-size:9px;color:var(--color-light-gray);}
+
+/* ── Checkbox row ────────────────────────────────────────────────── */
+.check-row{
+  display:flex;align-items:flex-start;gap:10px;
+  cursor:pointer;padding:8px 0;line-height:1.5;
+  font-family:var(--font);font-weight:400;
+  color:var(--color-off-white);
+}
+.check-row.done{opacity:.45;}
+.check-row.done .check-text{
+  text-decoration:line-through;text-decoration-color:var(--color-signal-blue);
+}
+.check-box{
+  flex-shrink:0;width:14px;height:14px;
+  border:1.5px solid var(--color-light-gray);
+  margin-top:2px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;color:transparent;transition:all .15s ease;
+}
+.check-row.done .check-box{
+  background:var(--color-signal-blue);
+  border-color:var(--color-signal-blue);
+  color:var(--color-off-white);
+}
+
+/* ── Floating sticky horizontal scrollbar ────────────────────────── */
+.floating-hscroll{
+  position:fixed;left:0;right:0;bottom:0;
+  height:14px;
+  overflow-x:scroll;overflow-y:hidden;
+  background:rgba(5,9,18,0.92);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-top:1px solid var(--color-signal-blue);
+  z-index:80;display:none;
+}
+.floating-hscroll.visible{display:block;}
+.floating-hscroll::-webkit-scrollbar{height:14px;}
+.floating-hscroll::-webkit-scrollbar-track{background:rgba(255,255,255,0.04);}
+.floating-hscroll::-webkit-scrollbar-thumb{
+  background:var(--color-signal-blue);
+  border:1px solid rgba(255,255,255,0.20);
+  min-width:80px;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────── */
+@media(max-width:760px){
+  .header{padding:14px 16px;flex-direction:column;align-items:flex-start;gap:12px;}
+  .header h1{font-size:22px;letter-spacing:-1px;}
+  .stats{width:100%;gap:0;flex-wrap:wrap;}
+  .stat{flex:1;min-width:64px;padding:8px 10px;}
+  .stat-n{font-size:18px;}
+  .tabs{padding:0 12px;overflow-x:auto;flex-wrap:nowrap;}
+  .tab{padding:12px 14px;font-size:10px;flex-shrink:0;}
+  .main{padding:18px 14px 36px;}
+  .section-heading{font-size:28px;letter-spacing:-1.2px;}
+  .ring-wrap{width:160px;height:160px;}
+  .ring-wrap svg{width:160px;height:160px;}
+  .ring-day{font-size:50px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-titles">
+    <h1>YOUR <span class="accent">PROJECT</span></h1>
+    <p>▼ Replace · this · subtitle</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">100</div><div class="stat-l">Items</div></div>
+    <div class="stat"><div class="stat-n">15</div><div class="stat-l">Phases</div></div>
+    <div class="stat"><div class="stat-n">42</div><div class="stat-l">Done</div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab(this)">Overview</button>
+  <button class="tab" onclick="switchTab(this)">Detail</button>
+  <button class="tab" onclick="switchTab(this)">Settings</button>
+  <div class="tab-indicator" id="tab-indicator"></div>
+</div>
+
+<div class="main">
+
+  <div class="section-heading">OVERVIEW</div>
+
+  <!-- Glowing ring + glowing progress bar -->
+  <div class="row cols-2">
+    <div class="panel-card" style="display:flex;align-items:center;gap:24px;justify-content:center">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 200 200">
+          <circle class="ring-bg" cx="100" cy="100" r="90"/>
+          <circle class="ring-fill" id="ring-fill" cx="100" cy="100" r="90"
+            stroke-dasharray="565.487" stroke-dashoffset="565.487"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-day">42</span>
+          <span class="ring-label">of 100</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+        <div style="font-family:var(--font);font-size:11px;letter-spacing:1.95px;color:var(--color-light-gray);text-transform:uppercase">Overall Progress</div>
+        <div style="font-family:var(--font-graphic);font-size:48px;font-weight:300;letter-spacing:-2.5px;color:var(--color-off-white)">42%</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="prog-fill" style="width:42%"></div>
+      </div>
+      <p style="font-family:var(--font);font-size:14px;color:var(--color-light-gray);margin-top:14px;line-height:1.6">
+        Define the problem, the audience, and the shape of what gets built. Lock the MVP scope before any code lands.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bar list with progressive fills -->
+  <div class="section-heading" style="font-size:32px;letter-spacing:-1.4px">PHASES</div>
+  <div class="panel-card" style="padding:0">
+    <div class="bar-row">
+      <div class="bar-label-wrap"><div class="bar-label-name">Phase 01</div><div class="bar-label-days">D1–D14</div></div>
+      <div class="bar-track">
+        <div class="bar complete" data-start="1" data-end="14" style="left:0%;width:14%"><div class="bar-fill" style="width:100%"></div><span class="bar-text">Foundation</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label-wrap"><div class="bar-label-name">Phase 02</div><div class="bar-label-days">D15–D42</div></div>
+      <div class="bar-track">
+        <div class="bar" data-start="15" data-end="42" style="left:14%;width:28%"><div class="bar-fill" style="width:60%"></div><span class="bar-text">Core Features</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label-wrap"><div class="bar-label-name">Phase 03</div><div class="bar-label-days">D43–D70</div></div>
+      <div class="bar-track">
+        <div class="bar" data-start="43" data-end="70" style="left:42%;width:28%"><div class="bar-fill" style="width:0%"></div><span class="bar-text">Polish</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label-wrap"><div class="bar-label-name">Phase 04</div><div class="bar-label-days">D71–D100</div></div>
+      <div class="bar-track">
+        <div class="bar" data-start="71" data-end="100" style="left:70%;width:30%"><div class="bar-fill" style="width:0%"></div><span class="bar-text">Launch</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters / Inputs / Pills / Buttons -->
+  <div class="row cols-2">
+    <div class="panel-card">
+      <div class="panel-card-title">Filters</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+        <span class="badge">Default</span>
+        <span class="badge accent">Active</span>
+      </div>
+      <div class="pills" style="margin-bottom:14px">
+        <button class="pill active">All</button>
+        <button class="pill">Open</button>
+        <button class="pill">Done</button>
+      </div>
+      <input class="input" placeholder="Search" />
+    </div>
+    <div class="panel-card">
+      <div class="panel-card-title">Today's Tasks</div>
+      <div class="check-row" onclick="this.classList.toggle('done')">
+        <span class="check-box">✓</span>
+        <span class="check-text">Click to tick — first task</span>
+      </div>
+      <div class="check-row done" onclick="this.classList.toggle('done')">
+        <span class="check-box">✓</span>
+        <span class="check-text">Already done</span>
+      </div>
+      <div class="check-row" onclick="this.classList.toggle('done')">
+        <span class="check-box">✓</span>
+        <span class="check-text">Another task</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day grid -->
+  <div class="section-heading" style="font-size:32px;letter-spacing:-1.4px">CALENDAR</div>
+  <div class="day-grid" id="grid"></div>
+
+  <!-- Buttons -->
+  <div class="panel-card" style="margin-top:24px;display:flex;gap:14px;align-items:center">
+    <button class="btn-primary">Primary Action</button>
+    <button class="btn-outline">Secondary</button>
+  </div>
+
+</div>
+
+<script>
+// ── Sliding tab indicator ─────────────────────────────────────────
+function updateTabIndicator(){
+  const ind = document.getElementById('tab-indicator');
+  const active = document.querySelector('.tab.active');
+  if(!ind || !active) return;
+  const inset = 14;
+  ind.style.left = (active.offsetLeft + inset) + 'px';
+  ind.style.width = Math.max(0, active.offsetWidth - inset*2) + 'px';
+  ind.classList.add('ready');
+}
+function switchTab(btn){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  updateTabIndicator();
+}
+window.addEventListener('resize', updateTabIndicator);
+setTimeout(updateTabIndicator, 50);
+
+// ── Glowing ring (animate fill on load) ───────────────────────────
+const r=90, CIRC=2*Math.PI*r;
+const ringFill = document.getElementById('ring-fill');
+ringFill.setAttribute('stroke-dasharray', CIRC.toFixed(3));
+ringFill.setAttribute('stroke-dashoffset', CIRC); // start empty
+setTimeout(()=>{
+  ringFill.setAttribute('stroke-dashoffset', (CIRC*(1-0.42)).toFixed(3));
+}, 100);
+
+// ── Day grid demo ─────────────────────────────────────────────────
+const grid = document.getElementById('grid');
+for(let d=1; d<=100; d++){
+  const cell = document.createElement('div');
+  cell.className = 'day-cell';
+  if(d===14) cell.classList.add('today');
+  if(d<14) cell.classList.add('past');
+  if(d===22) cell.classList.add('selected');
+  cell.innerHTML = `<div class="day-cell-num">${d}</div><div class="day-cell-meta">${d===14?'today':''}</div>`;
+  cell.onclick = () => {
+    document.querySelectorAll('.day-cell.selected').forEach(c=>c.classList.remove('selected'));
+    cell.classList.add('selected');
+  };
+  grid.appendChild(cell);
+}
+</script>
+
+</body>
+</html>

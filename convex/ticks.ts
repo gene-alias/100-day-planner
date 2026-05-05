@@ -1,0 +1,34 @@
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+export const list = query({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("ticks").collect();
+    return all.map((t) => t.key);
+  },
+});
+
+export const set = mutation({
+  args: { key: v.string(), done: v.boolean() },
+  handler: async (ctx, { key, done }) => {
+    const existing = await ctx.db
+      .query("ticks")
+      .withIndex("by_key", (q) => q.eq("key", key))
+      .first();
+    if (done && !existing) {
+      await ctx.db.insert("ticks", { key });
+    } else if (!done && existing) {
+      await ctx.db.delete(existing._id);
+    }
+    return done;
+  },
+});
+
+export const reset = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("ticks").collect();
+    await Promise.all(all.map((t) => ctx.db.delete(t._id)));
+  },
+});
