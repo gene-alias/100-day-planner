@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;700&family=Geist:wght@200;300;400;500;700&family=Geist+Mono:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 /* ── GENE HUMPHREYS BRAND SYSTEM V2.4 ─────────────────────────────── */
 :root{
@@ -1534,6 +1535,36 @@ body{
 </style>
 </head>
 <body>
+
+<!-- ── SIGN-IN OVERLAY (hides app until authenticated) ────────── -->
+<div id="signin-overlay" style="
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(5,9,18,0.96);
+  backdrop-filter:saturate(180%) blur(24px);
+  -webkit-backdrop-filter:saturate(180%) blur(24px);
+  display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="
+    text-align:center;padding:48px 36px;max-width:440px;width:100%;
+    border:1px solid #333333;background:rgba(13,13,13,0.5);">
+    <div style="font-family:'Gemunu Libre',sans-serif;font-weight:300;font-size:38px;
+                line-height:0.9;letter-spacing:-1.6px;text-transform:uppercase;
+                color:#F9F9F9;margin-bottom:10px">
+      100 DAY <span style="color:#083584">ROADMAP</span>
+    </div>
+    <p style="font-family:'Geist Mono',monospace;font-weight:300;font-size:11px;
+              letter-spacing:1.95px;text-transform:uppercase;
+              color:#A7A7A7;margin-bottom:36px">
+      ▼ Sign in to continue
+    </p>
+    <div id="gsi-button" style="display:flex;justify-content:center;min-height:44px"></div>
+    <p style="font-family:'Geist Mono',monospace;font-weight:300;font-size:9px;
+              letter-spacing:1.5px;text-transform:uppercase;
+              color:#646464;margin-top:24px;line-height:1.6">
+      Restricted to authorized accounts.
+    </p>
+  </div>
+</div>
+
 <div class="header">
   <div class="header-left">
     <div class="header-titles">
@@ -1862,8 +1893,52 @@ body{
 import { ConvexClient } from "https://esm.sh/convex@1.17.0/browser";
 
 const CONVEX_URL = "https://famous-octopus-710.convex.cloud";
+const GOOGLE_CLIENT_ID = "231958474228-kacqjtqifami93kj6s3ktkr56oj50nis.apps.googleusercontent.com";
+window.__GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID;
+
 const convex = new ConvexClient(CONVEX_URL);
 window.__convex = convex;
+window.__signedIn = false;
+window.__idToken = null;
+convex.setAuth(async () => window.__idToken);
+
+window.__handleGoogleCredential = (response) => {
+  if (!response || !response.credential) return;
+  window.__idToken = response.credential;
+  window.__signedIn = true;
+  const overlay = document.getElementById('signin-overlay');
+  if (overlay) overlay.style.display = 'none';
+  if (typeof window.__onSignedIn === 'function') window.__onSignedIn();
+};
+
+window.__signOut = () => {
+  window.__idToken = null;
+  window.__signedIn = false;
+  if (window.google?.accounts?.id) {
+    google.accounts.id.disableAutoSelect();
+  }
+  location.reload();
+};
+
+window.__initGoogleSignIn = () => {
+  if (!window.google?.accounts?.id) { setTimeout(window.__initGoogleSignIn, 100); return; }
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: window.__handleGoogleCredential,
+    auto_select: true,
+    use_fedcm_for_prompt: true,
+  });
+  const btn = document.getElementById('gsi-button');
+  if (btn) {
+    google.accounts.id.renderButton(btn, {
+      theme: 'filled_black', size: 'large',
+      text: 'continue_with', shape: 'rectangular',
+      width: 280,
+    });
+  }
+  google.accounts.id.prompt();
+};
+window.addEventListener('load', () => setTimeout(window.__initGoogleSignIn, 50));
 </script>
 <script>
 // Grayscale tones — single accent reserved for the Launch phase + active states
@@ -2128,7 +2203,7 @@ function initConvexSync(){
     if(selDay){const d=selDay;selDay=null;selectDay(d);}
   });
 }
-initConvexSync();
+// initConvexSync deferred until sign-in — see startConvexSync at bottom
 
 async function toggleTask(key){
   // Optimistic local update
@@ -3122,7 +3197,7 @@ function setupSocialAssetsDnD(){
 
 window.handleSocialAssetUpload=handleSocialAssetUpload;
 
-// buildLegends — removed
+// Static UI builders — safe to run immediately (no Convex calls)
 buildOverview();
 buildProgress();
 buildGantt();
@@ -3131,13 +3206,21 @@ buildTaskList();
 buildMarketing();
 buildFilesSidebar();
 setupFilesDnD();
-initFilesSync();
 buildSocialGrid();
-initSocialSync();
 setupFloatingScroll();
-// Initial position + listen for resize
 setTimeout(updateTabIndicator,50);
 window.addEventListener('resize',updateTabIndicator);
+
+// Convex-bound subscriptions wait for auth
+function startConvexSync(){
+  if(!window.__signedIn) return;
+  if(typeof initConvexSync==='function')initConvexSync();   // ticks
+  if(typeof initFilesSync==='function')initFilesSync();
+  if(typeof initSocialSync==='function')initSocialSync();
+}
+window.__onSignedIn = startConvexSync;
+// If auth landed before the script finished (auto-select can be instant), still kick off
+if(window.__signedIn) startConvexSync();
 </script>
 </body>
 </html>
