@@ -1902,13 +1902,40 @@ window.__signedIn = false;
 window.__idToken = null;
 convex.setAuth(async () => window.__idToken);
 
+function __parseJwt(token){
+  try{
+    const part=token.split('.')[1];
+    const b64=part.replace(/-/g,'+').replace(/_/g,'/');
+    return JSON.parse(decodeURIComponent(atob(b64).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+  }catch{return null;}
+}
+
+window.__refreshTimer = null;
+function __scheduleTokenRefresh(token){
+  if (window.__refreshTimer) clearTimeout(window.__refreshTimer);
+  const payload = __parseJwt(token);
+  if (!payload || !payload.exp) return;
+  // Refresh 5 min before expiry, with a 60s floor
+  const refreshIn = Math.max(60_000, (payload.exp * 1000 - Date.now()) - 5 * 60 * 1000);
+  window.__refreshTimer = setTimeout(() => {
+    if (window.google?.accounts?.id) {
+      // auto_select=true means this silently re-issues if user is still signed in to Google
+      google.accounts.id.prompt();
+    }
+  }, refreshIn);
+}
+
 window.__handleGoogleCredential = (response) => {
   if (!response || !response.credential) return;
+  const isFirstSignIn = !window.__signedIn;
   window.__idToken = response.credential;
   window.__signedIn = true;
   const overlay = document.getElementById('signin-overlay');
   if (overlay) overlay.style.display = 'none';
-  if (typeof window.__onSignedIn === 'function') window.__onSignedIn();
+  __scheduleTokenRefresh(response.credential);
+  if (isFirstSignIn && typeof window.__onSignedIn === 'function') {
+    window.__onSignedIn();
+  }
 };
 
 window.__signOut = () => {
@@ -2823,25 +2850,63 @@ function renderFilesPanel(){
     return;
   }
   list.innerHTML='';
-  items.forEach(f=>{
-    const row=document.createElement('div');
-    row.className='file-item';
-    const isImg=f.mimeType&&f.mimeType.startsWith('image/');
-    const thumb=isImg&&f.url?`<img src="${f.url}" alt=""/>`:fileIcon(f.mimeType);
-    row.innerHTML=`
-      <div class="file-thumb">${thumb}</div>
-      <div class="file-meta">
-        <div class="file-name">${escapeHtml(f.name)}</div>
-        <div class="file-info">${f.mimeType||'unknown'} · ${fmtBytes(f.size)} · ${fmtDate(f.uploadedAt)}</div>
-      </div>
-      <div class="file-actions">
-        <a class="file-btn" href="${f.url}" target="_blank" rel="noopener">Open</a>
-        <a class="file-btn" href="${f.url}" download="${escapeHtml(f.name)}">⬇</a>
-        <button class="file-btn danger" onclick="deleteFileById('${f._id}','${escapeHtml(f.name)}')">✕</button>
-      </div>`;
-    list.appendChild(row);
-  });
+  items.forEach(f=>list.appendChild(renderFileRow(f)));
 }
+
+// Build a file row using DOM properties for ALL user-controlled data.
+// Avoids interpolating filename/url into HTML attributes — closes the
+// XSS vector where a malicious filename like `x';alert(1);//.txt` could
+// break out of an inline onclick handler.
+function renderFileRow(f){
+  const row=document.createElement('div');
+  row.className='file-item';
+  row.dataset.id=f._id;
+  row.innerHTML=`
+    <div class="file-thumb"></div>
+    <div class="file-meta">
+      <div class="file-name"></div>
+      <div class="file-info"></div>
+    </div>
+    <div class="file-actions">
+      <a class="file-btn file-open-btn" target="_blank" rel="noopener">Open</a>
+      <a class="file-btn file-download-btn">⬇</a>
+      <button class="file-btn danger file-delete-btn" type="button">✕</button>
+    </div>`;
+  const isImg=f.mimeType&&f.mimeType.startsWith('image/');
+  const thumb=row.querySelector('.file-thumb');
+  if(isImg&&f.url){
+    const img=document.createElement('img');
+    img.alt='';
+    img.src=f.url;
+    thumb.appendChild(img);
+  }else{
+    thumb.textContent=fileIcon(f.mimeType);
+  }
+  row.querySelector('.file-name').textContent=f.name;
+  row.querySelector('.file-info').textContent=
+    `${f.mimeType||'unknown'} · ${fmtBytes(f.size)} · ${fmtDate(f.uploadedAt)}`;
+  const openA=row.querySelector('.file-open-btn');
+  if(f.url){openA.href=f.url;}else{openA.removeAttribute('href');}
+  const dlA=row.querySelector('.file-download-btn');
+  if(f.url){dlA.href=f.url;}else{dlA.removeAttribute('href');}
+  dlA.download=f.name; // DOM property — safe from injection
+  return row;
+}
+
+// Single delegated handler for ALL file delete buttons (Files tab + Social assets)
+document.addEventListener('click',async(e)=>{
+  const btn=e.target.closest('.file-delete-btn');
+  if(!btn)return;
+  e.preventDefault();
+  const row=btn.closest('.file-item');
+  if(!row)return;
+  const id=row.dataset.id;
+  const name=row.querySelector('.file-name')?.textContent||'this file';
+  if(!confirm(`Delete "${name}"? This cannot be undone.`))return;
+  try{
+    await window.__convex.mutation("files:deleteFile",{id});
+  }catch(err){console.error(err);alert('Delete failed.');}
+});
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
@@ -2882,15 +2947,9 @@ async function uploadFiles(files){
   }
 }
 
-async function deleteFileById(id,name){
-  if(!confirm(`Delete "${name}"? This cannot be undone.`))return;
-  try{
-    await window.__convex.mutation("files:deleteFile",{id});
-  }catch(e){console.error(e);alert('Delete failed.');}
-}
+// deleteFileById removed — replaced by delegated .file-delete-btn handler
 
 window.handleFileInput=handleFileInput;
-window.deleteFileById=deleteFileById;
 
 function initFilesSync(){
   const c=window.__convex;
@@ -3104,24 +3163,7 @@ function renderSocialAssets(){
     return;
   }
   list.innerHTML='';
-  items.forEach(f=>{
-    const row=document.createElement('div');
-    row.className='file-item';
-    const isImg=f.mimeType&&f.mimeType.startsWith('image/');
-    const thumb=isImg&&f.url?`<img src="${f.url}" alt=""/>`:fileIcon(f.mimeType);
-    row.innerHTML=`
-      <div class="file-thumb">${thumb}</div>
-      <div class="file-meta">
-        <div class="file-name">${escapeHtml(f.name)}</div>
-        <div class="file-info">${f.mimeType||'unknown'} · ${fmtBytes(f.size)} · ${fmtDate(f.uploadedAt)}</div>
-      </div>
-      <div class="file-actions">
-        <a class="file-btn" href="${f.url}" target="_blank" rel="noopener">Open</a>
-        <a class="file-btn" href="${f.url}" download="${escapeHtml(f.name)}">⬇</a>
-        <button class="file-btn danger" onclick="deleteFileById('${f._id}','${escapeHtml(f.name)}')">✕</button>
-      </div>`;
-    list.appendChild(row);
-  });
+  items.forEach(f=>list.appendChild(renderFileRow(f)));
 }
 
 async function handleSocialAssetUpload(e){
