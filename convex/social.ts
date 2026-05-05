@@ -1,6 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { requireUser } from "./_helpers";
+import { requireUser, requireUserAndLimit } from "./_helpers";
 
 function bounded(s: string | undefined, max: number, label: string) {
   if (s !== undefined && s.length > max) {
@@ -31,7 +31,7 @@ export const upsert = mutation({
     notes: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    await requireUser(ctx);
+    await requireUserAndLimit(ctx, "write");
     if (args.day < 1 || args.day > 100) throw new Error("Day out of range");
     bounded(args.concept, 500, "Concept");
     bounded(args.hook, 500, "Hook");
@@ -62,7 +62,7 @@ export const upsert = mutation({
 export const remove = mutation({
   args: { day: v.number() },
   handler: async (ctx, { day }) => {
-    await requireUser(ctx);
+    await requireUserAndLimit(ctx, "destructive");
     const existing = await ctx.db
       .query("social")
       .withIndex("by_day", (q) => q.eq("day", day))
