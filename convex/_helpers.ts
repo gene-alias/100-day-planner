@@ -4,7 +4,9 @@ import { components } from "./_generated/api";
 
 const ALLOWED_EMAILS = new Set<string>([
   "gene@alias.com.ai",
-  // add more collaborators here
+  "dan@alias.com.ai",
+  "brad@alias.com.ai",
+  "mark@alias.com.ai",
 ]);
 
 export async function requireUser(ctx: QueryCtx | MutationCtx) {
