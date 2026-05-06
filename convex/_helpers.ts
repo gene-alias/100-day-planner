@@ -1,4 +1,5 @@
 import { QueryCtx, MutationCtx } from "./_generated/server";
+import { ConvexError } from "convex/values";
 import { RateLimiter, MINUTE } from "@convex-dev/rate-limiter";
 import { components } from "./_generated/api";
 
@@ -12,24 +13,31 @@ const ALLOWED_EMAILS = new Set<string>([
 export async function requireUser(ctx: QueryCtx | MutationCtx) {
   const identity = await ctx.auth.getUserIdentity();
   if (!identity) {
-    throw new Error("Unauthenticated");
+    throw new ConvexError({
+      code: "AUTH_MISSING",
+      message: "Not signed in",
+    });
   }
-  const email = identity.email?.toLowerCase();
-  if (!email || !ALLOWED_EMAILS.has(email)) {
-    throw new Error("Forbidden");
+  const rawEmail = identity.email;
+  const email = rawEmail?.toLowerCase();
+  if (!email) {
+    throw new ConvexError({
+      code: "AUTH_NO_EMAIL",
+      message: "Google ID token has no email claim",
+    });
+  }
+  if (!ALLOWED_EMAILS.has(email)) {
+    throw new ConvexError({
+      code: "AUTH_FORBIDDEN",
+      message: `Email "${email}" is not on the allowlist`,
+    });
   }
   return identity;
 }
 
-// Per-user token-bucket rate limits.
-// `rate` = tokens added per `period`; `capacity` = max burst.
-// All limits are per identified user (keyed by email).
 export const rateLimiter = new RateLimiter(components.rateLimiter, {
-  // Normal mutations (ticks:set, social:upsert, files:saveFile)
   write: { kind: "token bucket", rate: 120, period: MINUTE, capacity: 120 },
-  // File upload kickoff — caps storage abuse
   upload: { kind: "token bucket", rate: 30, period: MINUTE, capacity: 30 },
-  // Destructive ops (ticks:reset, files:deleteFile, social:remove)
   destructive: { kind: "token bucket", rate: 30, period: MINUTE, capacity: 30 },
 });
 
@@ -39,6 +47,13 @@ export async function requireUserAndLimit(
 ) {
   const identity = await requireUser(ctx);
   const key = identity.email?.toLowerCase() ?? "anonymous";
-  await rateLimiter.limit(ctx, bucket, { key, throws: true });
+  const result = await rateLimiter.limit(ctx, bucket, { key });
+  if (!result.ok) {
+    const retrySecs = Math.ceil((result.retryAfter ?? 0) / 1000);
+    throw new ConvexError({
+      code: "RATE_LIMITED",
+      message: `Rate limit hit on "${bucket}" bucket. Retry in ${retrySecs}s.`,
+    });
+  }
   return identity;
 }

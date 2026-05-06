@@ -1,10 +1,13 @@
 import { query, mutation } from "./_generated/server";
-import { v } from "convex/values";
+import { v, ConvexError } from "convex/values";
 import { requireUser, requireUserAndLimit } from "./_helpers";
 
 function bounded(s: string | undefined, max: number, label: string) {
   if (s !== undefined && s.length > max) {
-    throw new Error(`${label} too long (max ${max} chars)`);
+    throw new ConvexError({
+      code: "TOO_LONG",
+      message: `${label} too long (max ${max} chars, got ${s.length})`,
+    });
   }
 }
 
@@ -32,7 +35,9 @@ export const upsert = mutation({
   },
   handler: async (ctx, args) => {
     await requireUserAndLimit(ctx, "write");
-    if (args.day < 1 || args.day > 100) throw new Error("Day out of range");
+    if (args.day < 1 || args.day > 100) {
+      throw new ConvexError({ code: "BAD_DAY", message: "Day out of range (1-100)" });
+    }
     bounded(args.concept, 500, "Concept");
     bounded(args.hook, 500, "Hook");
     bounded(args.script, 20000, "Script");
@@ -43,9 +48,8 @@ export const upsert = mutation({
     bounded(args.status, 32, "Status");
     bounded(args.notes, 20000, "Notes");
     if (args.platforms && args.platforms.length > 32) {
-      throw new Error("Too many platforms");
+      throw new ConvexError({ code: "TOO_MANY", message: "Too many platforms (max 32)" });
     }
-
     const existing = await ctx.db
       .query("social")
       .withIndex("by_day", (q) => q.eq("day", args.day))
