@@ -1365,6 +1365,134 @@ body{
   letter-spacing:1.95px;color:var(--color-signal-blue);text-transform:uppercase;
 }
 
+/* ── EDIT BADGE + EDIT BUTTON IN TABLE ───────────────────────────── */
+.custom-badge{
+  display:inline-block;margin-left:6px;padding:2px 7px;
+  font-family:var(--font);font-weight:300;font-size:8px;letter-spacing:1.6px;
+  color:var(--color-signal-blue);
+  border:1px solid var(--color-signal-blue);
+}
+.day-edit-btn{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:5px 10px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:9px;
+  color:var(--color-light-gray);letter-spacing:1.6px;text-transform:uppercase;
+  transition:all .15s ease;
+}
+.day-edit-btn:hover{color:var(--color-off-white);border-color:var(--color-off-white);}
+
+/* ── DAY EDIT MODAL ──────────────────────────────────────────────── */
+.day-edit-modal{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(5,9,18,0.88);backdrop-filter:saturate(180%) blur(20px);
+  display:none;align-items:flex-start;justify-content:center;
+  padding:40px 20px;overflow-y:auto;
+}
+.day-edit-modal.open{display:flex;}
+.day-edit-card{
+  width:100%;max-width:720px;
+  background:rgba(13,13,13,0.7);
+  border:1px solid var(--color-signal-blue);
+  padding:36px;position:relative;
+}
+.day-edit-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:24px;padding-bottom:20px;
+  border-bottom:1px solid var(--color-dark-gray);
+}
+.day-edit-eyebrow{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-signal-blue);
+}
+.day-edit-eyebrow::before{content:'▼ ';}
+.day-edit-title{
+  font-family:var(--font-display);font-weight:300;
+  font-size:42px;line-height:0.95;letter-spacing:-2px;
+  text-transform:uppercase;color:var(--color-off-white);margin-top:6px;
+}
+.day-edit-close{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  width:32px;height:32px;cursor:pointer;
+  font-family:var(--font);color:var(--color-light-gray);
+  font-size:14px;transition:all .15s ease;
+}
+.day-edit-close:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+.day-edit-form{display:flex;flex-direction:column;gap:22px;}
+.day-edit-field{display:flex;flex-direction:column;gap:8px;}
+.day-edit-label{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-mid-gray);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.day-edit-label::before{content:'▼ ';color:var(--color-signal-blue);}
+.day-edit-count{
+  font-family:var(--font);font-size:10px;font-weight:300;
+  color:var(--color-light-gray);letter-spacing:1.5px;
+}
+.day-edit-input,.day-edit-textarea{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:12px 14px;color:var(--color-off-white);
+  font-family:var(--font);font-size:13px;font-weight:400;
+  letter-spacing:-0.5px;outline:none;width:100%;
+  transition:border-color .15s ease;
+}
+.day-edit-input:focus,.day-edit-textarea:focus{border-color:var(--color-signal-blue);}
+.day-edit-textarea{resize:vertical;min-height:72px;line-height:1.5;font-family:var(--font);}
+.day-edit-tasks{display:flex;flex-direction:column;gap:6px;}
+.day-edit-task-row{
+  display:flex;gap:8px;align-items:flex-start;
+}
+.day-edit-task-row .day-edit-input{flex:1;}
+.day-edit-task-remove{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  width:38px;flex-shrink:0;cursor:pointer;
+  font-family:var(--font);color:var(--color-light-gray);font-size:14px;
+  transition:all .15s ease;
+}
+.day-edit-task-remove:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+.day-edit-add-task{
+  background:transparent;border:1px dashed var(--color-dark-gray);
+  padding:10px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-light-gray);letter-spacing:1.5px;text-transform:uppercase;
+  transition:all .15s ease;
+}
+.day-edit-add-task:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+.day-edit-actions{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding-top:20px;border-top:1px solid var(--color-dark-gray);flex-wrap:wrap;
+}
+.day-edit-reset{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:10px 14px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-mid-gray);letter-spacing:1.6px;text-transform:uppercase;
+  transition:all .15s ease;
+}
+.day-edit-reset:hover{color:var(--color-signal-blue);border-color:var(--color-signal-blue);}
+.day-edit-cancel{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:10px 18px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-light-gray);letter-spacing:1.6px;text-transform:uppercase;
+  transition:all .15s ease;
+}
+.day-edit-cancel:hover{color:var(--color-off-white);border-color:var(--color-off-white);}
+.day-edit-save{
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  border:1px solid var(--color-signal-blue);
+  padding:10px 22px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  transition:background .15s ease;
+}
+.day-edit-save:hover{background:var(--color-blue-soft);border-color:var(--color-blue-soft);}
+.day-edit-status{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;color:var(--color-mid-gray);min-height:14px;
+}
+
 /* ── SCROLLBAR ────────────────────────────────────────────────────── */
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -1737,7 +1865,7 @@ body{
   </div>
   <div class="tl-wrap">
     <table class="tl-table">
-      <thead><tr><th style="width:96px">Day</th><th style="width:150px">Phase</th><th style="width:150px">Focus</th><th>Dev Tasks</th><th>Deliverable</th></tr></thead>
+      <thead><tr><th style="width:96px">Day</th><th style="width:150px">Phase</th><th style="width:150px">Focus</th><th>Dev Tasks</th><th>Deliverable</th><th style="width:70px"></th></tr></thead>
       <tbody id="tl-body"></tbody>
     </table>
   </div>
@@ -1755,7 +1883,7 @@ body{
   </div>
   <div class="tl-wrap">
     <table class="tl-table">
-      <thead><tr><th style="width:96px">Day</th><th style="width:120px">Category</th><th style="width:150px">Focus</th><th>Marketing Tasks</th><th>Deliverable</th></tr></thead>
+      <thead><tr><th style="width:96px">Day</th><th style="width:120px">Category</th><th style="width:150px">Focus</th><th>Marketing Tasks</th><th>Deliverable</th><th style="width:70px"></th></tr></thead>
       <tbody id="mtl-body"></tbody>
     </table>
   </div>
@@ -1887,6 +2015,45 @@ body{
 <!-- Floating sticky horizontal scrollbar (synced to active Dev/Mkt table) -->
 <div class="floating-hscroll" id="floating-hscroll">
   <div class="floating-hscroll-inner" id="floating-hscroll-inner"></div>
+</div>
+
+<!-- Day Edit Modal -->
+<div class="day-edit-modal" id="day-edit-modal">
+  <div class="day-edit-card">
+    <div class="day-edit-head">
+      <div>
+        <div class="day-edit-eyebrow" id="day-edit-eyebrow">Edit</div>
+        <div class="day-edit-title" id="day-edit-title">Day —</div>
+      </div>
+      <button class="day-edit-close" type="button" onclick="closeDayEdit()">✕</button>
+    </div>
+    <form class="day-edit-form" id="day-edit-form" onsubmit="event.preventDefault();saveDayEdit();">
+      <div class="day-edit-field">
+        <label class="day-edit-label">Focus</label>
+        <input class="day-edit-input" id="day-edit-focus" placeholder="Day focus / one-liner"/>
+      </div>
+      <div class="day-edit-field">
+        <label class="day-edit-label">
+          Tasks
+          <span class="day-edit-count" id="day-edit-task-count">0</span>
+        </label>
+        <div class="day-edit-tasks" id="day-edit-tasks"></div>
+        <button type="button" class="day-edit-add-task" onclick="addDayEditTask()">+ Add task</button>
+      </div>
+      <div class="day-edit-field">
+        <label class="day-edit-label">Deliverable</label>
+        <textarea class="day-edit-textarea" id="day-edit-deliverable" placeholder="What ships at end of day"></textarea>
+      </div>
+      <div class="day-edit-actions">
+        <button type="button" class="day-edit-reset" onclick="resetDayEdit()">Reset to default</button>
+        <div style="display:flex;gap:10px">
+          <button type="button" class="day-edit-cancel" onclick="closeDayEdit()">Cancel</button>
+          <button type="submit" class="day-edit-save">Save</button>
+        </div>
+      </div>
+      <div class="day-edit-status" id="day-edit-status"></div>
+    </form>
+  </div>
 </div>
 
 <script type="module">
@@ -2193,6 +2360,172 @@ const DAYS=[
 ];
 
 function getPhase(day){return PHASES.find(p=>day>=p.days[0]&&day<=p.days[1]);}
+
+// ── Day overrides + Edit modal ──────────────────────────────────
+let dayOverrides=new Map();   // day → override row
+let dayEditState={day:null,side:'dev'};
+
+function openDayEdit(day,side){
+  const d=getDayData(day);
+  if(!d)return;
+  dayEditState={day,side};
+  const isDev=side==='dev';
+  document.getElementById('day-edit-eyebrow').textContent=isDev?'Edit Dev Tasks':'Edit Marketing Tasks';
+  document.getElementById('day-edit-title').textContent=`DAY ${day}`;
+  document.getElementById('day-edit-focus').value=isDev?(d.focus||''):(d.mktFocus||'');
+  document.getElementById('day-edit-deliverable').value=isDev?(d.deliverable||''):(d.mktDeliverable||'');
+  const tasks=isDev?(d.tasks||[]):(d.mktTasks||[]);
+  renderDayEditTasks(tasks);
+  document.getElementById('day-edit-status').textContent='';
+  document.getElementById('day-edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('day-edit-focus').focus(),50);
+}
+function closeDayEdit(){
+  document.getElementById('day-edit-modal').classList.remove('open');
+  dayEditState={day:null,side:'dev'};
+}
+function renderDayEditTasks(tasks){
+  const wrap=document.getElementById('day-edit-tasks');
+  wrap.innerHTML='';
+  tasks.forEach(t=>addDayEditTask(t,false));
+  updateDayEditCount();
+}
+function addDayEditTask(initial,focusNew){
+  const wrap=document.getElementById('day-edit-tasks');
+  const row=document.createElement('div');
+  row.className='day-edit-task-row';
+  row.innerHTML=`<input class="day-edit-input day-edit-task-input" placeholder="Task description"/><button type="button" class="day-edit-task-remove">✕</button>`;
+  const input=row.querySelector('input');
+  input.value=typeof initial==='string'?initial:'';
+  input.addEventListener('input',updateDayEditCount);
+  row.querySelector('.day-edit-task-remove').onclick=()=>{row.remove();updateDayEditCount();};
+  wrap.appendChild(row);
+  updateDayEditCount();
+  if(focusNew!==false)input.focus();
+}
+function updateDayEditCount(){
+  const n=document.querySelectorAll('#day-edit-tasks .day-edit-task-input').length;
+  document.getElementById('day-edit-task-count').textContent=`${n} ${n===1?'task':'tasks'}`;
+}
+async function saveDayEdit(){
+  const {day,side}=dayEditState;
+  if(day==null)return;
+  const focus=document.getElementById('day-edit-focus').value.trim();
+  const deliverable=document.getElementById('day-edit-deliverable').value.trim();
+  const taskInputs=[...document.querySelectorAll('#day-edit-tasks .day-edit-task-input')];
+  const tasks=taskInputs.map(i=>i.value.trim()).filter(t=>t.length>0);
+  const status=document.getElementById('day-edit-status');
+  status.textContent='Saving…';
+  status.style.color='';
+  try{
+    const args={day};
+    if(side==='dev'){
+      args.focus=focus;args.deliverable=deliverable;args.tasks=tasks;
+    } else {
+      args.mktFocus=focus;args.mktDeliverable=deliverable;args.mktTasks=tasks;
+    }
+    await window.__convex.mutation("days:upsert",args);
+    status.textContent='Saved';
+    status.style.color='var(--color-signal-blue)';
+    setTimeout(closeDayEdit,500);
+  }catch(e){
+    console.error('[days:upsert] failed:',e);
+    const reason=e?.data?.message||e?.message||String(e);
+    status.textContent='Save failed: '+reason;
+    status.style.color='#FF6B6B';
+  }
+}
+async function resetDayEdit(){
+  const {day,side}=dayEditState;
+  if(day==null)return;
+  if(!confirm(`Reset Day ${day} ${side==='dev'?'dev':'marketing'} content to default?`))return;
+  // Send empty arrays/strings so the merge falls back to base data — but we
+  // want to clear the override entirely. days:reset wipes the row, but that
+  // also clears the OTHER side's overrides. Instead, clear only the side's fields:
+  const status=document.getElementById('day-edit-status');
+  status.textContent='Resetting…';
+  try{
+    const existing=dayOverrides.get(day)||{};
+    const args={day};
+    // Carry forward the other side's overrides
+    if(side==='dev'){
+      // clear dev side; keep mkt side overrides if any
+      if(existing.mktFocus!==undefined)args.mktFocus=existing.mktFocus;
+      if(existing.mktTasks!==undefined)args.mktTasks=existing.mktTasks;
+      if(existing.mktDeliverable!==undefined)args.mktDeliverable=existing.mktDeliverable;
+    } else {
+      if(existing.focus!==undefined)args.focus=existing.focus;
+      if(existing.tasks!==undefined)args.tasks=existing.tasks;
+      if(existing.deliverable!==undefined)args.deliverable=existing.deliverable;
+    }
+    // If neither side has overrides after this clear, just delete the row
+    const remaining=Object.keys(args).filter(k=>k!=='day');
+    if(remaining.length===0){
+      await window.__convex.mutation("days:reset",{day});
+    } else {
+      await window.__convex.mutation("days:upsert",args);
+    }
+    status.textContent='Reset to default';
+    status.style.color='var(--color-signal-blue)';
+    setTimeout(closeDayEdit,500);
+  }catch(e){
+    console.error('[days:reset/upsert] failed:',e);
+    const reason=e?.data?.message||e?.message||String(e);
+    status.textContent='Reset failed: '+reason;
+    status.style.color='#FF6B6B';
+  }
+}
+window.openDayEdit=openDayEdit;
+window.closeDayEdit=closeDayEdit;
+window.saveDayEdit=saveDayEdit;
+window.resetDayEdit=resetDayEdit;
+window.addDayEditTask=addDayEditTask;
+
+// Delegated click for table edit buttons
+document.addEventListener('click',(e)=>{
+  const btn=e.target.closest('.day-edit-btn');
+  if(!btn)return;
+  e.preventDefault();
+  const day=parseInt(btn.dataset.day);
+  const side=btn.dataset.side||'dev';
+  if(!isNaN(day))openDayEdit(day,side);
+});
+// Esc closes the modal
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape'){
+    const modal=document.getElementById('day-edit-modal');
+    if(modal&&modal.classList.contains('open'))closeDayEdit();
+  }
+});
+
+function getDayData(day){
+  // Returns a defaults-merged-with-overrides version of the day record.
+  const base=DAYS.find(d=>d.day===day);
+  if(!base)return null;
+  const ov=dayOverrides.get(day);
+  if(!ov)return base;
+  return {
+    ...base,
+    focus:           ov.focus           ?? base.focus,
+    tasks:           ov.tasks           ?? base.tasks,
+    deliverable:     ov.deliverable     ?? base.deliverable,
+    mktFocus:        ov.mktFocus        ?? base.mktFocus,
+    mktTasks:        ov.mktTasks        ?? base.mktTasks,
+    mktDeliverable:  ov.mktDeliverable  ?? base.mktDeliverable,
+  };
+}
+function initDaysSync(){
+  const c=window.__convex;
+  if(!c){setTimeout(initDaysSync,50);return;}
+  c.onUpdate("days:list",{},(rows)=>{
+    dayOverrides=new Map((rows||[]).map(r=>[r.day,r]));
+    // Re-render any view that uses day data
+    if(typeof filterTasks==='function')filterTasks();
+    if(typeof filterMkt==='function')filterMkt();
+    if(typeof renderCal==='function')renderCal();
+    if(selDay){const d=selDay;selDay=null;selectDay(d);}
+  });
+}
 function getMktCat(id){return MKT_CATS.find(c=>c.id===id);}
 
 // ── Thin-line SVG icon set — replaces emojis ──
@@ -2692,7 +3025,8 @@ function buildCalendar(){
 function renderCal(){
   const grid=document.getElementById('cal-grid');grid.innerHTML='';
   const q=calFilter.toLowerCase();
-  DAYS.forEach(d=>{
+  DAYS.forEach(base=>{
+    const d=getDayData(base.day);
     const ph=getPhase(d.day);
     const mc=getMktCat(d.mktCat);
     const matchesDev=!q||(d.focus+d.tasks.join(' ')+d.deliverable).toLowerCase().includes(q);
@@ -2728,7 +3062,7 @@ function selectDay(dayNum){
   renderCal();
   const flyout=document.getElementById('flyout');
   if(!selDay){flyout.classList.remove('open');return;}
-  const d=DAYS.find(x=>x.day===dayNum);
+  const d=getDayData(dayNum);
   const ph=getPhase(dayNum);
   const mc=getMktCat(d.mktCat);
   const mil=MILESTONES.find(m=>m.day===dayNum);
@@ -2765,7 +3099,7 @@ function buildTaskList(){
 function filterTasks(){
   const q=document.getElementById('tl-search').value.toLowerCase();
   const pf=parseInt(document.getElementById('tl-pf').value)||0;
-  const filtered=DAYS.filter(d=>{
+  const filtered=DAYS.map(d=>getDayData(d.day)).filter(d=>{
     const mp=!pf||d.phase===pf;
     const mq=!q||(d.focus+d.tasks.join(' ')+d.deliverable).toLowerCase().includes(q);
     return mp&&mq;
@@ -2775,10 +3109,11 @@ function filterTasks(){
   filtered.forEach(d=>{
     const ph=getPhase(d.day);
     const mil=MILESTONES.find(m=>m.day===d.day);
+    const isCust=dayOverrides.has(d.day) && (dayOverrides.get(d.day).tasks||dayOverrides.get(d.day).focus||dayOverrides.get(d.day).deliverable);
     const tr=document.createElement('tr');
-    const tasksHtml=d.tasks.map((t,i)=>{const k=tkey('dev',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${t}</span></div>`;}).join('');
+    const tasksHtml=d.tasks.map((t,i)=>{const k=tkey('dev',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${escapeHtml(t)}</span></div>`;}).join('');
     const c=dayDoneCount(d);
-    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.dev}/${c.devTotal}</span></div></td><td><span class="phase-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(ph.icon,12)}</span>${ph.short}</span></td><td style="font-weight:300;color:var(--text)">${d.focus}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--text-2);font-weight:300">${d.deliverable}</td>`;
+    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.dev}/${c.devTotal}</span></div></td><td><span class="phase-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(ph.icon,12)}</span>${ph.short}</span></td><td style="font-weight:300;color:var(--text)">${escapeHtml(d.focus)}${isCust?' <span class="custom-badge">EDITED</span>':''}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--text-2);font-weight:300">${escapeHtml(d.deliverable)}</td><td style="text-align:right;padding-right:10px"><button class="day-edit-btn" data-day="${d.day}" data-side="dev">EDIT</button></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -2801,7 +3136,7 @@ function buildMarketing(){
 function filterMkt(){
   const q=document.getElementById('mtl-search').value.toLowerCase();
   const cat=document.getElementById('mtl-cat').value;
-  const filtered=DAYS.filter(d=>{
+  const filtered=DAYS.map(d=>getDayData(d.day)).filter(d=>{
     const mc=!cat||d.mktCat===cat;
     const mq=!q||(d.mktFocus+d.mktTasks.join(' ')+d.mktDeliverable).toLowerCase().includes(q);
     return mc&&mq;
@@ -2812,10 +3147,12 @@ function filterMkt(){
     const mc=getMktCat(d.mktCat);
     const ph=getPhase(d.day);
     const mil=MILESTONES.find(m=>m.day===d.day);
+    const ovRow=dayOverrides.get(d.day);
+    const isCust=ovRow && (ovRow.mktTasks||ovRow.mktFocus||ovRow.mktDeliverable);
     const tr=document.createElement('tr');
-    const tasksHtml=d.mktTasks.map((t,i)=>{const k=tkey('mkt',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${t}</span></div>`;}).join('');
+    const tasksHtml=d.mktTasks.map((t,i)=>{const k=tkey('mkt',d.day,i);return `<div class="tcheck${isDone(k)?' done':''}" data-tkey="${k}" onclick="toggleTask('${k}')"><span class="tcheck-box">✓</span><span class="tcheck-text">${escapeHtml(t)}</span></div>`;}).join('');
     const c=dayDoneCount(d);
-    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.mkt}/${c.mktTotal}</span></div></td><td><span class="mkt-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(mc.icon,12)}</span>${mc.name}</span></td><td style="font-weight:300;color:var(--text)">${d.mktFocus}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--accent);font-weight:300">${d.mktDeliverable}</td>`;
+    tr.innerHTML=`<td><div class="day-cell-row"><span class="day-cell-num">${d.day}${mil?' <span style="color:var(--accent);font-size:9px;vertical-align:middle">●</span>':''}</span><span class="day-cell-count">${c.mkt}/${c.mktTotal}</span></div></td><td><span class="mkt-badge"><span style="opacity:.7;display:inline-flex;align-items:center">${iconHtml(mc.icon,12)}</span>${mc.name}</span></td><td style="font-weight:300;color:var(--text)">${escapeHtml(d.mktFocus)}${isCust?' <span class="custom-badge">EDITED</span>':''}</td><td style="font-size:13px">${tasksHtml}</td><td style="font-size:12px;color:var(--accent);font-weight:300">${escapeHtml(d.mktDeliverable)}</td><td style="text-align:right;padding-right:10px"><button class="day-edit-btn" data-day="${d.day}" data-side="mkt">EDIT</button></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -3313,6 +3650,7 @@ function startConvexSync(){
   if(typeof initConvexSync==='function')initConvexSync();   // ticks
   if(typeof initFilesSync==='function')initFilesSync();
   if(typeof initSocialSync==='function')initSocialSync();
+  if(typeof initDaysSync==='function')initDaysSync();
 }
 window.__onSignedIn = startConvexSync;
 // If auth landed before the script finished (auto-select can be instant), still kick off

@@ -29,4 +29,15 @@ export default defineSchema({
     notes: v.optional(v.string()),
     updatedAt: v.number(),
   }).index("by_day", ["day"]),
+
+  dayOverrides: defineTable({
+    day: v.number(),
+    focus: v.optional(v.string()),
+    tasks: v.optional(v.array(v.string())),
+    deliverable: v.optional(v.string()),
+    mktFocus: v.optional(v.string()),
+    mktTasks: v.optional(v.array(v.string())),
+    mktDeliverable: v.optional(v.string()),
+    updatedAt: v.number(),
+  }).index("by_day", ["day"]),
 });

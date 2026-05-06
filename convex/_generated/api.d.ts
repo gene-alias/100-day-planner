@@ -9,6 +9,7 @@
  */
 
 import type * as _helpers from "../_helpers.js";
+import type * as days from "../days.js";
 import type * as files from "../files.js";
 import type * as social from "../social.js";
 import type * as ticks from "../ticks.js";
@@ -21,6 +22,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   _helpers: typeof _helpers;
+  days: typeof days;
   files: typeof files;
   social: typeof social;
   ticks: typeof ticks;
