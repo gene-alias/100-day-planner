@@ -1941,35 +1941,9 @@ body{
           <div class="social-pills" id="social-platform-pills"></div>
         </div>
 
-        <!-- Per-platform posts -->
-        <div class="social-row-2">
-          <div class="social-field">
-            <label class="social-label">X Post</label>
-            <textarea class="social-textarea" id="social-xpost" style="min-height:120px" placeholder="Tweet copy — keep it tight"></textarea>
-          </div>
-          <div class="social-field">
-            <label class="social-label">Threads Post</label>
-            <textarea class="social-textarea" id="social-threadspost" style="min-height:120px" placeholder="Threads version — punchier than LinkedIn"></textarea>
-          </div>
-        </div>
-        <div class="social-row-2">
-          <div class="social-field">
-            <label class="social-label">LinkedIn Post</label>
-            <textarea class="social-textarea" id="social-linkedinpost" style="min-height:160px" placeholder="LinkedIn version — slower hook, more context, line breaks"></textarea>
-          </div>
-          <div class="social-field">
-            <label class="social-label">Facebook Post</label>
-            <textarea class="social-textarea" id="social-facebookpost" style="min-height:160px" placeholder="Facebook version — friendly tone, room to expand"></textarea>
-          </div>
-        </div>
-        <div class="social-field">
-          <label class="social-label">Carousel Idea</label>
-          <textarea class="social-textarea" id="social-carouselidea" style="min-height:200px" placeholder="Slide-by-slide outline:&#10;Slide 1: Hook&#10;Slide 2: Problem&#10;Slide 3: ..."></textarea>
-        </div>
-
         <div class="social-field">
           <label class="social-label">Caption</label>
-          <textarea class="social-textarea" id="social-caption" placeholder="Generic caption — fallback for any platform without its own post above"></textarea>
+          <textarea class="social-textarea" id="social-caption" placeholder="Generic caption — fallback for any platform without its own post below"></textarea>
         </div>
         <div class="social-field">
           <label class="social-label">Script</label>
@@ -1998,6 +1972,33 @@ body{
           <div id="social-assets-progress"></div>
           <div class="files-list" id="social-assets-list"></div>
         </div>
+
+        <!-- Per-platform posts (last fields before Save) -->
+        <div class="social-row-2">
+          <div class="social-field">
+            <label class="social-label">X Post</label>
+            <textarea class="social-textarea" id="social-xpost" style="min-height:120px" placeholder="Tweet copy — keep it tight"></textarea>
+          </div>
+          <div class="social-field">
+            <label class="social-label">Threads Post</label>
+            <textarea class="social-textarea" id="social-threadspost" style="min-height:120px" placeholder="Threads version — punchier than LinkedIn"></textarea>
+          </div>
+        </div>
+        <div class="social-row-2">
+          <div class="social-field">
+            <label class="social-label">LinkedIn Post</label>
+            <textarea class="social-textarea" id="social-linkedinpost" style="min-height:160px" placeholder="LinkedIn version — slower hook, more context, line breaks"></textarea>
+          </div>
+          <div class="social-field">
+            <label class="social-label">Facebook Post</label>
+            <textarea class="social-textarea" id="social-facebookpost" style="min-height:160px" placeholder="Facebook version — friendly tone, room to expand"></textarea>
+          </div>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Carousel Idea</label>
+          <textarea class="social-textarea" id="social-carouselidea" style="min-height:200px" placeholder="Slide-by-slide outline:&#10;Slide 1: Hook&#10;Slide 2: Problem&#10;Slide 3: ..."></textarea>
+        </div>
+
         <div class="social-actions">
           <div style="display:flex;align-items:center;gap:14px">
             <button type="button" class="social-delete-btn" onclick="socialDelete()">Delete</button>
