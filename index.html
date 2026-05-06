@@ -3161,13 +3161,23 @@ async function socialSave(){
   status.textContent='Saving…';
   status.classList.remove('saved');
   try{
-    await window.__convex.mutation("social:upsert",args);
+    console.log('[social:upsert] sending', args);
+    const result = await window.__convex.mutation("social:upsert",args);
+    console.log('[social:upsert] saved', result);
     socialDirty=false;
     status.textContent='Saved';
     status.classList.add('saved');
   }catch(e){
-    console.error(e);
-    status.textContent='Save failed';
+    console.error('[social:upsert] failed:', e);
+    // Surface the actual error message so users can see what's wrong
+    const reason =
+      e?.data?.message ||
+      e?.message ||
+      String(e) ||
+      'unknown error';
+    status.textContent='Save failed: ' + reason;
+    status.style.color = '#FF6B6B';
+    setTimeout(()=>{ status.style.color = ''; }, 8000);
   }
 }
 
