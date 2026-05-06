@@ -1365,6 +1365,267 @@ body{
   letter-spacing:1.95px;color:var(--color-signal-blue);text-transform:uppercase;
 }
 
+/* ── FITNESS TAB ─────────────────────────────────────────────────── */
+.fit-hero{
+  background:rgba(13,13,13,0.5);
+  border:1px solid var(--color-dark-gray);
+  border-left:3px solid var(--color-signal-blue);
+  padding:32px 36px;margin-bottom:18px;
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;
+}
+@media(max-width:760px){.fit-hero{grid-template-columns:1fr;padding:22px;gap:18px;}}
+.fit-hero-eyebrow{
+  font-family:var(--font);font-weight:300;font-size:11px;letter-spacing:1.95px;
+  text-transform:uppercase;color:var(--color-light-gray);margin-bottom:8px;
+}
+.fit-hero-eyebrow::before{content:'▼ ';color:var(--color-signal-blue);}
+.fit-hero-title{
+  font-family:var(--font-display);font-weight:300;font-size:56px;
+  line-height:0.92;letter-spacing:-2.4px;text-transform:uppercase;
+  color:var(--color-off-white);
+}
+.fit-hero-sub{
+  font-family:var(--font);font-weight:400;font-size:14px;
+  color:var(--color-light-gray);margin-top:14px;line-height:1.6;
+  letter-spacing:-0.3px;max-width:560px;
+}
+.fit-hero-stats{display:flex;gap:0;border:1px solid var(--color-dark-gray);}
+.fit-hero-stat{padding:14px 22px;border-right:1px solid var(--color-dark-gray);text-align:center;}
+.fit-hero-stat:last-child{border-right:none;}
+.fit-hero-stat-n{
+  font-family:var(--font-graphic);font-weight:300;font-size:32px;
+  letter-spacing:-1.6px;line-height:1;color:var(--color-off-white);display:block;
+}
+.fit-hero-stat:first-child .fit-hero-stat-n{color:var(--color-signal-blue);}
+.fit-hero-stat-l{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  color:var(--color-mid-gray);margin-top:6px;display:block;
+}
+
+.fit-targets-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid var(--color-dark-gray);
+  background:rgba(13,13,13,0.45);
+}
+@media(max-width:600px){.fit-targets-bar{grid-template-columns:repeat(2,1fr);}}
+.fit-target{
+  padding:16px 18px;border-right:1px solid var(--color-dark-gray);
+  border-bottom:1px solid var(--color-dark-gray);
+}
+.fit-target:nth-child(4n){border-right:none;}
+@media(max-width:600px){
+  .fit-target{border-right:1px solid var(--color-dark-gray);}
+  .fit-target:nth-child(2n){border-right:none;}
+}
+.fit-target-label{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-mid-gray);
+  margin-bottom:6px;
+}
+.fit-target-value{
+  font-family:var(--font-graphic);font-weight:300;font-size:22px;
+  letter-spacing:-1px;line-height:1;color:var(--color-off-white);
+}
+
+.fit-grid-meta{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.fit-legend{
+  display:flex;gap:0;flex-wrap:wrap;
+  border:1px solid var(--color-dark-gray);margin-bottom:14px;
+}
+.fit-legend-item{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-right:1px solid var(--color-dark-gray);
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.fit-legend-item:last-child{border-right:none;}
+.fit-legend-dot{width:8px;height:8px;flex-shrink:0;}
+
+.fit-grid{
+  display:grid;grid-template-columns:repeat(10,1fr);gap:1px;
+  background:#020716;border:1px solid #020716;
+}
+.fit-cell{
+  position:relative;padding:8px 5px;cursor:pointer;
+  background:#0C1B45;
+  text-align:center;min-height:84px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:background .15s ease;overflow:hidden;
+}
+.fit-cell:hover{background:#173072;}
+.fit-cell.selected{
+  background:var(--color-signal-blue);
+  box-shadow:0 0 0 1px var(--color-signal-blue),0 0 24px rgba(8,53,132,0.55),0 0 56px rgba(8,53,132,0.30);
+  z-index:2;
+}
+.fit-cell.phase-1{background:#0C1B45;}
+.fit-cell.phase-2{background:#152760;}
+.fit-cell.phase-3{background:#1F3582;}
+.fit-cell:hover{filter:brightness(1.25);}
+.fit-cell.rest{background:#06091B;}
+.fit-cell-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:15px;
+  color:var(--color-off-white);letter-spacing:-0.7px;line-height:1;
+}
+.fit-cell-type{
+  font-family:var(--font);font-weight:300;font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--color-light-gray);
+}
+.fit-cell.rest .fit-cell-type{color:var(--color-mid-gray);}
+.fit-cell-cardio{
+  font-family:var(--font);font-size:7px;letter-spacing:1px;
+  color:var(--color-mid-gray);text-transform:uppercase;font-weight:300;
+}
+.fit-cell-week{
+  font-family:var(--font);font-size:7px;letter-spacing:0.8px;
+  color:var(--color-mid-gray);font-weight:300;margin-top:auto;
+}
+
+.fit-flyout{
+  background:rgba(13,13,13,0.55);
+  border:1px solid var(--color-dark-gray);
+  border-left:3px solid var(--color-signal-blue);
+  padding:32px;margin-top:18px;display:none;
+}
+.fit-flyout.open{display:block;}
+.fit-flyout-head{
+  display:flex;align-items:center;gap:18px;margin-bottom:24px;
+  padding-bottom:18px;border-bottom:1px solid var(--color-dark-gray);
+  flex-wrap:wrap;
+}
+.fit-flyout-badge{
+  width:64px;height:64px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  font-family:var(--font-graphic);font-weight:300;font-size:28px;letter-spacing:-2px;
+}
+.fit-flyout-title{
+  font-family:var(--font-display);font-weight:300;font-size:36px;
+  line-height:1.0;letter-spacing:-1.6px;text-transform:uppercase;color:var(--color-off-white);
+}
+.fit-flyout-sub{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);margin-top:6px;
+}
+.fit-flyout-cols{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+}
+@media(max-width:760px){.fit-flyout-cols{grid-template-columns:1fr;gap:18px;}}
+.fit-flyout-col-title{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;color:var(--color-light-gray);
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid var(--color-dark-gray);text-transform:uppercase;
+}
+.fit-flyout-col-title::before{content:'▼ ';color:var(--color-signal-blue);}
+.fit-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.fit-list-item{
+  background:transparent;border:1px solid var(--color-dark-gray);
+  padding:10px 14px;
+  font-family:var(--font);font-size:12px;font-weight:400;
+  line-height:1.5;color:var(--color-off-white);letter-spacing:-0.3px;
+  display:flex;gap:8px;align-items:flex-start;
+}
+.fit-list-item-icon{flex-shrink:0;color:var(--color-signal-blue);font-size:11px;margin-top:2px;}
+.fit-list-meal{margin-bottom:14px;}
+.fit-list-meal-title{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-signal-blue);
+  margin-bottom:8px;
+}
+.fit-checklist{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid var(--color-dark-gray);margin-top:14px;
+}
+@media(max-width:600px){.fit-checklist{grid-template-columns:repeat(2,1fr);}}
+.fit-checklist-item{
+  padding:10px 12px;
+  border-right:1px solid var(--color-dark-gray);
+  border-bottom:1px solid var(--color-dark-gray);
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font);font-size:11px;color:var(--color-off-white);
+  letter-spacing:-0.3px;font-weight:400;
+}
+.fit-checklist-item:nth-child(3n){border-right:none;}
+.fit-checklist-item:last-child{border-bottom:none;}
+.fit-checklist-icon{
+  width:12px;height:12px;flex-shrink:0;
+  border:1.5px solid var(--color-light-gray);
+}
+.fit-anti-binge{
+  margin-top:18px;padding:14px 18px;
+  border:1px solid var(--color-signal-blue);background:rgba(8,53,132,0.12);
+}
+.fit-anti-binge-label{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-signal-blue);
+  margin-bottom:6px;
+}
+.fit-anti-binge-text{
+  font-family:var(--font);font-weight:400;font-size:13px;
+  color:var(--color-off-white);line-height:1.55;letter-spacing:-0.3px;
+}
+
+.fit-systems{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+@media(max-width:780px){.fit-systems{grid-template-columns:1fr;}}
+.fit-system-card{
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  border-top:3px solid var(--color-signal-blue);
+  padding:24px;
+}
+.fit-system-num{
+  font-family:var(--font-graphic);font-weight:300;font-size:42px;
+  letter-spacing:-2px;line-height:1;color:var(--color-signal-blue);
+}
+.fit-system-title{
+  font-family:var(--font-display);font-weight:300;font-size:22px;
+  line-height:1.05;letter-spacing:-0.8px;text-transform:uppercase;
+  color:var(--color-off-white);margin-top:10px;
+}
+.fit-system-points{margin-top:18px;display:flex;flex-direction:column;gap:6px;}
+.fit-system-point{
+  font-family:var(--font);font-size:12px;color:var(--color-light-gray);
+  font-weight:400;letter-spacing:-0.3px;line-height:1.5;
+  padding-left:16px;position:relative;
+}
+.fit-system-point::before{
+  content:'▸';position:absolute;left:0;color:var(--color-signal-blue);font-size:11px;
+}
+
+@media(max-width:760px){
+  .fit-rules-grid{grid-template-columns:1fr!important;}
+  .fit-hero-title{font-size:38px;letter-spacing:-1.6px;}
+  .fit-flyout-title{font-size:24px;}
+  .fit-flyout-badge{width:48px;height:48px;font-size:22px;}
+}
+
+.fit-final{
+  margin-top:24px;padding:32px;
+  background:rgba(13,13,13,0.5);border:1px solid var(--color-dark-gray);
+  text-align:center;
+}
+.fit-final-eyebrow{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-signal-blue);
+}
+.fit-final-text{
+  font-family:var(--font-display);font-weight:300;font-size:32px;
+  line-height:1.1;letter-spacing:-1.4px;text-transform:uppercase;
+  color:var(--color-off-white);margin-top:12px;
+}
+.fit-final-sub{
+  font-family:var(--font);font-weight:400;font-size:13px;
+  color:var(--color-light-gray);margin-top:14px;line-height:1.6;letter-spacing:-0.3px;
+  max-width:600px;margin-left:auto;margin-right:auto;
+}
+
 /* ── EDIT BADGE + EDIT BUTTON IN TABLE ───────────────────────────── */
 .custom-badge{
   display:inline-block;margin-left:6px;padding:2px 7px;
@@ -1715,6 +1976,7 @@ body{
   <button class="tab" onclick="switchTab('tasks')">Dev Tasks</button>
   <button class="tab" onclick="switchTab('marketing')">Marketing</button>
   <button class="tab" onclick="switchTab('social')">Social</button>
+  <button class="tab" onclick="switchTab('fitness')">Fitness</button>
   <button class="tab" onclick="switchTab('files')">Files</button>
   <div class="tab-indicator" id="tab-indicator"></div>
 </div>
@@ -2009,6 +2271,59 @@ body{
       </form>
     </div>
   </div>
+</div>
+
+<!-- FITNESS -->
+<div class="panel" id="panel-fitness">
+  <!-- Header summary -->
+  <div class="fit-hero" id="fit-hero"></div>
+
+  <!-- Daily targets bar -->
+  <div class="fit-targets-bar" id="fit-targets-bar"></div>
+
+  <!-- 100 day grid -->
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 14px">
+    <div class="section-heading" style="margin-bottom:0">100 DAY GRID</div>
+    <div class="fit-grid-meta">Click a day for full session detail</div>
+  </div>
+  <div class="fit-legend" id="fit-legend"></div>
+  <div class="fit-grid" id="fit-grid"></div>
+  <div class="fit-flyout" id="fit-flyout"></div>
+
+  <!-- 3 systems -->
+  <div class="section-heading" style="font-size:32px;letter-spacing:-1.4px;margin-top:32px">THE THREE SYSTEMS</div>
+  <div class="fit-systems" id="fit-systems"></div>
+
+  <!-- Behavior + progression -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px" class="fit-rules-grid">
+    <div class="panel-card">
+      <div class="panel-card-title">Behavioral Rules</div>
+      <div id="fit-behavior-list"></div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-card-title">Progression — Evaluate Every 7 Days</div>
+      <div id="fit-progression-list"></div>
+    </div>
+  </div>
+
+  <!-- Sleep + tracking + identity -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px" class="fit-rules-grid">
+    <div class="panel-card">
+      <div class="panel-card-title">Sleep — Shift Work</div>
+      <div id="fit-sleep-list"></div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-card-title">Tracking</div>
+      <div id="fit-tracking-list"></div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-card-title">Operator Identity</div>
+      <div id="fit-identity"></div>
+    </div>
+  </div>
+
+  <!-- Final principle -->
+  <div class="fit-final" id="fit-final"></div>
 </div>
 
 <!-- FILES -->
@@ -2681,7 +2996,7 @@ function switchTab(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
-  const names=['overview','gantt','calendar','tasks','marketing','social','files'];
+  const names=['overview','gantt','calendar','tasks','marketing','social','fitness','files'];
   document.querySelectorAll('.tab')[names.indexOf(name)]?.classList.add('active');
   if(typeof updateFloatingScroll==='function')updateFloatingScroll();
   if(typeof updateTabIndicator==='function')updateTabIndicator();
@@ -3668,6 +3983,232 @@ function setupSocialAssetsDnD(){
 
 window.handleSocialAssetUpload=handleSocialAssetUpload;
 
+// ── FITNESS PROTOCOL ─────────────────────────────────────────────
+const FIT_PHASES=[
+  {id:1, name:'Adaptation',           short:'Phase 1', days:[1,30],   desc:'Lock in routine. Build consistency. Establish calorie baseline.'},
+  {id:2, name:'Aggressive Fat Loss',  short:'Phase 2', days:[31,70],  desc:'Increase cardio output. Tighten adherence. Compound the deficit.'},
+  {id:3, name:'Peak',                 short:'Phase 3', days:[71,100], desc:'Dial in conditioning. Refine physique. Lock in the new identity.'},
+];
+function getFitPhase(day){return FIT_PHASES.find(p=>day>=p.days[0]&&day<=p.days[1]);}
+
+// 7-day cycle. 5 training days + Conditioning + 2 Rest.
+const FIT_TRAINING=[
+  {id:'UP',  short:'UP',  name:'Upper Push + Cardio',   type:'training', cardio:'Incline walk 10–15 min',
+   exercises:['Machine chest press','Incline DB press','Shoulder press (machine)','Lateral raises','Triceps pushdowns']},
+  {id:'LO',  short:'LO',  name:'Lower (Back-safe)',     type:'training', cardio:null,
+   exercises:['Hack squat / leg press','Romanian deadlift (light/moderate)','Walking lunges','Leg curl','Calf raises']},
+  {id:'R1',  short:'R',   name:'Rest',                  type:'rest',     cardio:null, exercises:[]},
+  {id:'UPL', short:'UPL', name:'Upper Pull + Cardio',   type:'training', cardio:'Incline walk 10–15 min',
+   exercises:['Lat pulldown','Seated row','Chest-supported row','Rear delt fly','Biceps work']},
+  {id:'FB',  short:'FB',  name:'Full Body + Intervals', type:'training', cardio:'Intervals 10–15 min',
+   exercises:['Leg press','Dumbbell press','Row','Shoulder isolation']},
+  {id:'C',   short:'C',   name:'Conditioning',          type:'cardio',
+   cardio:'Choose: 5km run · Boxing session · 45 min incline walk (Zone 2)', exercises:[]},
+  {id:'R2',  short:'R',   name:'Rest',                  type:'rest',     cardio:null, exercises:[]},
+];
+function getFitTraining(day){return FIT_TRAINING[(day-1)%7];}
+
+const FIT_TARGETS=[
+  {label:'Calories',  value:'2,300–2,500'},
+  {label:'Protein',   value:'190–210g'},
+  {label:'Carbs',     value:'190–210g'},
+  {label:'Fats',      value:'65–75g'},
+];
+
+const FIT_MEALS=[
+  {title:'Meal 1 — Post Training',
+   items:['3 whole eggs','150g lean beef mince (10% fat)','250g cooked rice OR 300g potato','1 fruit']},
+  {title:'Meal 2 — Main',
+   items:['250g lean beef mince OR steak','300g cooked rice OR potato/sweet potato','Vegetables (high volume)','1 tbsp olive oil']},
+  {title:'Meal 3 — Snack / Anti-binge',
+   items:['300g Greek yogurt','1 scoop whey protein','100g berries','10–15g honey']},
+];
+
+const FIT_CHECKLIST=[
+  'Training completed','Calories/macros tracked','Protein target hit',
+  'Steps (10k–12k)','Bodyweight logged','Sleep tracked',
+];
+
+const FIT_SYSTEMS=[
+  {n:'01', title:'Body Recomp Engine',
+   points:['Calorie deficit','High protein intake','Strength training for muscle retention']},
+  {n:'02', title:'Hybrid Conditioning',
+   points:['Zone 2 cardio (120–140bpm, 30–45 min)','Interval training (10–15 min)','Functional conditioning (boxing / running)']},
+  {n:'03', title:'Fatigue Management',
+   points:['Structured meals, no freestyling','Anti-binge protocol','Sleep optimised for shift work']},
+];
+
+const FIT_BEHAVIOR=[
+  'No missed days — only modified days',
+  'Train even when tired (reduce intensity if needed)',
+  'Protein is non-negotiable',
+  'Structure > motivation',
+];
+const FIT_PROGRESSION=[
+  'Weight not dropping → reduce calories by 200 kcal',
+  'Energy too low → increase carbs slightly',
+  'Strength dropping significantly → reduce training volume',
+];
+const FIT_SLEEP=[
+  'Dark room / blackout',
+  'Eye mask if needed',
+  'Magnesium before sleep',
+  'No caffeine 8 hours before sleep',
+  '20–30 min naps when possible',
+];
+const FIT_TRACKING=[
+  'Daily — weight, macros, steps, training, sleep',
+  'Weekly — progress photos (front/side/back)',
+  'Weekly — waist measurement',
+  'Weekly — average weight',
+];
+
+let fitSelDay=null;
+
+function buildFitness(){
+  // Hero
+  const hero=document.getElementById('fit-hero');
+  hero.innerHTML=`
+    <div>
+      <div class="fit-hero-eyebrow">Transformation Protocol</div>
+      <div class="fit-hero-title">100 Day <span style="color:var(--color-signal-blue)">Operator</span></div>
+      <div class="fit-hero-sub">
+        Body recomposition over 100 days — start at 102 kg, target 93–95 kg.
+        Lean, athletic, high-performance physique. Built on three systems:
+        recomp, hybrid conditioning, and fatigue management. This is a structure-based system,
+        not a motivation-based one.
+      </div>
+    </div>
+    <div class="fit-hero-stats">
+      <div class="fit-hero-stat"><div class="fit-hero-stat-n">102</div><div class="fit-hero-stat-l">Start (kg)</div></div>
+      <div class="fit-hero-stat"><div class="fit-hero-stat-n">93–95</div><div class="fit-hero-stat-l">Target (kg)</div></div>
+      <div class="fit-hero-stat"><div class="fit-hero-stat-n">~9</div><div class="fit-hero-stat-l">Cut (kg)</div></div>
+    </div>`;
+
+  // Targets bar
+  const tb=document.getElementById('fit-targets-bar');
+  tb.innerHTML=FIT_TARGETS.map(t=>
+    `<div class="fit-target">
+       <div class="fit-target-label">${t.label}</div>
+       <div class="fit-target-value">${t.value}</div>
+     </div>`
+  ).join('');
+
+  // Legend
+  const lg=document.getElementById('fit-legend');
+  lg.innerHTML=`
+    <div class="fit-legend-item"><span class="fit-legend-dot" style="background:#0C1B45"></span>Phase 1 · Adaptation</div>
+    <div class="fit-legend-item"><span class="fit-legend-dot" style="background:#152760"></span>Phase 2 · Fat Loss</div>
+    <div class="fit-legend-item"><span class="fit-legend-dot" style="background:#1F3582"></span>Phase 3 · Peak</div>
+    <div class="fit-legend-item"><span class="fit-legend-dot" style="background:#06091B;border:1px solid var(--color-dark-gray)"></span>Rest day</div>`;
+
+  // 100 day grid
+  const g=document.getElementById('fit-grid');
+  g.innerHTML='';
+  for(let d=1; d<=100; d++){
+    const ph=getFitPhase(d);
+    const tr=getFitTraining(d);
+    const cell=document.createElement('div');
+    cell.className=`fit-cell phase-${ph.id}${tr.type==='rest'?' rest':''}${fitSelDay===d?' selected':''}`;
+    cell.dataset.day=d;
+    const wkNum=Math.ceil(d/7);
+    cell.innerHTML=`
+      <div class="fit-cell-day">${d}</div>
+      <div class="fit-cell-type">${tr.short}</div>
+      ${tr.cardio?`<div class="fit-cell-cardio">+CARDIO</div>`:''}
+      <div class="fit-cell-week">W${wkNum}</div>`;
+    cell.onclick=()=>selectFitDay(d);
+    g.appendChild(cell);
+  }
+
+  // 3 systems
+  const sys=document.getElementById('fit-systems');
+  sys.innerHTML=FIT_SYSTEMS.map(s=>`
+    <div class="fit-system-card">
+      <div class="fit-system-num">${s.n}</div>
+      <div class="fit-system-title">${s.title}</div>
+      <div class="fit-system-points">
+        ${s.points.map(p=>`<div class="fit-system-point">${escapeHtml(p)}</div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // Behavior + progression
+  document.getElementById('fit-behavior-list').innerHTML=
+    FIT_BEHAVIOR.map(t=>`<div class="info-row"><span class="info-row-key">▸</span><span class="info-row-val" style="text-align:left;max-width:none;flex:1;margin-left:14px">${escapeHtml(t)}</span></div>`).join('');
+  document.getElementById('fit-progression-list').innerHTML=
+    FIT_PROGRESSION.map(t=>`<div class="info-row"><span class="info-row-key">▸</span><span class="info-row-val" style="text-align:left;max-width:none;flex:1;margin-left:14px">${escapeHtml(t)}</span></div>`).join('');
+  document.getElementById('fit-sleep-list').innerHTML=
+    FIT_SLEEP.map(t=>`<div class="info-row"><span class="info-row-key">▸</span><span class="info-row-val" style="text-align:left;max-width:none;flex:1;margin-left:14px">${escapeHtml(t)}</span></div>`).join('');
+  document.getElementById('fit-tracking-list').innerHTML=
+    FIT_TRACKING.map(t=>`<div class="info-row"><span class="info-row-key">▸</span><span class="info-row-val" style="text-align:left;max-width:none;flex:1;margin-left:14px">${escapeHtml(t)}</span></div>`).join('');
+  document.getElementById('fit-identity').innerHTML=
+    `<div class="info-row"><span class="info-row-key">Role</span><span class="info-row-val">High-performance operator</span></div>
+     <div class="info-row"><span class="info-row-key">Mode</span><span class="info-row-val">Disciplined</span></div>
+     <div class="info-row"><span class="info-row-key">Mindset</span><span class="info-row-val">Process-driven</span></div>`;
+
+  // Final
+  document.getElementById('fit-final').innerHTML=`
+    <div class="fit-final-eyebrow">▼ Final Principle</div>
+    <div class="fit-final-text">Structure &gt; Motivation</div>
+    <div class="fit-final-sub">
+      This is not a motivation-based system. It's a structure-based protocol designed to
+      eliminate decision fatigue, maximise adherence, and produce predictable results.
+    </div>`;
+}
+
+function selectFitDay(day){
+  fitSelDay=fitSelDay===day?null:day;
+  // Re-mark selected cell
+  document.querySelectorAll('.fit-cell').forEach(c=>c.classList.toggle('selected',parseInt(c.dataset.day)===fitSelDay));
+  const fly=document.getElementById('fit-flyout');
+  if(!fitSelDay){fly.classList.remove('open');return;}
+  const ph=getFitPhase(day);
+  const tr=getFitTraining(day);
+  const phaseDay=day-ph.days[0]+1;
+  const phaseLen=ph.days[1]-ph.days[0]+1;
+  fly.classList.add('open');
+
+  const trainingHtml=tr.type==='rest'
+    ? `<div class="fit-list-item"><span class="fit-list-item-icon">▸</span>Rest day — recovery, mobility, walk if you want.</div>`
+    : `${tr.exercises.length?`<ul class="fit-list">${tr.exercises.map(e=>`<li class="fit-list-item"><span class="fit-list-item-icon">▸</span>${escapeHtml(e)}</li>`).join('')}</ul>`:''}
+       ${tr.cardio?`<div style="margin-top:12px;padding:10px 14px;border:1px solid var(--color-signal-blue);background:rgba(8,53,132,0.10);font-family:var(--font);font-size:12px;color:var(--color-off-white);letter-spacing:-0.3px"><span style="font-family:var(--font);font-weight:300;font-size:9px;letter-spacing:1.95px;color:var(--color-signal-blue);text-transform:uppercase;display:block;margin-bottom:4px">▼ Cardio</span>${escapeHtml(tr.cardio)}</div>`:''}`;
+
+  const mealsHtml=FIT_MEALS.map(m=>`
+    <div class="fit-list-meal">
+      <div class="fit-list-meal-title">${m.title}</div>
+      <ul class="fit-list">${m.items.map(i=>`<li class="fit-list-item"><span class="fit-list-item-icon">▸</span>${escapeHtml(i)}</li>`).join('')}</ul>
+    </div>`).join('');
+
+  fly.innerHTML=`
+    <div class="fit-flyout-head">
+      <div class="fit-flyout-badge">${day}</div>
+      <div>
+        <div class="fit-flyout-title">${tr.name.toUpperCase()}</div>
+        <div class="fit-flyout-sub">Phase ${ph.id} · ${ph.name} · Day ${phaseDay} of ${phaseLen} in phase</div>
+      </div>
+    </div>
+    <div class="fit-flyout-cols">
+      <div>
+        <div class="fit-flyout-col-title">Training Session</div>
+        ${trainingHtml}
+      </div>
+      <div>
+        <div class="fit-flyout-col-title">Nutrition · ${FIT_TARGETS[0].value} kcal · ${FIT_TARGETS[1].value} protein</div>
+        ${mealsHtml}
+      </div>
+    </div>
+    <div class="fit-anti-binge">
+      <div class="fit-anti-binge-label">Anti-Binge Rule</div>
+      <div class="fit-anti-binge-text">If fatigued → eat a structured meal or the yogurt snack. Do NOT freestyle food. Structure beats willpower every time.</div>
+    </div>
+    <div class="fit-flyout-col-title" style="margin-top:24px">Daily Checklist</div>
+    <div class="fit-checklist">
+      ${FIT_CHECKLIST.map(c=>`<div class="fit-checklist-item"><div class="fit-checklist-icon"></div>${escapeHtml(c)}</div>`).join('')}
+    </div>`;
+  // Scroll the flyout into view
+  setTimeout(()=>fly.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+
 // Static UI builders — safe to run immediately (no Convex calls)
 buildOverview();
 buildProgress();
@@ -3675,6 +4216,7 @@ buildGantt();
 buildCalendar();
 buildTaskList();
 buildMarketing();
+buildFitness();
 buildFilesSidebar();
 setupFilesDnD();
 buildSocialGrid();
