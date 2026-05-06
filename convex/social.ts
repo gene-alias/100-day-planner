@@ -32,6 +32,11 @@ export const upsert = mutation({
     format: v.optional(v.string()),
     status: v.optional(v.string()),
     notes: v.optional(v.string()),
+    xPost:        v.optional(v.string()),
+    linkedinPost: v.optional(v.string()),
+    threadsPost:  v.optional(v.string()),
+    facebookPost: v.optional(v.string()),
+    carouselIdea: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     await requireUserAndLimit(ctx, "write");
@@ -47,6 +52,11 @@ export const upsert = mutation({
     bounded(args.format, 64, "Format");
     bounded(args.status, 32, "Status");
     bounded(args.notes, 20000, "Notes");
+    bounded(args.xPost,        5000,  "X post");
+    bounded(args.linkedinPost, 5000,  "LinkedIn post");
+    bounded(args.threadsPost,  5000,  "Threads post");
+    bounded(args.facebookPost, 5000,  "Facebook post");
+    bounded(args.carouselIdea, 10000, "Carousel idea");
     if (args.platforms && args.platforms.length > 32) {
       throw new ConvexError({ code: "TOO_MANY", message: "Too many platforms (max 32)" });
     }

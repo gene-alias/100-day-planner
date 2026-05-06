@@ -27,6 +27,12 @@ export default defineSchema({
     format: v.optional(v.string()),
     status: v.optional(v.string()),
     notes: v.optional(v.string()),
+    // Per-platform posts
+    xPost:        v.optional(v.string()),
+    linkedinPost: v.optional(v.string()),
+    threadsPost:  v.optional(v.string()),
+    facebookPost: v.optional(v.string()),
+    carouselIdea: v.optional(v.string()),
     updatedAt: v.number(),
   }).index("by_day", ["day"]),
 

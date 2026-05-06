@@ -1940,9 +1940,36 @@ body{
           <label class="social-label">Platforms</label>
           <div class="social-pills" id="social-platform-pills"></div>
         </div>
+
+        <!-- Per-platform posts -->
+        <div class="social-row-2">
+          <div class="social-field">
+            <label class="social-label">X Post</label>
+            <textarea class="social-textarea" id="social-xpost" style="min-height:120px" placeholder="Tweet copy — keep it tight"></textarea>
+          </div>
+          <div class="social-field">
+            <label class="social-label">Threads Post</label>
+            <textarea class="social-textarea" id="social-threadspost" style="min-height:120px" placeholder="Threads version — punchier than LinkedIn"></textarea>
+          </div>
+        </div>
+        <div class="social-row-2">
+          <div class="social-field">
+            <label class="social-label">LinkedIn Post</label>
+            <textarea class="social-textarea" id="social-linkedinpost" style="min-height:160px" placeholder="LinkedIn version — slower hook, more context, line breaks"></textarea>
+          </div>
+          <div class="social-field">
+            <label class="social-label">Facebook Post</label>
+            <textarea class="social-textarea" id="social-facebookpost" style="min-height:160px" placeholder="Facebook version — friendly tone, room to expand"></textarea>
+          </div>
+        </div>
+        <div class="social-field">
+          <label class="social-label">Carousel Idea</label>
+          <textarea class="social-textarea" id="social-carouselidea" style="min-height:200px" placeholder="Slide-by-slide outline:&#10;Slide 1: Hook&#10;Slide 2: Problem&#10;Slide 3: ..."></textarea>
+        </div>
+
         <div class="social-field">
           <label class="social-label">Caption</label>
-          <textarea class="social-textarea" id="social-caption" placeholder="Full post copy — write it the way you'd publish it"></textarea>
+          <textarea class="social-textarea" id="social-caption" placeholder="Generic caption — fallback for any platform without its own post above"></textarea>
         </div>
         <div class="social-field">
           <label class="social-label">Script</label>
@@ -3419,6 +3446,11 @@ function socialOpen(day){
   document.getElementById('social-hashtags').value=s.hashtags||'';
   document.getElementById('social-notes').value=s.notes||'';
   document.getElementById('social-format').value=s.format||'';
+  document.getElementById('social-xpost').value=s.xPost||'';
+  document.getElementById('social-linkedinpost').value=s.linkedinPost||'';
+  document.getElementById('social-threadspost').value=s.threadsPost||'';
+  document.getElementById('social-facebookpost').value=s.facebookPost||'';
+  document.getElementById('social-carouselidea').value=s.carouselIdea||'';
   // status pills
   const statusWrap=document.getElementById('social-status-pills');
   statusWrap.innerHTML='';
@@ -3453,7 +3485,7 @@ function socialOpen(day){
   document.getElementById('social-save-status').textContent='';
   document.getElementById('social-save-status').classList.remove('saved');
   // mark dirty on any field change
-  ['social-concept','social-hook','social-caption','social-script','social-shotlist','social-hashtags','social-notes','social-format'].forEach(id=>{
+  ['social-concept','social-hook','social-caption','social-script','social-shotlist','social-hashtags','social-notes','social-format','social-xpost','social-linkedinpost','social-threadspost','social-facebookpost','social-carouselidea'].forEach(id=>{
     document.getElementById(id).oninput=socialMarkDirty;
     document.getElementById(id).onchange=socialMarkDirty;
   });
@@ -3493,6 +3525,11 @@ async function socialSave(){
     format:document.getElementById('social-format').value,
     status:statusEl?statusEl.dataset.value:'',
     platforms,
+    xPost:document.getElementById('social-xpost').value,
+    linkedinPost:document.getElementById('social-linkedinpost').value,
+    threadsPost:document.getElementById('social-threadspost').value,
+    facebookPost:document.getElementById('social-facebookpost').value,
+    carouselIdea:document.getElementById('social-carouselidea').value,
   };
   const status=document.getElementById('social-save-status');
   status.textContent='Saving…';
