@@ -46,4 +46,10 @@ export default defineSchema({
     mktDeliverable: v.optional(v.string()),
     updatedAt: v.number(),
   }).index("by_day", ["day"]),
+
+  weightLogs: defineTable({
+    weight: v.number(),
+    loggedAt: v.number(),
+    note: v.optional(v.string()),
+  }).index("by_logged_at", ["loggedAt"]),
 });

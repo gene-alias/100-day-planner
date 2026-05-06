@@ -1432,6 +1432,153 @@ body{
   font-family:var(--font);font-weight:300;font-size:10px;
   letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
 }
+
+/* ── FIT PROGRESS (Days ring + Weight bar) ───────────────────────── */
+.fit-progress{
+  display:grid;grid-template-columns:240px 1fr;gap:36px;
+  background:rgba(13,13,13,0.45);
+  border:1px solid var(--color-dark-gray);
+  border-left:3px solid var(--color-signal-blue);
+  padding:32px 36px;margin:18px 0 24px;
+  align-items:center;
+}
+@media(max-width:760px){
+  .fit-progress{grid-template-columns:1fr;gap:24px;padding:22px;}
+}
+
+/* days ring */
+.fit-ring-col{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.fit-ring-eyebrow{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.fit-ring-eyebrow::before{content:'▼ ';color:var(--color-signal-blue);}
+.fit-ring-wrap{position:relative;width:170px;height:170px;}
+.fit-ring-wrap svg{width:170px;height:170px;transform:rotate(-90deg);overflow:visible;}
+.fit-ring-bg{fill:none;stroke:var(--color-dark-gray);stroke-width:5;}
+.fit-ring-fill{
+  fill:none;stroke:var(--color-signal-blue);stroke-width:5;
+  stroke-linecap:round;
+  filter:
+    drop-shadow(0 0 6px rgba(21,81,188,0.85))
+    drop-shadow(0 0 14px rgba(21,81,188,0.55))
+    drop-shadow(0 0 28px rgba(21,81,188,0.35));
+  transition:stroke-dashoffset 1.4s cubic-bezier(.22,1,.36,1);
+}
+.fit-ring-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;
+}
+.fit-ring-day{
+  font-family:var(--font-graphic);font-weight:300;font-size:54px;
+  color:var(--color-off-white);line-height:0.9;letter-spacing:-2.6px;display:block;
+}
+.fit-ring-label{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  color:var(--color-mid-gray);letter-spacing:1.95px;
+  display:block;margin-top:6px;text-transform:uppercase;
+}
+.fit-ring-pct{
+  font-family:var(--font);font-weight:300;font-size:10px;
+  color:var(--color-signal-blue);letter-spacing:1.95px;text-transform:uppercase;
+}
+
+/* weight bar */
+.fit-weight-col{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.fit-weight-label{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-light-gray);
+}
+.fit-weight-label::before{content:'▼ ';color:var(--color-signal-blue);}
+.fit-weight-current{
+  font-family:var(--font-graphic);font-weight:300;font-size:64px;
+  letter-spacing:-3px;line-height:0.9;color:var(--color-off-white);
+  display:flex;align-items:baseline;gap:0;flex-wrap:wrap;
+}
+.fit-weight-unit{
+  font-size:22px;color:var(--color-light-gray);
+  letter-spacing:-0.5px;margin-left:8px;
+}
+.fit-weight-delta{
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;color:var(--color-signal-blue);
+  margin-left:auto;align-self:center;
+}
+
+.fit-weight-bar-wrap{
+  position:relative;height:22px;
+  background:#020716;
+  border:1px solid #04081A;
+  overflow:visible;
+}
+.fit-weight-bar-fill{
+  position:absolute;left:0;top:0;bottom:0;height:100%;
+  background:linear-gradient(90deg,
+    rgba(8,53,132,0.30) 0%,
+    rgba(8,53,132,0.80) 35%,
+    rgba(21,81,188,0.95) 75%,
+    var(--accent-bright,#2A6FD9) 100%);
+  box-shadow:
+    0 0 18px rgba(21,81,188,0.60),
+    0 0 36px rgba(21,81,188,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  border-right:1px solid rgba(255,255,255,0.30);
+}
+.fit-weight-bar-targetzone{
+  position:absolute;top:-2px;bottom:-2px;width:0;
+  background:rgba(255,255,255,0.05);
+  border-left:1px dashed rgba(255,255,255,0.35);
+  border-right:1px dashed rgba(255,255,255,0.35);
+  pointer-events:none;
+}
+
+.fit-weight-meta{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid var(--color-dark-gray);
+}
+.fit-weight-meta>div{
+  padding:12px 14px;border-right:1px solid var(--color-dark-gray);
+  display:flex;flex-direction:column;gap:2px;
+}
+.fit-weight-meta>div:last-child{border-right:none;}
+.fit-weight-meta-n{
+  font-family:var(--font-graphic);font-weight:300;font-size:20px;
+  letter-spacing:-1px;line-height:1;color:var(--color-off-white);
+}
+.fit-weight-meta>div:nth-child(2) .fit-weight-meta-n,
+.fit-weight-meta>div:nth-child(4) .fit-weight-meta-n{color:var(--color-signal-blue);}
+.fit-weight-meta-l{
+  font-family:var(--font);font-weight:300;font-size:9px;
+  letter-spacing:1.5px;color:var(--color-mid-gray);text-transform:uppercase;
+}
+
+.fit-weight-form{display:flex;gap:8px;}
+.fit-weight-input{
+  flex:1;background:transparent;border:1px solid var(--color-dark-gray);
+  padding:12px 14px;color:var(--color-off-white);
+  font-family:var(--font);font-size:14px;font-weight:400;
+  letter-spacing:-0.3px;outline:none;
+  transition:border-color .15s ease;
+}
+.fit-weight-input:focus{border-color:var(--color-signal-blue);}
+.fit-weight-input::placeholder{
+  color:var(--color-mid-gray);font-weight:300;
+  letter-spacing:0.04em;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;
+}
+.fit-weight-log-btn{
+  background:var(--color-signal-blue);color:var(--color-off-white);
+  border:1px solid var(--color-signal-blue);padding:12px 22px;cursor:pointer;
+  font-family:var(--font);font-weight:300;font-size:11px;
+  letter-spacing:1.95px;text-transform:uppercase;
+  transition:background .15s ease;
+}
+.fit-weight-log-btn:hover{background:var(--color-blue-soft);border-color:var(--color-blue-soft);}
+.fit-weight-status{
+  font-family:var(--font);font-size:10px;font-weight:300;
+  letter-spacing:1.5px;color:var(--color-mid-gray);
+  text-transform:uppercase;min-height:14px;
+}
 .fit-legend{
   display:flex;gap:0;flex-wrap:wrap;
   border:1px solid var(--color-dark-gray);margin-bottom:14px;
@@ -2313,6 +2460,48 @@ body{
 
   <!-- Daily targets bar -->
   <div class="fit-targets-bar" id="fit-targets-bar"></div>
+
+  <!-- Progress: days ring + weight tracker -->
+  <div class="fit-progress">
+    <div class="fit-ring-col">
+      <div class="fit-ring-eyebrow">Days Progress</div>
+      <div class="fit-ring-wrap">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle class="fit-ring-bg" cx="100" cy="100" r="90"/>
+          <circle class="fit-ring-fill" id="fit-ring-fill" cx="100" cy="100" r="90"
+            stroke-dasharray="565.487" stroke-dashoffset="565.487"/>
+        </svg>
+        <div class="fit-ring-center">
+          <span class="fit-ring-day" id="fit-ring-day">—</span>
+          <span class="fit-ring-label">of 100</span>
+        </div>
+      </div>
+      <div class="fit-ring-pct" id="fit-ring-pct">0% complete</div>
+    </div>
+
+    <div class="fit-weight-col">
+      <div class="fit-weight-label">Weight Tracking</div>
+      <div class="fit-weight-current">
+        <span id="fit-weight-current">102.0</span><span class="fit-weight-unit">kg</span>
+        <span class="fit-weight-delta" id="fit-weight-delta"></span>
+      </div>
+      <div class="fit-weight-bar-wrap">
+        <div class="fit-weight-bar-fill" id="fit-weight-bar-fill" style="width:0%"></div>
+        <div class="fit-weight-bar-targetzone" id="fit-weight-bar-targetzone"></div>
+      </div>
+      <div class="fit-weight-meta">
+        <div><span class="fit-weight-meta-n">102</span><span class="fit-weight-meta-l">Start</span></div>
+        <div><span class="fit-weight-meta-n" id="fit-weight-lost">0.0</span><span class="fit-weight-meta-l">Lost (kg)</span></div>
+        <div><span class="fit-weight-meta-n" id="fit-weight-togo">8.0</span><span class="fit-weight-meta-l">To Go (kg)</span></div>
+        <div><span class="fit-weight-meta-n">93–95</span><span class="fit-weight-meta-l">Target</span></div>
+      </div>
+      <form class="fit-weight-form" onsubmit="event.preventDefault();logFitWeight();">
+        <input class="fit-weight-input" id="fit-weight-input" type="number" step="0.1" min="30" max="300" placeholder="Log today's weight (kg)"/>
+        <button class="fit-weight-log-btn" type="submit">Log</button>
+      </form>
+      <div class="fit-weight-status" id="fit-weight-status"></div>
+    </div>
+  </div>
 
   <!-- 100 day grid -->
   <div style="display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 14px">
@@ -3286,6 +3475,7 @@ function renderProgress(){
   if(typeof renderCal==='function')renderCal();
   if(typeof renderGanttTicks==='function')renderGanttTicks();
   if(typeof renderGanttBarFills==='function')renderGanttBarFills();
+  if(typeof renderFitProgressMetrics==='function')renderFitProgressMetrics();
 }
 
 function buildGantt(){
@@ -4115,6 +4305,101 @@ const FIT_TRACKING=[
 ];
 
 let fitSelDay=null;
+const FIT_START_WEIGHT=102;
+const FIT_TARGET_LO=93;
+const FIT_TARGET_HI=95;
+const FIT_TARGET_MID=(FIT_TARGET_LO+FIT_TARGET_HI)/2; // 94
+let fitWeightLogs=[];
+
+function getCurrentWeight(){
+  return fitWeightLogs.length>0 ? fitWeightLogs[0].weight : FIT_START_WEIGHT;
+}
+
+function renderFitProgressMetrics(){
+  // Days ring — uses currentDayGlobal (set by renderProgress on the Overview)
+  const day=Math.max(0,Math.min(100,currentDayGlobal||0));
+  const dayPct=day/100;
+  const r=90, CIRC=2*Math.PI*r;
+  const fill=document.getElementById('fit-ring-fill');
+  if(fill){
+    fill.setAttribute('stroke-dasharray',CIRC.toFixed(3));
+    fill.setAttribute('stroke-dashoffset',(CIRC*(1-dayPct)).toFixed(3));
+  }
+  const dayEl=document.getElementById('fit-ring-day');
+  if(dayEl)dayEl.textContent=day;
+  const pctEl=document.getElementById('fit-ring-pct');
+  if(pctEl)pctEl.textContent=Math.round(dayPct*100)+'% complete';
+
+  // Weight bar
+  const cur=getCurrentWeight();
+  const lost=Math.max(0,FIT_START_WEIGHT-cur);
+  const totalNeeded=FIT_START_WEIGHT-FIT_TARGET_MID;
+  const pct=Math.max(0,Math.min(100,(lost/totalNeeded)*100));
+  const togo=Math.max(0,cur-FIT_TARGET_MID);
+
+  const curEl=document.getElementById('fit-weight-current');
+  if(curEl)curEl.textContent=cur.toFixed(1);
+  const fillEl=document.getElementById('fit-weight-bar-fill');
+  if(fillEl)fillEl.style.width=pct.toFixed(2)+'%';
+  const lostEl=document.getElementById('fit-weight-lost');
+  if(lostEl)lostEl.textContent=lost.toFixed(1);
+  const togoEl=document.getElementById('fit-weight-togo');
+  if(togoEl)togoEl.textContent=togo.toFixed(1);
+
+  // Target zone overlay (95–93 kg as a band on the bar)
+  // Bar maps START (left, 0%) → TARGET_MID (right, 100%).
+  // 95 kg position = (102-95)/(102-94)*100 = 87.5%
+  // 93 kg position = (102-93)/(102-94)*100 = 112.5% (overshoots — clamp at 100)
+  const tz=document.getElementById('fit-weight-bar-targetzone');
+  if(tz){
+    const lo=Math.min(100,((FIT_START_WEIGHT-FIT_TARGET_HI)/(FIT_START_WEIGHT-FIT_TARGET_MID))*100);
+    const hi=Math.min(100,((FIT_START_WEIGHT-FIT_TARGET_LO)/(FIT_START_WEIGHT-FIT_TARGET_MID))*100);
+    tz.style.left=lo.toFixed(2)+'%';
+    tz.style.width=Math.max(0,hi-lo).toFixed(2)+'%';
+  }
+
+  const deltaEl=document.getElementById('fit-weight-delta');
+  if(deltaEl){
+    if(lost>0)      deltaEl.textContent=`▼ ${lost.toFixed(1)} kg`;
+    else if(lost<0) deltaEl.textContent=`▲ ${Math.abs(lost).toFixed(1)} kg`;
+    else            deltaEl.textContent='';
+  }
+}
+
+async function logFitWeight(){
+  const inp=document.getElementById('fit-weight-input');
+  const status=document.getElementById('fit-weight-status');
+  const w=parseFloat(inp.value);
+  if(isNaN(w)||w<30||w>300){
+    status.textContent='Enter weight 30–300 kg';
+    status.style.color='#FF6B6B';
+    return;
+  }
+  status.textContent='Logging…';
+  status.style.color='';
+  try{
+    await window.__convex.mutation('weights:log',{weight:w});
+    inp.value='';
+    status.textContent='Logged';
+    status.style.color='var(--color-signal-blue)';
+    setTimeout(()=>{status.textContent='';status.style.color='';},2500);
+  }catch(e){
+    console.error('[weights:log] failed:',e);
+    const reason=e?.data?.message||e?.message||'unknown';
+    status.textContent='Failed: '+reason;
+    status.style.color='#FF6B6B';
+  }
+}
+window.logFitWeight=logFitWeight;
+
+function initWeightSync(){
+  const c=window.__convex;
+  if(!c){setTimeout(initWeightSync,50);return;}
+  c.onUpdate('weights:list',{},(rows)=>{
+    fitWeightLogs=rows||[];
+    renderFitProgressMetrics();
+  });
+}
 
 function fitDayDoneCount(day){
   let n=0;
@@ -4186,6 +4471,7 @@ function buildFitness(){
     <div class="fit-legend-item"><span class="fit-legend-dot" style="background:#06091B;border:1px solid var(--color-dark-gray)"></span>Rest day</div>`;
 
   renderFitGrid();
+  renderFitProgressMetrics();
 
   // 3 systems
   const sys=document.getElementById('fit-systems');
@@ -4313,6 +4599,7 @@ function startConvexSync(){
   if(typeof initFilesSync==='function')initFilesSync();
   if(typeof initSocialSync==='function')initSocialSync();
   if(typeof initDaysSync==='function')initDaysSync();
+  if(typeof initWeightSync==='function')initWeightSync();
 }
 window.__onSignedIn = startConvexSync;
 // If auth landed before the script finished (auto-select can be instant), still kick off

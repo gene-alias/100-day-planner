@@ -13,6 +13,7 @@ import type * as days from "../days.js";
 import type * as files from "../files.js";
 import type * as social from "../social.js";
 import type * as ticks from "../ticks.js";
+import type * as weights from "../weights.js";
 
 import type {
   ApiFromModules,
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   files: typeof files;
   social: typeof social;
   ticks: typeof ticks;
+  weights: typeof weights;
 }>;
 
 /**
